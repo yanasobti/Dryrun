@@ -20,13 +20,14 @@ exports.runCode = async (req, res) => {
 exports.visualizeCode = async (req, res) => {
   console.log("POST /visualize received");
   const code = req.body.code;
+  const pattern = req.body.pattern;
 
   if (!code) {
     return res.status(400).json({ success: false, error: "No code provided." });
   }
 
   try {
-    const frames = await javaService.traceJavaCode(code);
+    const frames = await javaService.traceJavaCode(code, pattern);
     res.json(frames);
   } catch (error) {
     console.error("Visualization error:", error);

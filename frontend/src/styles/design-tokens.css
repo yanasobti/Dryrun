@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════
+   DryRun v2 — Design Tokens (Premium Light Theme)
+   Visual DSA Tutor Design System
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* ── Core Backgrounds (White & Soft Slate) ── */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8fafc;
+  --color-surface-hover: #f1f5f9;
+
+  /* ── Borders & Glassmorphism ── */
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-border-light: rgba(15, 23, 42, 0.04);
+  --color-border-focus: #0ea5e9; /* Sky blue accent */
+  
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-blur: blur(12px);
+
+  /* ── Brand Colors & Gradients ── */
+  --color-primary: #4f46e5; /* Indigo */
+  --color-primary-light: #6366f1;
+  --color-primary-dark: #3730a3;
+  --color-primary-glow: rgba(79, 70, 229, 0.08);
+
+  --color-secondary: #0ea5e9; /* Sky Blue */
+  --color-secondary-light: #38bdf8;
+  --color-secondary-dark: #0369a1;
+  --color-secondary-glow: rgba(14, 165, 233, 0.08);
+
+  --color-success: #10b981;
+  --color-success-light: #34d399;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fbbf24;
+  --color-error: #ef4444;
+  --color-error-light: #f87171;
+
+  /* ── Typography Colors (High Contrast Slate) ── */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+
+  /* ── Visualizer Specific Colors (Light Backdrops) ── */
+  --color-viz-default: rgba(15, 23, 42, 0.02);
+  --color-viz-default-border: #e2e8f0;
+  
+  --color-viz-active: #0284c7; /* Sky */
+  --color-viz-active-bg: rgba(14, 165, 233, 0.08);
+  --color-viz-active-border: #0ea5e9;
+  
+  --color-viz-highlight: #b45309; /* Amber */
+  --color-viz-highlight-bg: rgba(245, 158, 11, 0.08);
+  --color-viz-highlight-border: #fbbf24;
+  
+  --color-viz-compared: #6d28d9; /* Violet */
+  --color-viz-compared-bg: rgba(139, 92, 246, 0.08);
+  --color-viz-compared-border: #a78bfa;
+  
+  --color-viz-changed: #e11d48; /* Rose */
+  --color-viz-changed-bg: rgba(225, 29, 72, 0.08);
+  
+  --color-viz-pointer: #0ea5e9;
+  --color-viz-pointer-alt: #e11d48;
+  --color-viz-pointer-third: #f59e0b;
+  
+  --color-viz-visited: #059669; /* Emerald */
+  --color-viz-visited-bg: rgba(16, 185, 129, 0.08);
+  --color-viz-visited-border: #34d399;
+
+  /* ── Typography Scale ── */
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading-cabinet: 'Cabinet Grotesk', var(--font-ui);
+  --font-heading-clash: 'Clash Display', var(--font-ui);
+  --font-heading-satoshi: 'Satoshi', var(--font-ui);
+  --font-code: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-hand: 'Patrick Hand', 'Caveat', cursive;
+  --font-hand-bold: 'Gochi Hand', 'Caveat', cursive;
+
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 22px;
+  --text-3xl: 28px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* ── Spacing Scale ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ── Border Radius ── */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows (Premium Elevation) ── */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.03), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
+  --shadow-xl: 0 20px 40px rgba(15, 23, 42, 0.04), 0 10px 10px rgba(15, 23, 42, 0.02);
+  
+  --shadow-primary: 0 4px 20px rgba(79, 70, 229, 0.08);
+  --shadow-secondary: 0 4px 20px rgba(14, 165, 233, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(14, 165, 233, 0.2);
+
+  /* ── Animation Timing ── */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Layout Heights ── */
+  --header-height: 64px;
+  --timeline-height: 100px;
+}

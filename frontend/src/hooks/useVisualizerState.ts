@@ -1,0 +1,330 @@
+import { useMemo } from 'react';
+
+export interface VisualizerState {
+  primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'general';
+  detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion')[];
+  arrays: { name: string; values: any[] }[];
+  linkedLists: { name: string; rootRefId: string; nodes: Record<string, any>; hasCycle: boolean }[];
+  trees: { name: string; rootRefId: string; nodes: Record<string, any> }[];
+  hashMaps: { name: string; entries: [string, string][] }[];
+  hashSets: { name: string; values: string[] }[];
+  recursion: { stack: any[]; isRecursive: boolean };
+  variables: Record<string, any>;
+  explanation: string;
+  line: number;
+}
+
+const parseSetEntries = (setStr: string): string[] => {
+  if (!setStr || setStr === "null") return [];
+  const str = setStr.trim();
+  const startIdx = str.indexOf('[');
+  const endIdx = str.lastIndexOf(']');
+  if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx) return [];
+  const inner = str.substring(startIdx + 1, endIdx).trim();
+  if (!inner) return [];
+  return inner.split(',').map(item => item.trim()).filter(Boolean);
+};
+
+// Helper to parse Map elements from Java HashMap toString representation (e.g. "{2=0, 7=1}")
+const parseMapEntries = (mapStr: string): [string, string][] => {
+  if (!mapStr || mapStr === "null") return [];
+  const str = mapStr.trim();
+  const startIdx = str.indexOf('{');
+  const endIdx = str.lastIndexOf('}');
+  if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx) return [];
+  const inner = str.substring(startIdx + 1, endIdx).trim();
+  if (!inner) return [];
+  return inner.split(',').map(pair => {
+    const parts = pair.split('=');
+    if (parts.length >= 2) {
+      return [parts[0].trim(), parts[1].trim()];
+    }
+    return [pair.trim(), ""];
+  });
+};
+
+// Check if a structure is a binary tree
+const isBinaryTree = (rootId: string, objects: Record<string, any>, varName: string): boolean => {
+  const visited = new Set<string>();
+  const queue = [rootId];
+  const lowerName = varName.toLowerCase();
+  
+  if (lowerName.includes('tree') || lowerName.includes('root') || lowerName.includes('bst') || lowerName.includes('trie')) {
+    return true;
+  }
+
+  const rootNode = objects[rootId];
+  if (rootNode) {
+    const lowerClass = (rootNode.className || "").toLowerCase();
+    if (lowerClass.includes('tree') || lowerClass.includes('bst') || lowerClass.includes('trie')) {
+      return true;
+    }
+  }
+
+  while (queue.length > 0) {
+    const id = queue.shift();
+    if (!id || visited.has(id)) continue;
+    visited.add(id);
+    const node = objects[id];
+    if (node) {
+      if (node.left || node.right || node.leftRef || node.rightRef) {
+        return true;
+      }
+      if (node.next) queue.push(node.next);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+  }
+  return false;
+};
+
+const isLinkedListNode = (refId: string, objects: Record<string, any>, varName: string): boolean => {
+  const node = objects[refId];
+  if (!node) return false;
+
+  const lowerName = varName.toLowerCase();
+  const lowerClass = (node.className || "").toLowerCase();
+
+  // If the variable name or class name explicitly says list/node/link
+  if (lowerClass.includes('listnode') || lowerClass.includes('node') || lowerClass.includes('link') ||
+      lowerName.includes('node') || lowerName.includes('head') || lowerName.includes('tail') || lowerName.includes('curr')) {
+    if (!lowerClass.includes('java.util') && !lowerClass.includes('java.io') && !lowerClass.includes('java.lang')) {
+      return true;
+    }
+  }
+
+  // Otherwise, check if the object has a 'next' or 'nextRef' field
+  if ('next' in node || 'nextRef' in node) {
+    return true;
+  }
+
+  return false;
+};
+
+export const useVisualizerState = (
+  frames: any[],
+  currentFrameIndex: number
+): VisualizerState => {
+  return useMemo(() => {
+    const defaultState: VisualizerState = {
+      primaryType: 'general',
+      detectedTypes: [],
+      arrays: [],
+      linkedLists: [],
+      trees: [],
+      hashMaps: [],
+      hashSets: [],
+      recursion: { stack: [], isRecursive: false },
+      variables: {},
+      explanation: 'No execution data loaded.',
+      line: 1
+    };
+
+    if (!frames || frames.length === 0 || currentFrameIndex < 0 || currentFrameIndex >= frames.length) {
+      return defaultState;
+    }
+
+    const frame = frames[currentFrameIndex];
+    const variables = frame.variables || {};
+    const heapObjects = frame.objects || {};
+    const explanation = frame.explanation || '';
+    const line = frame.line || 1;
+
+    // 1. Extract Arrays
+    const arrays: { name: string; values: any[] }[] = [];
+    if (frame.arrays) {
+      Object.entries(frame.arrays).forEach(([name, values]) => {
+        if (Array.isArray(values)) {
+          arrays.push({ name, values });
+        }
+      });
+    }
+
+    // 1b. Convert String variables to virtual character arrays so they can be visualized
+    Object.entries(variables).forEach(([name, val]) => {
+      if (name === 'args' || name === 'returnValue') return;
+      if (typeof val === 'string') {
+        let cleanedStr = val.trim();
+        if (cleanedStr.startsWith('"') && cleanedStr.endsWith('"')) {
+          cleanedStr = cleanedStr.substring(1, cleanedStr.length - 1);
+          if (!cleanedStr.includes('instance of') && !cleanedStr.includes('(#') && !cleanedStr.includes('{') && !cleanedStr.includes('[')) {
+            if (!arrays.some(arr => arr.name === name)) {
+              arrays.push({
+                name,
+                values: cleanedStr.split('')
+              });
+            }
+          }
+        }
+      }
+    });
+
+    // Merge all objects across all frames to construct a unified heap database
+    const completeHeap: Record<string, any> = {};
+    frames.forEach(f => {
+      if (f.objects) {
+        Object.entries(f.objects).forEach(([k, v]) => {
+          completeHeap[k] = { ...completeHeap[k], ...(v as any) };
+        });
+      }
+    });
+
+    // 2. Extract Object variables (Linked Lists & Trees)
+    const linkedLists: { name: string; rootRefId: string; nodes: Record<string, any>; hasCycle: boolean }[] = [];
+    const trees: { name: string; rootRefId: string; nodes: Record<string, any> }[] = [];
+
+    // Find variables referring to class instances in the active frame
+    const objVarRefs: { name: string; refId: string }[] = [];
+    Object.entries(variables).forEach(([k, v]) => {
+      if (k === 'args') return;
+      if (typeof v === 'string') {
+        const match = v.match(/id=([a-fA-F0-9]+)/);
+        if (match) {
+          objVarRefs.push({ name: k, refId: match[1] });
+        }
+      }
+    });
+
+    const traversedListNodes = new Set<string>();
+
+    // Always detect the tree root from the first frame's variables to keep the tree fixed at the main root
+    const firstFrame = frames[0];
+    const firstObjVarRefs: { name: string; refId: string }[] = [];
+    if (firstFrame) {
+      Object.entries(firstFrame.variables || {}).forEach(([k, v]) => {
+        if (k === 'args') return;
+        if (typeof v === 'string') {
+          const match = v.match(/id=([a-fA-F0-9]+)/);
+          if (match) {
+            firstObjVarRefs.push({ name: k, refId: match[1] });
+          }
+        }
+      });
+    }
+
+    firstObjVarRefs.forEach(({ name, refId }) => {
+      if (completeHeap[refId] && isBinaryTree(refId, completeHeap, name)) {
+        if (!trees.some(t => t.rootRefId === refId)) {
+          trees.push({
+            name,
+            rootRefId: refId,
+            nodes: completeHeap
+          });
+        }
+      }
+    });
+
+    // If trees were not found via the first frame, fallback to active frame references
+    if (trees.length === 0) {
+      objVarRefs.forEach(({ name, refId }) => {
+        if (completeHeap[refId] && isBinaryTree(refId, completeHeap, name)) {
+          if (!trees.some(t => t.rootRefId === refId)) {
+            trees.push({
+              name,
+              rootRefId: refId,
+              nodes: completeHeap
+            });
+          }
+        }
+      });
+    }
+
+    // Process Linked Lists
+    objVarRefs.forEach(({ name, refId }) => {
+      if (heapObjects[refId] && !isBinaryTree(refId, heapObjects, name) && isLinkedListNode(refId, heapObjects, name)) {
+        if (!traversedListNodes.has(refId)) {
+          // Detect Cycle in Linked List and collect traversed nodes
+          let currId: string | undefined = refId;
+          const visited = new Set<string>();
+          while (currId && heapObjects[currId] && !visited.has(currId)) {
+            visited.add(currId);
+            traversedListNodes.add(currId);
+            currId = heapObjects[currId].next;
+          }
+          const hasCycle = !!(currId && visited.has(currId));
+
+          linkedLists.push({
+            name,
+            rootRefId: refId,
+            nodes: heapObjects,
+            hasCycle
+          });
+        }
+      }
+    });
+
+    // 3. Extract HashMaps
+    const hashMaps: { name: string; entries: [string, string][] }[] = [];
+    Object.entries(variables).forEach(([k, v]) => {
+      if (k === 'args') return;
+      const vStr = String(v);
+      if (vStr.includes('HashMap') || vStr.includes('Map') || (vStr.includes('{') && vStr.includes('}'))) {
+        const entries = parseMapEntries(vStr);
+        hashMaps.push({ name: k, entries });
+      }
+    });
+
+    // 3b. Extract HashSets
+    const hashSets: { name: string; values: string[] }[] = [];
+    Object.entries(variables).forEach(([k, v]) => {
+      if (k === 'args') return;
+      const vStr = String(v);
+      const isHashSet = vStr.includes('HashSet') || vStr.includes('Set') || vStr.includes('TreeSet') ||
+        (vStr.includes('[') && vStr.includes(']') && !vStr.includes('class') && !Array.isArray(v) && !/\b\w+\[\d*\]/.test(vStr) && !vStr.includes('(#'));
+      if (isHashSet) {
+        const values = parseSetEntries(vStr);
+        hashSets.push({ name: k, values });
+      }
+    });
+
+    // 4. Extract Recursion / Call Stack
+    const stack = frame.stack || [];
+    const methodCounts: Record<string, number> = {};
+    let isRecursive = false;
+
+    stack.forEach((sf: any) => {
+      methodCounts[sf.methodName] = (methodCounts[sf.methodName] || 0) + 1;
+      if (methodCounts[sf.methodName] > 1) {
+        isRecursive = true;
+      }
+    });
+
+    // 5. Determine Detected Types & Primary Type
+    const detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion')[] = [];
+    if (isRecursive) detectedTypes.push('recursion');
+    if (trees.length > 0) detectedTypes.push('tree');
+    if (linkedLists.length > 0) detectedTypes.push('linkedlist');
+    if (arrays.length > 0) detectedTypes.push('array');
+    if (hashMaps.length > 0) detectedTypes.push('hashmap');
+    if (hashSets.length > 0) detectedTypes.push('hashset');
+
+    let primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'general' = 'general';
+    if (isRecursive) {
+      primaryType = 'recursion';
+    } else if (trees.length > 0) {
+      primaryType = 'tree';
+    } else if (linkedLists.length > 0) {
+      primaryType = 'linkedlist';
+    } else if (arrays.length > 0) {
+      primaryType = 'array';
+    } else if (hashMaps.length > 0) {
+      primaryType = 'hashmap';
+    } else if (hashSets.length > 0) {
+      primaryType = 'hashset';
+    }
+
+    return {
+      primaryType,
+      detectedTypes,
+      arrays,
+      linkedLists,
+      trees,
+      hashMaps,
+      hashSets,
+      recursion: { stack, isRecursive },
+      variables,
+      explanation,
+      line
+    };
+  }, [frames, currentFrameIndex]);
+};

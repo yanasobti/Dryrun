@@ -1,0 +1,6144 @@
+[
+  {
+    "line": 5,
+    "code": "TreeNode(int val) {",
+    "variables": {
+      "val": 10
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 16,
+        "adjustedLine": 12,
+        "variables": {},
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 9,
+        "adjustedLine": 5,
+        "variables": {
+          "val": 10
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "TreeNode(int val) {",
+      "explanation": "Boom! We just initialized `val` to **10**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 10
+    },
+    "after": {
+      "val": 10
+    }
+  },
+  {
+    "line": 6,
+    "code": "this.val = val;",
+    "variables": {
+      "val": 10
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 16,
+        "adjustedLine": 12,
+        "variables": {},
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 10,
+        "adjustedLine": 6,
+        "variables": {
+          "val": 10
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "this.val = val;",
+      "explanation": "Executing line 6",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 10
+    },
+    "after": {
+      "val": 10
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 10
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 16,
+        "adjustedLine": 12,
+        "variables": {},
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 10
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 10
+    },
+    "after": {
+      "val": 10
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 10
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 16,
+        "adjustedLine": 12,
+        "variables": {},
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 10
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "",
+    "before": {
+      "val": 10
+    },
+    "after": {
+      "val": 10
+    }
+  },
+  {
+    "line": 12,
+    "code": "TreeNode root = new TreeNode(10);",
+    "variables": {},
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 16,
+        "adjustedLine": 12,
+        "variables": {},
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "TreeNode root = new TreeNode(10);",
+      "explanation": "Executing line 12",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {},
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 13,
+    "code": "root.left = new TreeNode(5);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 17,
+        "adjustedLine": 13,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.left = new TreeNode(5);",
+      "explanation": "Boom! We just initialized `root` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 5,
+    "code": "TreeNode(int val) {",
+    "variables": {
+      "val": 5
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 17,
+        "adjustedLine": 13,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 9,
+        "adjustedLine": 5,
+        "variables": {
+          "val": 5
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "TreeNode(int val) {",
+      "explanation": "Boom! We just initialized `val` to **5**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 5
+    },
+    "after": {
+      "val": 5
+    }
+  },
+  {
+    "line": 6,
+    "code": "this.val = val;",
+    "variables": {
+      "val": 5
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 17,
+        "adjustedLine": 13,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 10,
+        "adjustedLine": 6,
+        "variables": {
+          "val": 5
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "this.val = val;",
+      "explanation": "Executing line 6",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 5
+    },
+    "after": {
+      "val": 5
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 5
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 17,
+        "adjustedLine": 13,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 5
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 5
+    },
+    "after": {
+      "val": 5
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 5
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 17,
+        "adjustedLine": 13,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 5
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "",
+    "before": {
+      "val": 5
+    },
+    "after": {
+      "val": 5
+    }
+  },
+  {
+    "line": 13,
+    "code": "root.left = new TreeNode(5);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 17,
+        "adjustedLine": 13,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.left = new TreeNode(5);",
+      "explanation": "Boom! We just initialized `root` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 14,
+    "code": "root.right = new TreeNode(15);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": null
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 18,
+        "adjustedLine": 14,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.right = new TreeNode(15);",
+      "explanation": "Executing line 14",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 5,
+    "code": "TreeNode(int val) {",
+    "variables": {
+      "val": 15
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 18,
+        "adjustedLine": 14,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 9,
+        "adjustedLine": 5,
+        "variables": {
+          "val": 15
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 15
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "TreeNode(int val) {",
+      "explanation": "Boom! We just initialized `val` to **15**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 15
+    },
+    "after": {
+      "val": 15
+    }
+  },
+  {
+    "line": 6,
+    "code": "this.val = val;",
+    "variables": {
+      "val": 15
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 18,
+        "adjustedLine": 14,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 10,
+        "adjustedLine": 6,
+        "variables": {
+          "val": 15
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 15
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "this.val = val;",
+      "explanation": "Executing line 6",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 15
+    },
+    "after": {
+      "val": 15
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 15
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 18,
+        "adjustedLine": 14,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 15
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 15
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 15
+    },
+    "after": {
+      "val": 15
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 15
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 18,
+        "adjustedLine": 14,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 15
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 15
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "",
+    "before": {
+      "val": 15
+    },
+    "after": {
+      "val": 15
+    }
+  },
+  {
+    "line": 14,
+    "code": "root.right = new TreeNode(15);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": null
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 18,
+        "adjustedLine": 14,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.right = new TreeNode(15);",
+      "explanation": "Boom! We just initialized `root` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 15,
+    "code": "root.left.left = new TreeNode(2);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": null,
+        "right": null
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 19,
+        "adjustedLine": 15,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.left.left = new TreeNode(2);",
+      "explanation": "Executing line 15",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 5,
+    "code": "TreeNode(int val) {",
+    "variables": {
+      "val": 2
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 19,
+        "adjustedLine": 15,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 9,
+        "adjustedLine": 5,
+        "variables": {
+          "val": 2
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "TreeNode(int val) {",
+      "explanation": "Boom! We just initialized `val` to **2**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 2
+    },
+    "after": {
+      "val": 2
+    }
+  },
+  {
+    "line": 6,
+    "code": "this.val = val;",
+    "variables": {
+      "val": 2
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 19,
+        "adjustedLine": 15,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 10,
+        "adjustedLine": 6,
+        "variables": {
+          "val": 2
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "this.val = val;",
+      "explanation": "Executing line 6",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 2
+    },
+    "after": {
+      "val": 2
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 2
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 19,
+        "adjustedLine": 15,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 2
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 2
+    },
+    "after": {
+      "val": 2
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 2
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 19,
+        "adjustedLine": 15,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 2
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "",
+    "before": {
+      "val": 2
+    },
+    "after": {
+      "val": 2
+    }
+  },
+  {
+    "line": 15,
+    "code": "root.left.left = new TreeNode(2);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": null,
+        "right": null
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 19,
+        "adjustedLine": 15,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.left.left = new TreeNode(2);",
+      "explanation": "Boom! We just initialized `root` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 16,
+    "code": "root.left.right = new TreeNode(7);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": "424",
+        "right": null
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "root.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 20,
+        "adjustedLine": 16,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.left.right = new TreeNode(7);",
+      "explanation": "Executing line 16",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 5,
+    "code": "TreeNode(int val) {",
+    "variables": {
+      "val": 7
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 20,
+        "adjustedLine": 16,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 9,
+        "adjustedLine": 5,
+        "variables": {
+          "val": 7
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 7
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "TreeNode(int val) {",
+      "explanation": "Boom! We just initialized `val` to **7**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 7
+    },
+    "after": {
+      "val": 7
+    }
+  },
+  {
+    "line": 6,
+    "code": "this.val = val;",
+    "variables": {
+      "val": 7
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 20,
+        "adjustedLine": 16,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 10,
+        "adjustedLine": 6,
+        "variables": {
+          "val": 7
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 7
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "this.val = val;",
+      "explanation": "Executing line 6",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 7
+    },
+    "after": {
+      "val": 7
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 7
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 20,
+        "adjustedLine": 16,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 7
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 7
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "consoleOutput": "",
+    "before": {
+      "val": 7
+    },
+    "after": {
+      "val": 7
+    }
+  },
+  {
+    "line": 7,
+    "code": "}",
+    "variables": {
+      "val": 7
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 20,
+        "adjustedLine": 16,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "TreeNode",
+        "methodName": "<init>",
+        "fileName": "Main.java",
+        "line": 11,
+        "adjustedLine": 7,
+        "variables": {
+          "val": 7
+        },
+        "args": [
+          {
+            "name": "val",
+            "value": 7
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "",
+    "before": {
+      "val": 7
+    },
+    "after": {
+      "val": 7
+    }
+  },
+  {
+    "line": 16,
+    "code": "root.left.right = new TreeNode(7);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": "424",
+        "right": null
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "root.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 20,
+        "adjustedLine": 16,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "root.left.right = new TreeNode(7);",
+      "explanation": "Boom! We just initialized `root` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 17,
+    "code": "System.out.println(\"Starting preorder traversal:\");",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "root.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "root.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 21,
+        "adjustedLine": 17,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "System.out.println(\"Starting preorder traversal:\");",
+      "explanation": "We are printing the value of `\"Starting preorder traversal:\"` to the console. 🖨️",
+      "why": "To output information to standard console, making it visible to the user."
+    },
+    "consoleOutput": "",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 18,
+    "code": "preorder(root);",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "root.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "root.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "preorder(root);",
+      "explanation": "Executing line 18",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "Starting preorder traversal:\n",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just initialized `node` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\n",
+    "before": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 24,
+    "code": "System.out.println(\"Visited: \" + node.val);",
+    "variables": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 28,
+        "adjustedLine": 24,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "System.out.println(\"Visited: \" + node.val);",
+      "explanation": "We are printing the value of `\"Visited: \" + node.val` to the console. 🖨️",
+      "why": "To output information to standard console, making it visible to the user."
+    },
+    "consoleOutput": "Starting preorder traversal:\n",
+    "before": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 25,
+    "code": "preorder(node.left);",
+    "variables": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.left);",
+      "explanation": "Executing line 25",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\n",
+    "before": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "arrays": {},
+    "objects": {
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=422)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\n",
+    "before": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=422)"
+    }
+  },
+  {
+    "line": 24,
+    "code": "System.out.println(\"Visited: \" + node.val);",
+    "variables": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "arrays": {},
+    "objects": {
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 28,
+        "adjustedLine": 24,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "System.out.println(\"Visited: \" + node.val);",
+      "explanation": "We are printing the value of `\"Visited: \" + node.val` to the console. 🖨️",
+      "why": "To output information to standard console, making it visible to the user."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\n",
+    "before": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=422)"
+    }
+  },
+  {
+    "line": 25,
+    "code": "preorder(node.left);",
+    "variables": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "arrays": {},
+    "objects": {
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.left);",
+      "explanation": "Executing line 25",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\n",
+    "before": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=422)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "arrays": {},
+    "objects": {
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=424)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\n",
+    "before": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=424)"
+    }
+  },
+  {
+    "line": 24,
+    "code": "System.out.println(\"Visited: \" + node.val);",
+    "variables": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "arrays": {},
+    "objects": {
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 28,
+        "adjustedLine": 24,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "System.out.println(\"Visited: \" + node.val);",
+      "explanation": "We are printing the value of `\"Visited: \" + node.val` to the console. 🖨️",
+      "why": "To output information to standard console, making it visible to the user."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\n",
+    "before": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=424)"
+    }
+  },
+  {
+    "line": 25,
+    "code": "preorder(node.left);",
+    "variables": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "arrays": {},
+    "objects": {
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.left);",
+      "explanation": "Executing line 25",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=424)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **null**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 26,
+    "code": "preorder(node.right);",
+    "variables": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "arrays": {},
+    "objects": {
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.right);",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=424)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=424)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **null**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "arrays": {},
+    "objects": {
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "}",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=424)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=424)"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "arrays": {},
+    "objects": {
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 2,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=424)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=424)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=424)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=424)"
+    }
+  },
+  {
+    "line": 26,
+    "code": "preorder(node.right);",
+    "variables": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "arrays": {},
+    "objects": {
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.right);",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=422)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=422)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "arrays": {},
+    "objects": {
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=425)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=425)"
+    }
+  },
+  {
+    "line": 24,
+    "code": "System.out.println(\"Visited: \" + node.val);",
+    "variables": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "arrays": {},
+    "objects": {
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 28,
+        "adjustedLine": 24,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "System.out.println(\"Visited: \" + node.val);",
+      "explanation": "We are printing the value of `\"Visited: \" + node.val` to the console. 🖨️",
+      "why": "To output information to standard console, making it visible to the user."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\n",
+    "before": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=425)"
+    }
+  },
+  {
+    "line": 25,
+    "code": "preorder(node.left);",
+    "variables": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "arrays": {},
+    "objects": {
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.left);",
+      "explanation": "Executing line 25",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=425)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **null**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 26,
+    "code": "preorder(node.right);",
+    "variables": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "arrays": {},
+    "objects": {
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.right);",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=425)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=425)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **null**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 5,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "arrays": {},
+    "objects": {
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "}",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=425)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=425)"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "arrays": {},
+    "objects": {
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=425)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=425)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=425)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=425)"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "arrays": {},
+    "objects": {
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=422)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=422)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "}",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=422)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=422)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=422)"
+    }
+  },
+  {
+    "line": 26,
+    "code": "preorder(node.right);",
+    "variables": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.right);",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "arrays": {},
+    "objects": {
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=423)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=423)"
+    }
+  },
+  {
+    "line": 24,
+    "code": "System.out.println(\"Visited: \" + node.val);",
+    "variables": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "arrays": {},
+    "objects": {
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 28,
+        "adjustedLine": 24,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "System.out.println(\"Visited: \" + node.val);",
+      "explanation": "We are printing the value of `\"Visited: \" + node.val` to the console. 🖨️",
+      "why": "To output information to standard console, making it visible to the user."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\n",
+    "before": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=423)"
+    }
+  },
+  {
+    "line": 25,
+    "code": "preorder(node.left);",
+    "variables": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "arrays": {},
+    "objects": {
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.left);",
+      "explanation": "Executing line 25",
+      "why": "This is the next sequential statement in the program flow."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=423)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **null**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 29,
+        "adjustedLine": 25,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 26,
+    "code": "preorder(node.right);",
+    "variables": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "arrays": {},
+    "objects": {
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "preorder(node.right);",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=423)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=423)"
+    }
+  },
+  {
+    "line": 21,
+    "code": "if (node == null) {",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 25,
+        "adjustedLine": 21,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "if (node == null) {",
+      "explanation": "Boom! We just updated `node` to **null**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 22,
+    "code": "return;",
+    "variables": {
+      "node": "null"
+    },
+    "arrays": {},
+    "objects": {},
+    "stack": [
+      {
+        "depth": 4,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 26,
+        "adjustedLine": 22,
+        "variables": {
+          "node": "null"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "null"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "return;",
+      "explanation": "We are hitting a `return` statement! This means we are sending a value back and exiting the current method. 🚀",
+      "why": "To yield control back to the caller function with the return result."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "null"
+    },
+    "after": {
+      "node": "null"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "arrays": {},
+    "objects": {
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "}",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=423)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=423)"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "arrays": {},
+    "objects": {
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 15,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 3,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 30,
+        "adjustedLine": 26,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=423)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=423)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "instance of TreeNode(id=423)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=423)"
+    }
+  },
+  {
+    "line": 27,
+    "code": "}",
+    "variables": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "node",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "node.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "node.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "node.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "node.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 2,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 22,
+        "adjustedLine": 18,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      },
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "preorder",
+        "fileName": "Main.java",
+        "line": 31,
+        "adjustedLine": 27,
+        "variables": {
+          "node": "instance of TreeNode(id=421)"
+        },
+        "args": [
+          {
+            "name": "node",
+            "value": "instance of TreeNode(id=421)"
+          }
+        ]
+      }
+    ],
+    "explanation": {
+      "action": "}",
+      "explanation": "Boom! We just updated `node` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "node": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "node": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 19,
+    "code": "}",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "root.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "root.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 23,
+        "adjustedLine": 19,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "}",
+      "explanation": "Boom! We just initialized `root` to **instance of TreeNode(id=421)**. 💥",
+      "why": "The statement changed the active values of variables in our memory space."
+    },
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  },
+  {
+    "line": 19,
+    "code": "}",
+    "variables": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "arrays": {},
+    "objects": {
+      "421": {
+        "refId": "421",
+        "className": "TreeNode",
+        "expression": "root",
+        "val": 10,
+        "left": "422",
+        "right": "423"
+      },
+      "422": {
+        "refId": "422",
+        "className": "TreeNode",
+        "expression": "root.left",
+        "val": 5,
+        "left": "424",
+        "right": "425"
+      },
+      "423": {
+        "refId": "423",
+        "className": "TreeNode",
+        "expression": "root.right",
+        "val": 15,
+        "left": null,
+        "right": null
+      },
+      "424": {
+        "refId": "424",
+        "className": "TreeNode",
+        "expression": "root.left.left",
+        "val": 2,
+        "left": null,
+        "right": null
+      },
+      "425": {
+        "refId": "425",
+        "className": "TreeNode",
+        "expression": "root.left.right",
+        "val": 7,
+        "left": null,
+        "right": null
+      }
+    },
+    "stack": [
+      {
+        "depth": 1,
+        "className": "Main",
+        "methodName": "main",
+        "fileName": "Main.java",
+        "line": 23,
+        "adjustedLine": 19,
+        "variables": {
+          "root": "instance of TreeNode(id=421)"
+        },
+        "args": []
+      }
+    ],
+    "explanation": {
+      "action": "Exit scope",
+      "explanation": "We reached the end of the block. Cleaning up scope! 🧹",
+      "why": "Any variables defined inside this block are discarded as their lifecycle ends."
+    },
+    "returnValue": "<void value>",
+    "isExit": true,
+    "consoleOutput": "Starting preorder traversal:\nVisited: 10\nVisited: 5\nVisited: 2\nVisited: 7\nVisited: 15\n",
+    "before": {
+      "root": "instance of TreeNode(id=421)"
+    },
+    "after": {
+      "root": "instance of TreeNode(id=421)"
+    }
+  }
+]

@@ -110,7 +110,7 @@ export const Header = () => {
       </p>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-8 pointer-events-auto">
         <Link 
-          to="/workspace"
+          to="/learn"
           className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-[0_8px_20px_-6px_rgba(79,70,229,0.5)] flex items-center gap-2"
         >
           Start Visualizing - It's Free <span className="text-xl leading-none">→</span>

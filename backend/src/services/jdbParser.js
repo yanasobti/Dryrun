@@ -117,3 +117,51 @@ exports.extractAppStdout = (chunk) => {
   }
   return appStdout;
 };
+
+exports.parseArrayDump = (output) => {
+  const braceStart = output.indexOf('{');
+  const braceEnd = output.lastIndexOf('}');
+  if (braceStart === -1 || braceEnd === -1) return null;
+  const content = output.substring(braceStart + 1, braceEnd);
+  const items = content.replace(/\r?\n/g, ' ').split(',');
+  return items
+    .map(x => x.trim())
+    .filter(x => x.length > 0)
+    .map(x => {
+      if (x === 'null') return null;
+      if (x === 'true') return true;
+      if (x === 'false') return false;
+      if (x.startsWith('"') && x.endsWith('"')) return x.slice(1, -1);
+      return isNaN(x) ? x : Number(x);
+    });
+};
+
+exports.parseObjectDump = (output) => {
+  const braceStart = output.indexOf('{');
+  const braceEnd = output.lastIndexOf('}');
+  if (braceStart === -1 || braceEnd === -1) return null;
+  const content = output.substring(braceStart + 1, braceEnd);
+  const fields = {};
+  const lines = content.split('\n');
+  for (let line of lines) {
+    line = line.trim();
+    if (line.includes(':')) {
+      const colonIdx = line.indexOf(':');
+      const k = line.substring(0, colonIdx).trim();
+      const v = line.substring(colonIdx + 1).trim();
+      if (v === 'null') {
+        fields[k] = null;
+      } else if (v === 'true') {
+        fields[k] = true;
+      } else if (v === 'false') {
+        fields[k] = false;
+      } else if (v.startsWith('"') && v.endsWith('"')) {
+        fields[k] = v.slice(1, -1);
+      } else {
+        fields[k] = isNaN(v) ? v : Number(v);
+      }
+    }
+  }
+  return fields;
+};
+

@@ -1,14 +1,25 @@
-exports.generateExplanation = (codeLines, f, prevStep, i) => {
+const PatternCoach = require('./PatternCoach/PatternCoach');
+
+exports.generateExplanation = (codeLines, f, prevStep, stepIdx, pattern) => {
   const codeSnippet = codeLines[f.line - 1] ? codeLines[f.line - 1].trim() : "";
-  
+  const topFrame = f.stack && f.stack.length > 0 ? f.stack[f.stack.length - 1] : null;
+  const methodName = topFrame ? topFrame.methodName : '';
+
+  // 1. Try to generate a pattern-based explanation using PatternCoach
+  const coachExplanation = PatternCoach.generate(codeLines, f, prevStep, stepIdx, pattern);
+  if (coachExplanation) {
+    return coachExplanation;
+  }
+
+  // 2. General Fallback logic
   let action = codeSnippet || `Line ${f.adjustedLine}`;
   let explanation = `Executing line ${f.adjustedLine}`;
   let why = "This is the next sequential statement in the program flow.";
   
-  const currentVars = f.variables;
-  const changed = [];
+  const currentVars = f.variables || {};
   const lastVars = prevStep ? prevStep.variables : {};
-  
+
+  const changed = [];
   for (const [k, v] of Object.entries(currentVars)) {
     if (lastVars[k] === undefined) {
       changed.push(`initialized \`${k}\` to **${v}**`);
@@ -20,37 +31,11 @@ exports.generateExplanation = (codeLines, f, prevStep, i) => {
   const prevDepth = prevStep && prevStep.stack ? prevStep.stack.length : 0;
   const currentDepth = f.stack ? f.stack.length : 0;
   const isCall = currentDepth > prevDepth;
-  
-  const topFrame = f.stack && f.stack.length > 0 ? f.stack[f.stack.length - 1] : null;
-  const methodName = topFrame ? topFrame.methodName : '';
 
   if (f.isExit && f.returnValue && f.returnValue !== '<void value>') {
     action = `return ${f.returnValue};`;
     explanation = `Method \`${methodName}()\` has finished executing and is returning **${f.returnValue}** to its caller. 🚀`;
     why = `The method has completed its calculations and is handing control back to the calling function.`;
-    if (methodName === 'factorial') {
-      const nVal = currentVars['n'];
-      if (nVal === 1) {
-        action = `return 1;`;
-        explanation = `We've reached the base case for \`factorial(1)\`! The function returns **1** directly. 🧩`;
-        why = `This terminates the recursion chain and triggers the resolution of the recursive call stack.`;
-      } else if (nVal) {
-        action = `return ${nVal} * factorial(${nVal - 1});`;
-        explanation = `We're returning from \`factorial(${nVal})\`! It calculates \`${nVal} * factorial(${nVal - 1})\`, which evaluates to **${f.returnValue}**. 🚀`;
-        why = `Each waiting frame in the stack can now solve its own multiplication using this returned value.`;
-      }
-    }
-  } else if (isCall && methodName === 'factorial') {
-    const nVal = currentVars['n'];
-    if (nVal === 1) {
-      action = `factorial(1)`;
-      explanation = `We are now inside \`factorial(1)\`. Since \`n == 1\`, we've reached the base case. 🎯`;
-      why = `The function will return 1 directly without making any further recursive calls, stopping the recursion.`;
-    } else if (nVal) {
-      action = `factorial(${nVal})`;
-      explanation = `We just called \`factorial(${nVal})\`. To calculate this, we must first find the result of \`factorial(${nVal - 1})\`. 🪜`;
-      why = `A new call frame is pushed to the stack to solve the smaller sub-problem first.`;
-    }
   } else if (codeSnippet.includes('System.out.println')) {
     const match = codeSnippet.match(/println\((.*?)\)/);
     const val = match ? match[1] : '';
@@ -97,7 +82,7 @@ exports.generateExplanation = (codeLines, f, prevStep, i) => {
     action = codeSnippet;
     explanation = `We are hitting a \`return\` statement! This means we are sending a value back and exiting the current method. 🚀`;
     why = `To yield control back to the caller function with the return result.`;
-  } else if (i === 0) {
+  } else if (stepIdx === 0) {
     action = `Start Execution`;
     explanation = `Welcome to DryRun! 👋 We just stepped into the \`main\` method, which is the starting point of every Java program. Let's trace this step-by-step!`;
     why = `Every Java application begins execution from the public static void main method.`;
@@ -107,5 +92,5 @@ exports.generateExplanation = (codeLines, f, prevStep, i) => {
     why = `Any variables defined inside this block are discarded as their lifecycle ends.`;
   }
 
-  return { action, explanation, why };
+  return { action, explanation, why, isSignificant: false };
 };

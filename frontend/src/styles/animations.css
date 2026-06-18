@@ -1,0 +1,162 @@
+/* ═══════════════════════════════════════════════
+   DryRun v2 — Animations Style Sheet
+   Visual DSA Tutor Animation System
+   ═══════════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseGlowCyan {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(6, 182, 212, 0.2), inset 0 0 2px rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(6, 182, 212, 0.5), inset 0 0 8px rgba(6, 182, 212, 0.3);
+    border-color: rgba(6, 182, 212, 0.8);
+  }
+}
+
+@keyframes pulseGlowIndigo {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.5);
+    border-color: rgba(99, 102, 241, 0.8);
+  }
+}
+
+@keyframes pulseGlowAmber {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(245, 158, 11, 0.2);
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+    border-color: rgba(245, 158, 11, 0.8);
+  }
+}
+
+@keyframes nodeAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes popValue {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+    color: #22d3ee;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes floatBubble {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-25px) scale(1.1);
+  }
+}
+
+/* ── Animation Classes ── */
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-glow-cyan {
+  animation: pulseGlowCyan 2s infinite ease-in-out;
+}
+
+.animate-glow-indigo {
+  animation: pulseGlowIndigo 2s infinite ease-in-out;
+}
+
+.animate-glow-amber {
+  animation: pulseGlowAmber 2s infinite ease-in-out;
+}
+
+.animate-node-appear {
+  animation: nodeAppear 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-pop-value {
+  animation: popValue 0.3s ease-out;
+}
+
+.animate-float-bubble {
+  animation: floatBubble 1.5s ease-out forwards;
+}
+
+/* Custom class for SVG transitions */
+.transition-svg {
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, stroke-dashoffset 0.5s ease;
+}
