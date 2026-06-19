@@ -1,8 +1,6 @@
-import java.util.*;
-import java.io.*;
-import java.math.*;
-
-class Solution {
+const questionData = {
+  description: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+  code: `public class Solution {
     public int trap(int[] height) {
         if (height == null || height.length == 0) return 0;
         
@@ -32,11 +30,10 @@ class Solution {
         
         return trappedWater;
     }
-}
+}`,
+  inputs: {
+    "height": "0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1"
+  }
+};
 
-public class Main {
-    public static void main(String[] args) {
-        Solution instance = new Solution();
-        System.out.println("Result: " + instance.trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
-    }
-}
+export default questionData;

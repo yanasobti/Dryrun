@@ -13,6 +13,15 @@ import { TreeVisualizer } from '../components/visualizers/TreeVisualizer';
 import { HashMapVisualizer } from '../components/visualizers/HashMapVisualizer';
 import { HashSetVisualizer } from '../components/visualizers/HashSetVisualizer';
 import { RecursionVisualizer } from '../components/visualizers/RecursionVisualizer';
+import { MatrixVisualizer } from '../components/visualizers/MatrixVisualizer';
+import { GraphVisualizer } from '../components/visualizers/GraphVisualizer';
+import { HeapVisualizer } from '../components/visualizers/HeapVisualizer';
+import { BacktrackingVisualizer } from '../components/visualizers/BacktrackingVisualizer';
+import { GroupAnagramsVisualizer } from '../components/visualizers/GroupAnagramsVisualizer';
+import { EncodeDecodeStringsVisualizer } from '../components/visualizers/EncodeDecodeStringsVisualizer';
+import { ValidSudokuVisualizer } from '../components/visualizers/ValidSudokuVisualizer';
+import { LongestConsecutiveSequenceVisualizer } from '../components/visualizers/LongestConsecutiveSequenceVisualizer';
+import { ContainerWithMostWaterVisualizer } from '../components/visualizers/ContainerWithMostWaterVisualizer';
 
 // Hook & Service & DBs
 import { useVisualizerState } from '../hooks/useVisualizerState';
@@ -164,8 +173,435 @@ export const LearnPage: React.FC = () => {
   }, [questionId, preset, questionDetails]);
 
   // Hook mappings
-  const activeFrame = frames[currentFrameIndex];
+  const activeFrame = useMemo(() => {
+    const rawFrame = frames[currentFrameIndex];
+    if (!rawFrame) return null;
+    
+    if (preset?.id === 'valid-sudoku') {
+      const vars = rawFrame.variables || {};
+      if (vars.i !== undefined && vars.j !== undefined) {
+        const i = parseInt(String(vars.i), 10);
+        const j = parseInt(String(vars.j), 10);
+        const num = vars.number ? String(vars.number).replace(/['"]/g, '') : null;
+        
+        if (num && num !== '.') {
+          const firstFrame = frames[0] || {};
+          const boardVal = firstFrame.arrays?.['board'] || [];
+          
+          // Check row clash
+          let rowClash = null;
+          for (let col = 0; col < 9; col++) {
+            if (col !== j && boardVal[i]?.[col] === num) {
+              rowClash = col;
+              break;
+            }
+          }
+          // Check col clash
+          let colClash = null;
+          for (let row = 0; row < 9; row++) {
+            if (row !== i && boardVal[row]?.[j] === num) {
+              colClash = row;
+              break;
+            }
+          }
+          // Check box clash
+          let boxClash = null;
+          const boxRowStart = Math.floor(i / 3) * 3;
+          const boxColStart = Math.floor(j / 3) * 3;
+          for (let r = boxRowStart; r < boxRowStart + 3; r++) {
+            for (let c = boxColStart; c < boxColStart + 3; c++) {
+              if ((r !== i || c !== j) && boardVal[r]?.[c] === num) {
+                boxClash = { r, c };
+                break;
+              }
+            }
+          }
+
+          const hasClash = rowClash !== null || colClash !== null || boxClash !== null;
+          
+          let title = `Verifying Cell (${i}, ${j})`;
+          let explanation = `Checking value ${num} at row ${i}, column ${j}.\n\nNow verifying:\n• Row ${i} has no duplicate ${num}\n• Column ${j} has no duplicate ${num}\n• 3×3 box has no duplicate ${num}`;
+          let why = `Row check clear, column check clear, box check clear. Cell is VALID.`;
+
+          if (hasClash) {
+            title = `❌ Duplicate Found for '${num}'!`;
+            if (rowClash !== null) {
+              explanation = `Validation failed: Row ${i} already contains duplicate '${num}' at column ${rowClash}.`;
+              why = `Row constraint check failed. The duplicate makes the Sudoku board invalid.`;
+            } else if (colClash !== null) {
+              explanation = `Validation failed: Column ${j} already contains duplicate '${num}' at row ${colClash}.`;
+              why = `Column constraint check failed. The duplicate makes the Sudoku board invalid.`;
+            } else {
+              explanation = `Validation failed: 3x3 Box already contains duplicate '${num}' at cell (${boxClash?.r}, ${boxClash?.c}).`;
+              why = `Box constraint check failed. The duplicate makes the Sudoku board invalid.`;
+            }
+          } else {
+            explanation = `Successfully verified cell (${i}, ${j}). '${num}' is unique in Row ${i}, Column ${j}, and its 3x3 Box.`;
+            why = `✓ Row Clear, ✓ Column Clear, ✓ Box Clear. The cell value is valid.`;
+          }
+
+          return {
+            ...rawFrame,
+            explanation: {
+              ...rawFrame.explanation,
+              title,
+              explanation,
+              why,
+              importance: hasClash ? 'CRITICAL' : rawFrame.explanation?.importance
+            }
+          };
+        }
+      }
+    }
+    if (preset?.id === 'longest-consecutive-sequence') {
+      const vars = rawFrame.variables || {};
+      const num = vars.num !== undefined ? parseInt(String(vars.num), 10) : null;
+      const currentNum = vars.currentNum !== undefined ? parseInt(String(vars.currentNum), 10) : null;
+      const currentStreak = vars.currentStreak !== undefined ? parseInt(String(vars.currentStreak), 10) : null;
+      const longestStreak = vars.longestStreak !== undefined ? parseInt(String(vars.longestStreak), 10) : 0;
+      
+      const firstFrame = frames[0] || {};
+      const numSet = new Set<number>((firstFrame.arrays?.['nums'] || []).map((x: any) => parseInt(String(x), 10)));
+
+      if (num !== null) {
+        let title = `Inspecting Number ${num}`;
+        let explanation = `Current number = ${num}\n\nBefore starting a sequence, we check whether ${num - 1} exists in the HashSet.`;
+        let why = `If ${num - 1} exists, then ${num} belongs to a sequence that already started earlier. If it does not exist, then ${num} starts a new sequence.`;
+
+        const predExists = numSet.has(num - 1);
+
+        if (predExists) {
+          explanation = `Current number = ${num}\n\nWe found predecessor ${num - 1} in the HashSet.\n\nThis means ${num} belongs to an active sequence that already started earlier. We skip it to keep the search O(N).`;
+          why = `Optimizing: avoiding starting redundant streak searches.`;
+        } else {
+          title = `⚡ Starting Streak from ${num}`;
+          explanation = `${num} has no predecessor (${num - 1}) in the HashSet. So ${num} starts a brand new sequence.`;
+          why = `Initializing currentStreak = 1. We will search for next consecutive numbers.`;
+
+          if (currentNum !== null) {
+            const nextVal = currentNum + 1;
+            const nextExists = numSet.has(nextVal);
+            title = `🔍 Searching for consecutive element ${nextVal}`;
+            if (nextExists) {
+              explanation = `We found ${nextVal} in the HashSet.\n\nThis means the sequence can continue.\n\nCurrent sequence elements: ${num} to ${nextVal}.\nNext target element: ${nextVal + 1}`;
+              why = `Streak length is now ${currentStreak}.`;
+            } else {
+              explanation = `Predecessor check clear. Next target ${nextVal} is not in the HashSet.\n\nSequence complete. Total streak length: ${currentStreak}.`;
+              why = `Comparing streak length ${currentStreak} against longest consecutive streak so far (${longestStreak}).`;
+            }
+          }
+        }
+
+        return {
+          ...rawFrame,
+          explanation: {
+            ...rawFrame.explanation,
+            title,
+            explanation,
+            why,
+            importance: !predExists ? 'CRITICAL' : rawFrame.explanation?.importance
+          }
+        };
+      }
+    }
+    if (preset?.id === 'two-sum-ii-input-array-is-sorted') {
+      const vars = rawFrame.variables || {};
+      const targetVal = vars.target !== undefined ? parseInt(String(vars.target), 10) : 9;
+      
+      const codeLine = rawFrame.code || "";
+      if (codeLine.includes("int left = 0")) {
+        return {
+          ...rawFrame,
+          explanation: {
+            title: "Initialize Left Pointer",
+            explanation: "We place the LEFT pointer at the beginning of the sorted array (index 0).",
+            why: "This represents our smallest candidate value.",
+            importance: "TRIVIAL"
+          }
+        };
+      }
+      if (codeLine.includes("int right = numbers.length")) {
+        return {
+          ...rawFrame,
+          explanation: {
+            title: "Initialize Right Pointer",
+            explanation: "We place the RIGHT pointer at the end of the sorted array.",
+            why: "This represents our largest candidate value.",
+            importance: "TRIVIAL"
+          }
+        };
+      }
+      
+      if (vars.left !== undefined && vars.right !== undefined) {
+        const leftIdx = parseInt(String(vars.left), 10);
+        const rightIdx = parseInt(String(vars.right), 10);
+        
+        let numArr = rawFrame.arrays?.['numbers'];
+        if (!numArr) {
+          for (const f of frames) {
+            if (f.arrays?.['numbers']) {
+              numArr = f.arrays['numbers'];
+              break;
+            }
+          }
+        }
+        if (!numArr) {
+          for (const f of frames) {
+            const keys = Object.keys(f.arrays || {});
+            if (keys.length > 0) {
+              numArr = f.arrays[keys[0]];
+              break;
+            }
+          }
+        }
+        
+        if (numArr && numArr[leftIdx] !== undefined && numArr[rightIdx] !== undefined) {
+          const leftNum = parseInt(String(numArr[leftIdx]), 10);
+          const rightNum = parseInt(String(numArr[rightIdx]), 10);
+          const sumVal = leftNum + rightNum;
+          
+          let title = `Comparing Pointers`;
+          let explanation = `Looking at numbers ${leftNum} and ${rightNum}.\nTheir sum is ${sumVal}.\nTarget is also ${targetVal}.`;
+          let why = `We are comparing the leftmost and rightmost numbers to check sum against target.`;
+
+          if (sumVal === targetVal) {
+            title = `🎉 Match Found!`;
+            explanation = `Looking at numbers ${leftNum} and ${rightNum}.\nTheir sum is ${sumVal}.\nTarget is also ${targetVal}.\n\n🎉 Match found!\n\n💡 Note: The problem uses a 1-indexed array. Therefore, we return the 1-based indices [${leftIdx + 1}, ${rightIdx + 1}] (instead of [${leftIdx}, ${rightIdx}]) as the final answer!`;
+            why = `Since this equals the target, we found the answer.`;
+          } else if (sumVal > targetVal) {
+            title = `Sum Too Large (${sumVal} > ${targetVal})`;
+            explanation = `Current Sum = ${sumVal}\n\n${sumVal} > ${targetVal}\n\nArray is sorted.\nTo make the sum smaller,\nmove the RIGHT pointer left.`;
+            why = `Move RIGHT ←`;
+          } else {
+            title = `Sum Too Small (${sumVal} < ${targetVal})`;
+            explanation = `Current Sum = ${sumVal}\n\n${sumVal} < ${targetVal}\n\nWe need a larger sum.\nMove LEFT pointer right.`;
+            why = `Move LEFT ➔`;
+          }
+
+          return {
+            ...rawFrame,
+            explanation: {
+              ...rawFrame.explanation,
+              title,
+              explanation,
+              why,
+              importance: 'CRITICAL'
+            }
+          };
+        }
+      }
+    }
+    if (preset?.id === '3sum') {
+      const vars = rawFrame.variables || {};
+      const codeLine = rawFrame.code || "";
+      const prevStep = currentFrameIndex > 0 ? frames[currentFrameIndex - 1] : null;
+
+      if (codeLine.includes("Arrays.sort")) {
+        const firstFrame = frames[0] || {};
+        const beforeSort = firstFrame.arrays?.['nums'] || [];
+        let afterSort = rawFrame.arrays?.['nums'];
+        if (!afterSort) {
+          for (let idx = currentFrameIndex; idx < frames.length; idx++) {
+            if (frames[idx].arrays?.['nums']) {
+              afterSort = frames[idx].arrays['nums'];
+              break;
+            }
+          }
+        }
+        return {
+          ...rawFrame,
+          explanation: {
+            title: "Sorting the Array",
+            explanation: `Sorting the array:\n[${beforeSort.join(', ')}] ➔ [${afterSort ? afterSort.join(', ') : ''}]\n\nWhy?\nBecause the two-pointer technique only works on a sorted array.`,
+            why: "Sorting is the core foundation of 3Sum.",
+            importance: "CRITICAL"
+          }
+        };
+      }
+
+      if (codeLine.includes("nums[i] == nums[i - 1]") || codeLine.includes("continue")) {
+        const iIdx = parseInt(String(vars.i), 10);
+        let numArr = rawFrame.arrays?.['nums'];
+        if (!numArr) {
+          for (const f of frames) {
+            if (f.arrays?.['nums']) {
+              numArr = f.arrays['nums'];
+              break;
+            }
+          }
+        }
+        if (numArr && iIdx > 0 && numArr[iIdx] !== undefined) {
+          const prevVal = numArr[iIdx - 1];
+          const currVal = numArr[iIdx];
+          if (prevVal === currVal) {
+            return {
+              ...rawFrame,
+              explanation: {
+                title: "Skipping Duplicate Element",
+                explanation: `Current value = ${currVal}\nPrevious value was also ${prevVal}\n\nIf we continue, we'll generate the same triplets again. Skipping duplicate.`,
+                why: "Prevents duplicate triplets in the output.",
+                importance: "CRITICAL"
+              }
+            };
+          }
+        }
+      }
+
+      if (vars.i !== undefined && vars.left === undefined) {
+        const iIdx = parseInt(String(vars.i), 10);
+        let numArr = rawFrame.arrays?.['nums'];
+        if (!numArr) {
+          for (const f of frames) {
+            if (f.arrays?.['nums']) {
+              numArr = f.arrays['nums'];
+              break;
+            }
+          }
+        }
+        if (numArr && numArr[iIdx] !== undefined) {
+          const iVal = parseInt(String(numArr[iIdx]), 10);
+          const neededSum = -iVal;
+          return {
+            ...rawFrame,
+            explanation: {
+              title: `Choosing First Number`,
+              explanation: `We choose the first number: nums[i] = ${iVal} (at index ${iIdx}).\n\nNow, we need TWO more numbers whose sum is ${neededSum}.\n\nBecause:\n${iVal} + ? + ? = 0\n? + ? = ${neededSum}`,
+              why: `Setting the anchor element. We will find matching pairs in the rest of the array.`,
+              importance: "CRITICAL"
+            }
+          };
+        }
+      }
+
+      if (vars.i !== undefined && vars.left !== undefined && vars.right !== undefined) {
+        const iIdx = parseInt(String(vars.i), 10);
+        const leftIdx = parseInt(String(vars.left), 10);
+        const rightIdx = parseInt(String(vars.right), 10);
+        
+        let numArr = rawFrame.arrays?.['nums'];
+        if (!numArr) {
+          for (const f of frames) {
+            if (f.arrays?.['nums']) {
+              numArr = f.arrays['nums'];
+              break;
+            }
+          }
+        }
+        if (!numArr) {
+          for (const f of frames) {
+            const keys = Object.keys(f.arrays || {});
+            if (keys.length > 0) {
+              numArr = f.arrays[keys[0]];
+              break;
+            }
+          }
+        }
+        
+        if (numArr && numArr[iIdx] !== undefined && numArr[leftIdx] !== undefined && numArr[rightIdx] !== undefined) {
+          const iVal = parseInt(String(numArr[iIdx]), 10);
+          const leftVal = parseInt(String(numArr[leftIdx]), 10);
+          const rightVal = parseInt(String(numArr[rightIdx]), 10);
+          const sumVal = iVal + leftVal + rightVal;
+          
+          let title = `Searching for Matching Pair`;
+          let explanation = `Searching for pairs to match nums[i] = ${iVal}.\n\nCurrent triplet: (${iVal}, ${leftVal}, ${rightVal})\nSum = ${sumVal}`;
+          let why = `Comparing sum against 0.`;
+
+          if (codeLine.includes("nums[left] == nums[left + 1]") || (prevStep && prevStep.code?.includes("nums[left] == nums[left + 1]"))) {
+            const nextVal = numArr[leftIdx + 1];
+            if (leftVal === nextVal) {
+              return {
+                ...rawFrame,
+                explanation: {
+                  title: "Skipping Duplicate Left",
+                  explanation: `Left pointer points to ${leftVal}.\nThe next element is also ${nextVal}.\n\nSkipping to avoid duplicate triplets.`,
+                  why: "Move LEFT ➔",
+                  importance: "CRITICAL"
+                }
+              };
+            }
+          }
+          if (codeLine.includes("nums[right] == nums[right - 1]") || (prevStep && prevStep.code?.includes("nums[right] == nums[right - 1]"))) {
+            const prevVal = numArr[rightIdx - 1];
+            if (rightVal === prevVal) {
+              return {
+                ...rawFrame,
+                explanation: {
+                  title: "Skipping Duplicate Right",
+                  explanation: `Right pointer points to ${rightVal}.\nThe previous element is also ${prevVal}.\n\nSkipping to avoid duplicate triplets.`,
+                  why: "Move RIGHT ←",
+                  importance: "CRITICAL"
+                }
+              };
+            }
+          }
+
+          if (sumVal === 0) {
+            title = `🎉 Found Valid Triplet!`;
+            explanation = `🎉 Found valid triplet!\n\n[${iVal}, ${leftVal}, ${rightVal}]\n\nWe store this triplet in our result list.`;
+            why = `Sum matches 0 exactly!`;
+          } else if (sumVal < 0) {
+            title = `Sum Too Small (${sumVal} < 0)`;
+            explanation = `Current triplet:\n(${iVal}, ${leftVal}, ${rightVal})\nSum = ${sumVal}\n\nSince Sum < 0, we need a larger sum.\nMove LEFT pointer right.`;
+            why = `Move LEFT ➔`;
+          } else {
+            title = `Sum Too Large (${sumVal} > 0)`;
+            explanation = `Current triplet:\n(${iVal}, ${leftVal}, ${rightVal})\nSum = ${sumVal}\n\nSince Sum > 0, we need a smaller sum.\nMove RIGHT pointer left.`;
+            why = `Move RIGHT ←`;
+          }
+
+          return {
+            ...rawFrame,
+            explanation: {
+              ...rawFrame.explanation,
+              title,
+              explanation,
+              why,
+              importance: 'CRITICAL'
+            }
+          };
+        }
+      }
+    }
+    return rawFrame;
+  }, [frames, currentFrameIndex, preset]);
+
   const visualizerState = useVisualizerState(frames, currentFrameIndex);
+
+  const activeHeapData = useMemo(() => {
+    if (visualizerState.heaps && visualizerState.heaps.length > 0) {
+      return { heap: visualizerState.heaps[0], isAbsent: false };
+    }
+
+    for (let i = currentFrameIndex - 1; i >= 0; i--) {
+      const f = frames[i];
+      if (f && f.variables) {
+        const heapVar = Object.entries(f.variables).find(([k, v]) => {
+          if (k === 'args') return false;
+          const vStr = String(v);
+          return k.toLowerCase().includes('heap') || k.toLowerCase().includes('pq') || vStr.includes('PriorityQueue') || vStr.includes('Queue');
+        });
+
+        if (heapVar) {
+          const [name, val] = heapVar;
+          const parseSetEntries = (setStr: string): string[] => {
+            if (!setStr || setStr === "null") return [];
+            const str = setStr.trim();
+            const startIdx = str.indexOf('[');
+            const endIdx = str.lastIndexOf(']');
+            if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx) return [];
+            const inner = str.substring(startIdx + 1, endIdx).trim();
+            if (!inner) return [];
+            return inner.split(',').map(item => item.trim()).filter(Boolean);
+          };
+          const elements = parseSetEntries(String(val));
+          return { heap: { name, elements }, isAbsent: true };
+        }
+      }
+    }
+
+    return { heap: null, isAbsent: false };
+  }, [frames, currentFrameIndex, visualizerState.heaps]);
 
 
 
@@ -254,12 +690,14 @@ export const LearnPage: React.FC = () => {
 
       // 2. Fallback: Scroll to any highlighted active cell, entry, or node
       const activeElementsSelectors = [
+        '.animate-pulse', // Universal: matches active Matrix cells, Group Anagrams bucket, etc.
+        '[id^="anagram-group-bucket-"]', // Group Anagrams bucket card
+        '[id^="hashmap-entry-"]', // HashMap entry card
         '[id^="array-cell-"].border-amber-500', // Active array cell
         '[id^="node-"] div[class*="border-indigo-500"]', // Active linkedlist node
         'circle[stroke="#0ea5e9"]', // Active tree node outer ring
-        'div[class*="border-indigo-500"][class*="ring-"]', // Active map entries inserting
-        'div[class*="border-amber-400"][class*="ring-"]', // Active map entries searching
-        'div[class*="border-emerald-500"][class*="ring-"]' // Active map entries matched
+        'div[class*="border-indigo-500"]', // General active items
+        'div[class*="border-purple-600"]' // General active items
       ];
 
       for (const selector of activeElementsSelectors) {
@@ -309,10 +747,23 @@ export const LearnPage: React.FC = () => {
     // Form parameter input initial states
     const initialInputs: Record<string, string> = {};
     methods[0].params.forEach(p => {
+      // 1. First prioritize curated question preset inputs from the database
+      if (questionDetails && questionDetails.inputs && questionDetails.inputs[p.name] !== undefined) {
+        initialInputs[p.name] = questionDetails.inputs[p.name];
+        return;
+      }
+
+      // 2. Otherwise fall back to intelligent default values
       const typeLower = p.type.toLowerCase();
       if (typeLower.includes('tree')) {
         initialInputs[p.name] = "3, 9, 20, null, null, 15, 7";
-      } else if (typeLower.includes('list') || typeLower.includes('node')) {
+      } else if (typeLower.startsWith('list<') || typeLower.startsWith('arraylist<')) {
+        if (typeLower.includes('string')) {
+          initialInputs[p.name] = "neet, code, love, you";
+        } else {
+          initialInputs[p.name] = "1, 2, 3, 4";
+        }
+      } else if (typeLower.includes('listnode') || typeLower.startsWith('listnode') || typeLower === 'node' || typeLower.includes('linkedlist') || (typeLower.includes('list') && !typeLower.includes('<'))) {
         initialInputs[p.name] = "3, 2, 0, -4";
       } else if (typeLower.includes('prices')) {
         initialInputs[p.name] = "7, 1, 5, 3, 6, 4";
@@ -343,7 +794,7 @@ export const LearnPage: React.FC = () => {
       const val = paramInputs[p.name] || "";
       const typeLower = p.type.toLowerCase();
       const isTree = typeLower.includes('tree');
-      const isList = typeLower.includes('list') || typeLower.includes('node');
+      const isList = (typeLower.includes('list') || typeLower.includes('node')) && !typeLower.includes('<');
       const isArray = typeLower.includes('[]');
 
       if (isTree || isList) {
@@ -354,6 +805,28 @@ export const LearnPage: React.FC = () => {
           });
           bstOrListCode += generateBSTConstruction(numbers, p.type);
           paramCalls.push("root");
+        } else if (questionId === 'clone-graph') {
+          try {
+            const parsed = JSON.parse(val.replace(/'/g, '"')) as number[][];
+            const n = parsed.length;
+            let code = "";
+            for (let i = 1; i <= n; i++) {
+              code += `        Node n${i} = new Node(${i});\n`;
+            }
+            for (let i = 1; i <= n; i++) {
+              const neighbors = parsed[i - 1];
+              for (const neighbor of neighbors) {
+                code += `        n${i}.neighbors.add(n${neighbor});\n`;
+              }
+            }
+            code += `        Node node = n1;\n`;
+            bstOrListCode += code;
+            paramCalls.push("node");
+          } catch (e) {
+            // fallback if input is malformed
+            bstOrListCode += `        Node node = new Node(1);\n`;
+            paramCalls.push("node");
+          }
         } else {
           const parts = val.split(/;|\+/);
           const numbers = parts[0].split(',').map(x => parseInt(x.trim())).filter(n => !isNaN(n));
@@ -377,9 +850,85 @@ export const LearnPage: React.FC = () => {
           paramCalls.push("head");
         }
       } else if (isArray) {
-        const baseType = p.type.replace('[]', '').trim();
-        const arrayVals = val.split(',').map(x => x.trim()).join(', ');
-        paramCalls.push(`new ${baseType}[]{${arrayVals}}`);
+        if (typeLower.includes('[][]')) {
+          const baseType = p.type.replace('[][]', '').trim();
+          try {
+            const cleanVal = val.trim().replace(/'/g, '"');
+            const parsed: any[][] = JSON.parse(cleanVal);
+            const rows = parsed.map(row => {
+              const elements = row.map(cell => {
+                if (typeof cell === 'string') {
+                  if (baseType === 'char') {
+                    return `'${cell.replace(/'/g, "\\'")}'`;
+                  } else {
+                    return `"${cell.replace(/"/g, '\\"')}"`;
+                  }
+                }
+                return String(cell);
+              }).join(', ');
+              return `{${elements}}`;
+            }).join(', ');
+            paramCalls.push(`new ${baseType}[][]{${rows}}`);
+          } catch (e) {
+            // fallback replacement if parsing fails
+            const formatted2D = val
+              .trim()
+              .replace(/^\[/, '{')
+              .replace(/\]$/, '}')
+              .replace(/\[/g, '{')
+              .replace(/\]/g, '}');
+            paramCalls.push(`new ${baseType}[][]${formatted2D}`);
+          }
+        } else {
+          const baseType = p.type.replace('[]', '').trim();
+          const arrayVals = val.split(',').map(x => x.trim()).map(x => {
+            const cleaned = x.replace(/^["']|["']$/g, '');
+            if (baseType === 'String') {
+              return `"${cleaned.replace(/"/g, '\\"')}"`;
+            }
+            if (baseType === 'char') {
+              return `'${cleaned.replace(/'/g, "\\'")}'`;
+            }
+            return cleaned;
+          }).join(', ');
+          paramCalls.push(`new ${baseType}[]{${arrayVals}}`);
+        }
+      } else if (typeLower.startsWith('list<') || typeLower.startsWith('arraylist<')) {
+        const match = p.type.match(/<([\w\.\$]+)>/);
+        const innerType = match ? match[1] : 'Object';
+        let cleanVal = val.trim();
+        if (cleanVal.startsWith('[') && cleanVal.endsWith(']')) {
+          try {
+            const parsed = JSON.parse(cleanVal.replace(/'/g, '"'));
+            if (Array.isArray(parsed)) {
+              const elements = parsed.map(el => {
+                if (innerType === 'String') {
+                  return `"${String(el).replace(/"/g, '\\"')}"`;
+                }
+                return String(el);
+              }).join(', ');
+              paramCalls.push(`java.util.Arrays.asList(new ${innerType}[]{${elements}})`);
+            } else {
+              paramCalls.push(`java.util.Arrays.asList(new ${innerType}[]{})`);
+            }
+          } catch (e) {
+            const arrayVals = cleanVal.slice(1, -1).split(',').map(x => x.trim()).map(x => {
+              if (innerType === 'String') {
+                return `"${x.replace(/"/g, '\\"')}"`;
+              }
+              return x;
+            }).join(', ');
+            paramCalls.push(`java.util.Arrays.asList(new ${innerType}[]{${arrayVals}})`);
+          }
+        } else {
+          const arrayVals = val.split(',').map(x => x.trim()).map(x => {
+            if (innerType === 'String') {
+              return `"${x.replace(/"/g, '\\"')}"`;
+            }
+            return x;
+          }).join(', ');
+          paramCalls.push(`java.util.Arrays.asList(new ${innerType}[]{${arrayVals}})`);
+        }
       } else if (typeLower === 'string') {
         paramCalls.push(`"${val}"`);
       } else {
@@ -477,7 +1026,27 @@ export const LearnPage: React.FC = () => {
       const vizData = await vizRes.json();
       
       if (Array.isArray(vizData) && vizData.length > 0) {
-        const cleanedData = cleanJdbIds(vizData);
+        let cleanedData = cleanJdbIds(vizData);
+        if (preset?.id === 'valid-sudoku') {
+          const firstFrame = cleanedData[0] || {};
+          const boardVal = firstFrame.arrays?.['board'] || [];
+          cleanedData = cleanedData.filter((frame: any) => {
+            const vars = frame.variables || {};
+            const codeStr = (frame.code || "").trim();
+            if (codeStr.includes('return')) return true;
+            if (vars.i !== undefined && vars.j !== undefined) {
+              const r = parseInt(String(vars.i), 10);
+              const c = parseInt(String(vars.j), 10);
+              if (boardVal[r] && boardVal[r][c]) {
+                const cellVal = String(boardVal[r][c]).replace(/['"]/g, '');
+                if (cellVal === '.') {
+                  return false;
+                }
+              }
+            }
+            return true;
+          });
+        }
         setFrames(cleanedData);
         setCurrentFrameIndex(0);
         setConsoleOutput(consoleLogs || "JDB execution finished successfully. Tracing frames loaded.");
@@ -511,6 +1080,15 @@ export const LearnPage: React.FC = () => {
 
   // Determine which visualizers should render based on metadata or dynamic runtime
   const visualizersToRender = useMemo(() => {
+    if (preset?.id === 'group-anagrams') {
+      return ['group-anagrams'];
+    }
+    if (preset?.id === 'encode-and-decode-strings') {
+      return ['encode-decode-strings'];
+    }
+    if (preset?.id === 'container-with-most-water') {
+      return ['container-with-most-water'];
+    }
     if (preset && preset.visualizers) {
       if (preset.visualizers.includes('tree')) {
         return preset.visualizers.filter(v => v !== 'recursion');
@@ -519,6 +1097,10 @@ export const LearnPage: React.FC = () => {
     }
     // Fallback: detect from runtime state
     const detected: string[] = [];
+    if (visualizerState.detectedTypes.includes('backtracking')) detected.push('backtracking');
+    if (visualizerState.detectedTypes.includes('matrix')) detected.push('matrix');
+    if (visualizerState.detectedTypes.includes('graph')) detected.push('graph');
+    if (visualizerState.detectedTypes.includes('heap')) detected.push('heap');
     if (visualizerState.detectedTypes.includes('hashmap')) detected.push('hashmap');
     if (visualizerState.detectedTypes.includes('hashset')) detected.push('hashset');
     if (visualizerState.detectedTypes.includes('linkedlist')) detected.push('linked-list');
@@ -542,6 +1124,96 @@ export const LearnPage: React.FC = () => {
   }, [preset, visualizersToRender]);
 
   const renderVisualizer = (type: string) => {
+    if (type === 'group-anagrams') {
+      return (
+        <GroupAnagramsVisualizer
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'encode-decode-strings') {
+      return (
+        <EncodeDecodeStringsVisualizer
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+        />
+      );
+    }
+    if (type === 'valid-sudoku') {
+      return (
+        <ValidSudokuVisualizer
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'longest-consecutive-sequence') {
+      return (
+        <LongestConsecutiveSequenceVisualizer
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'container-with-most-water') {
+      return (
+        <ContainerWithMostWaterVisualizer
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'matrix') {
+      const matrix = visualizerState.matrices[0];
+      console.log("LearnPage renderVisualizer - type is matrix");
+      console.log("LearnPage renderVisualizer - visualizerState:", visualizerState);
+      console.log("LearnPage renderVisualizer - matrix:", matrix);
+      if (!matrix) return <div className="text-xs text-slate-400 font-mono italic p-6 text-center">Matrix not initialized yet</div>;
+      return (
+        <MatrixVisualizer
+          name={matrix.name}
+          grid={matrix.grid}
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'graph') {
+      const graph = visualizerState.graphs[0];
+      if (!graph) return <div className="text-xs text-slate-400 font-mono italic p-6 text-center">Graph not initialized yet</div>;
+      return (
+        <GraphVisualizer
+          name={graph.name}
+          rootRefId={graph.rootRefId}
+          nodes={graph.nodes}
+          variables={visualizerState.variables}
+        />
+      );
+    }
+    if (type === 'heap') {
+      const { heap, isAbsent } = activeHeapData;
+      if (!heap) return <div className="text-xs text-slate-400 font-mono italic p-6 text-center">Heap not initialized yet</div>;
+      return (
+        <HeapVisualizer
+          name={heap.name}
+          elements={heap.elements}
+          isAbsent={isAbsent}
+        />
+      );
+    }
+    if (type === 'backtracking') {
+      return (
+        <BacktrackingVisualizer
+          variables={visualizerState.variables}
+        />
+      );
+    }
     if (type === 'hashmap') {
       const map = visualizerState.hashMaps[0];
       if (!map) return <div className="text-xs text-slate-400 font-mono italic p-6 text-center">HashMap not initialized yet</div>;
@@ -621,6 +1293,9 @@ export const LearnPage: React.FC = () => {
               variables={visualizerState.variables}
               codeLine={activeFrame?.code}
               visualEvents={getVisualEvents(activeFrame, frames[currentFrameIndex - 1])}
+              questionId={preset?.id}
+              arrays={visualizerState.arrays}
+              frames={frames}
             />
           ))}
         </div>

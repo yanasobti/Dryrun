@@ -67,10 +67,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "HashMap",
     visualizers: ["array", "hashmap"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/group-anagrams/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach", "hashmap-animation"],
+    estimatedMinutes: 25,
+    starterCodeId: "group-anagrams",
+    exampleCaseId: "group-anagrams"
   },
   {
     id: "top-k-frequent-elements",
@@ -81,12 +83,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Arrays & Hashing",
     pattern: "Bucket Sort",
-    visualizers: ["array", "hashmap"],
+    visualizers: ["array", "hashmap", "heap"],
     visualizerLayout: "auto",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/top-k-frequent-elements/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach", "hashmap-animation"],
+    estimatedMinutes: 20,
+    starterCodeId: "top-k-frequent-elements",
+    exampleCaseId: "top-k-frequent-elements"
   },
   {
     id: "encode-and-decode-strings",
@@ -97,12 +101,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Arrays & Hashing",
     pattern: "Design / Parsing",
-    visualizers: ["array"],
+    visualizers: ["encode-decode-strings"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/encode-and-decode-strings/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "encode-and-decode-strings",
+    exampleCaseId: "encode-and-decode-strings"
   },
   {
     id: "product-of-array-except-self",
@@ -115,10 +121,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Prefix Sum",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/product-of-array-except-self/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "product-of-array-except-self",
+    exampleCaseId: "product-of-array-except-self"
   },
   {
     id: "valid-sudoku",
@@ -129,12 +137,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Arrays & Hashing",
     pattern: "HashSet",
-    visualizers: ["array", "hashset"],
-    visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizers: ["valid-sudoku"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/valid-sudoku/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "valid-sudoku",
+    exampleCaseId: "valid-sudoku"
   },
   {
     id: "longest-consecutive-sequence",
@@ -145,12 +155,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Arrays & Hashing",
     pattern: "HashSet",
-    visualizers: ["array", "hashset"],
-    visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizers: ["longest-consecutive-sequence"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/longest-consecutive-sequence/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "longest-consecutive-sequence",
+    exampleCaseId: "longest-consecutive-sequence"
   },
 
   // ── TWO POINTERS (10-14) ──
@@ -165,10 +177,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/valid-palindrome/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "valid-palindrome",
+    exampleCaseId: "valid-palindrome"
   },
   {
     id: "two-sum-ii-input-array-is-sorted",
@@ -181,10 +195,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "two-sum-ii-input-array-is-sorted",
+    exampleCaseId: "two-sum-ii-input-array-is-sorted"
   },
   {
     id: "3sum",
@@ -197,10 +213,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/3sum/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "3sum",
+    exampleCaseId: "3sum"
   },
   {
     id: "container-with-most-water",
@@ -213,10 +231,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/container-with-most-water/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "container-with-most-water",
+    exampleCaseId: "container-with-most-water"
   },
   {
     id: "trapping-rain-water",
@@ -229,10 +249,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/trapping-rain-water/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 35
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 35,
+    starterCodeId: "trapping-rain-water",
+    exampleCaseId: "trapping-rain-water"
   },
 
   // ── SLIDING WINDOW (15-20) ──
@@ -989,5 +1011,113 @@ export const NEETCODE_150: Question[] = [
     url: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
     supportedFeatures: ["pattern-coach"],
     estimatedMinutes: 30
+  },
+  {
+    id: "number-of-islands",
+    number: 61,
+    order: 61,
+    title: "Number of Islands",
+    slug: "number-of-islands",
+    difficulty: "Medium",
+    category: "Graphs",
+    pattern: "DFS Grid Search",
+    visualizers: ["matrix"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
+    url: "https://leetcode.com/problems/number-of-islands/",
+    supportedFeatures: ["step-by-step"],
+    estimatedMinutes: 20,
+    starterCodeId: "number-of-islands",
+    exampleCaseId: "number-of-islands"
+  },
+  {
+    id: "clone-graph",
+    number: 62,
+    order: 62,
+    title: "Clone Graph",
+    slug: "clone-graph",
+    difficulty: "Medium",
+    category: "Graphs",
+    pattern: "DFS Graph Copy",
+    visualizers: ["graph"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
+    url: "https://leetcode.com/problems/clone-graph/",
+    supportedFeatures: ["step-by-step"],
+    estimatedMinutes: 25,
+    starterCodeId: "clone-graph",
+    exampleCaseId: "clone-graph"
+  },
+  {
+    id: "course-schedule",
+    number: 63,
+    order: 63,
+    title: "Course Schedule",
+    slug: "course-schedule",
+    difficulty: "Medium",
+    category: "Graphs",
+    pattern: "DFS Cycle Detection",
+    visualizers: ["graph"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
+    url: "https://leetcode.com/problems/course-schedule/",
+    supportedFeatures: ["step-by-step"],
+    estimatedMinutes: 25,
+    starterCodeId: "course-schedule",
+    exampleCaseId: "course-schedule"
+  },
+  {
+    id: "subsets",
+    number: 64,
+    order: 64,
+    title: "Subsets",
+    slug: "subsets",
+    difficulty: "Medium",
+    category: "Backtracking",
+    pattern: "Backtracking Power Set",
+    visualizers: ["backtracking"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
+    url: "https://leetcode.com/problems/subsets/",
+    supportedFeatures: ["step-by-step"],
+    estimatedMinutes: 20,
+    starterCodeId: "subsets",
+    exampleCaseId: "subsets"
+  },
+  {
+    id: "flood-fill",
+    number: 65,
+    order: 65,
+    title: "Flood Fill",
+    slug: "flood-fill",
+    difficulty: "Easy",
+    category: "Matrix",
+    pattern: "DFS Grid Search",
+    visualizers: ["matrix"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
+    url: "https://leetcode.com/problems/flood-fill/",
+    supportedFeatures: ["step-by-step"],
+    estimatedMinutes: 15,
+    starterCodeId: "flood-fill",
+    exampleCaseId: "flood-fill"
+  },
+  {
+    id: "set-matrix-zeroes",
+    number: 66,
+    order: 66,
+    title: "Set Matrix Zeroes",
+    slug: "set-matrix-zeroes",
+    difficulty: "Medium",
+    category: "Matrix",
+    pattern: "Matrix In-Place",
+    visualizers: ["matrix"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
+    url: "https://leetcode.com/problems/set-matrix-zeroes/",
+    supportedFeatures: ["step-by-step"],
+    estimatedMinutes: 20,
+    starterCodeId: "set-matrix-zeroes",
+    exampleCaseId: "set-matrix-zeroes"
   }
 ];

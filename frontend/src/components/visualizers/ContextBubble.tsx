@@ -5,7 +5,7 @@ export type BubbleVariant = 'info' | 'success' | 'warning' | 'action';
 export type BubbleAnimation = 'pop' | 'pulse' | 'slide';
 
 interface ContextBubbleProps {
-  message: string;
+  message: React.ReactNode;
   variant?: BubbleVariant;
   animation?: BubbleAnimation;
   className?: string;
@@ -71,7 +71,7 @@ export const ContextBubble: React.FC<ContextBubbleProps> = ({
         initial={chosenAnimation.initial}
         animate={chosenAnimation.animate}
         transition={chosenAnimation.transition}
-        className={`border text-[10px] font-black px-2.5 py-1.5 rounded-xl shadow-lg flex flex-col items-center text-center font-mono max-w-[180px] break-words whitespace-normal leading-tight ${variantStyles[variant]}`}
+        className={`border text-[10px] font-black px-2.5 py-1.5 rounded-xl shadow-lg flex flex-col items-center text-center font-mono max-w-[240px] break-words whitespace-normal leading-tight ${variantStyles[variant]}`}
       >
         {message}
       </motion.div>

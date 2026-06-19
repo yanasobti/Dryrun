@@ -4,6 +4,7 @@ const SlidingWindowCoach = require('./SlidingWindowCoach');
 const LinkedListCoach = require('./LinkedListCoach');
 const TreeCoach = require('./TreeCoach');
 const RecursionCoach = require('./RecursionCoach');
+const GridCoach = require('./GridCoach');
 
 exports.generate = (codeLines, f, prevStep, stepIdx, pattern) => {
   const codeSnippet = codeLines[f.line - 1] ? codeLines[f.line - 1].trim() : "";
@@ -37,6 +38,11 @@ exports.generate = (codeLines, f, prevStep, stepIdx, pattern) => {
   const pat = (pattern || "").toLowerCase();
 
   // Route based on pattern
+  if (pat.includes('grid') || pat.includes('island') || pat.includes('flood') || pat.includes('matrix')) {
+    const res = GridCoach.generate(context);
+    if (res) return res;
+  }
+
   if (pat.includes('hash') || pat.includes('anagram') || pat.includes('duplicate') || pat.includes('two sum') || pat.includes('arrays & hashing')) {
     const res = HashMapCoach.generate(context);
     if (res) return res;
@@ -68,6 +74,11 @@ exports.generate = (codeLines, f, prevStep, stepIdx, pattern) => {
   }
 
   // Code heuristics fallback (in case pattern is not specified or does not match)
+  if (codeSnippet.includes('grid[') || codeSnippet.includes('matrix[') || codeSnippet.includes('image[')) {
+    const res = GridCoach.generate(context);
+    if (res) return res;
+  }
+
   if (codeSnippet.includes('HashMap') || codeSnippet.includes('HashSet') || codeSnippet.includes('Map<') || codeSnippet.includes('Set<') || codeSnippet.includes('.containsKey') || codeSnippet.includes('.contains')) {
     const res = HashMapCoach.generate(context);
     if (res) return res;

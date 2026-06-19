@@ -1,14 +1,17 @@
 import { useMemo } from 'react';
 
 export interface VisualizerState {
-  primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'general';
-  detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion')[];
+  primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'general';
+  detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking')[];
   arrays: { name: string; values: any[] }[];
   linkedLists: { name: string; rootRefId: string; nodes: Record<string, any>; hasCycle: boolean }[];
   trees: { name: string; rootRefId: string; nodes: Record<string, any> }[];
   hashMaps: { name: string; entries: [string, string][] }[];
   hashSets: { name: string; values: string[] }[];
   recursion: { stack: any[]; isRecursive: boolean };
+  matrices: { name: string; grid: any[][] }[];
+  graphs: { name: string; rootRefId: string; nodes: Record<string, any> }[];
+  heaps: { name: string; elements: any[] }[];
   variables: Record<string, any>;
   explanation: string;
   line: number;
@@ -34,13 +37,33 @@ const parseMapEntries = (mapStr: string): [string, string][] => {
   if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx) return [];
   const inner = str.substring(startIdx + 1, endIdx).trim();
   if (!inner) return [];
-  return inner.split(',').map(pair => {
-    const parts = pair.split('=');
-    if (parts.length >= 2) {
-      return [parts[0].trim(), parts[1].trim()];
+
+  const entries: [string, string][] = [];
+  let current = "";
+  let bracketDepth = 0;
+
+  for (let i = 0; i < inner.length; i++) {
+    const char = inner[i];
+    if (char === '[') bracketDepth++;
+    else if (char === ']') bracketDepth--;
+
+    if (char === ',' && bracketDepth === 0) {
+      const parts = current.split('=');
+      if (parts.length >= 2) {
+        entries.push([parts[0].trim(), parts.slice(1).join('=').trim()]);
+      }
+      current = "";
+    } else {
+      current += char;
     }
-    return [pair.trim(), ""];
-  });
+  }
+  if (current.trim()) {
+    const parts = current.split('=');
+    if (parts.length >= 2) {
+      entries.push([parts[0].trim(), parts.slice(1).join('=').trim()]);
+    }
+  }
+  return entries;
 };
 
 // Check if a structure is a binary tree
@@ -115,6 +138,9 @@ export const useVisualizerState = (
       hashMaps: [],
       hashSets: [],
       recursion: { stack: [], isRecursive: false },
+      matrices: [],
+      graphs: [],
+      heaps: [],
       variables: {},
       explanation: 'No execution data loaded.',
       line: 1
@@ -277,6 +303,43 @@ export const useVisualizerState = (
       }
     });
 
+    // 3c. Extract Matrices
+    const matrices: { name: string; grid: any[][] }[] = [];
+    const filteredArrays = arrays.filter(arr => {
+      if (arr.values.length > 0 && Array.isArray(arr.values[0])) {
+        matrices.push({ name: arr.name, grid: arr.values });
+        return false;
+      }
+      return true;
+    });
+
+    // 3d. Extract Heaps
+    const heaps: { name: string; elements: any[] }[] = [];
+    Object.entries(variables).forEach(([k, v]) => {
+      if (k === 'args') return;
+      const vStr = String(v);
+      const isHeap = k.toLowerCase().includes('heap') || k.toLowerCase().includes('pq') || vStr.includes('PriorityQueue') || vStr.includes('Queue');
+      if (isHeap) {
+        const elements = parseSetEntries(vStr);
+        heaps.push({ name: k, elements });
+      }
+    });
+
+    // 3e. Extract Graphs
+    const graphs: { name: string; rootRefId: string; nodes: Record<string, any> }[] = [];
+    objVarRefs.forEach(({ name, refId }) => {
+      const node = completeHeap[refId];
+      if (node && 'neighbors' in node) {
+        if (!graphs.some(g => g.rootRefId === refId)) {
+          graphs.push({
+            name,
+            rootRefId: refId,
+            nodes: completeHeap
+          });
+        }
+      }
+    });
+
     // 4. Extract Recursion / Call Stack
     const stack = frame.stack || [];
     const methodCounts: Record<string, number> = {};
@@ -290,23 +353,37 @@ export const useVisualizerState = (
     });
 
     // 5. Determine Detected Types & Primary Type
-    const detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion')[] = [];
+    const detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking')[] = [];
+    const isBacktracking = isRecursive && (variables['tempList'] !== undefined || variables['path'] !== undefined || variables['subset'] !== undefined);
+
+    if (isBacktracking) detectedTypes.push('backtracking');
     if (isRecursive) detectedTypes.push('recursion');
+    if (graphs.length > 0) detectedTypes.push('graph');
     if (trees.length > 0) detectedTypes.push('tree');
     if (linkedLists.length > 0) detectedTypes.push('linkedlist');
-    if (arrays.length > 0) detectedTypes.push('array');
+    if (matrices.length > 0) detectedTypes.push('matrix');
+    if (filteredArrays.length > 0) detectedTypes.push('array');
+    if (heaps.length > 0) detectedTypes.push('heap');
     if (hashMaps.length > 0) detectedTypes.push('hashmap');
     if (hashSets.length > 0) detectedTypes.push('hashset');
 
-    let primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'general' = 'general';
-    if (isRecursive) {
+    let primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'general' = 'general';
+    if (isBacktracking) {
+      primaryType = 'backtracking';
+    } else if (isRecursive) {
       primaryType = 'recursion';
+    } else if (graphs.length > 0) {
+      primaryType = 'graph';
     } else if (trees.length > 0) {
       primaryType = 'tree';
     } else if (linkedLists.length > 0) {
       primaryType = 'linkedlist';
-    } else if (arrays.length > 0) {
+    } else if (matrices.length > 0) {
+      primaryType = 'matrix';
+    } else if (filteredArrays.length > 0) {
       primaryType = 'array';
+    } else if (heaps.length > 0) {
+      primaryType = 'heap';
     } else if (hashMaps.length > 0) {
       primaryType = 'hashmap';
     } else if (hashSets.length > 0) {
@@ -316,12 +393,15 @@ export const useVisualizerState = (
     return {
       primaryType,
       detectedTypes,
-      arrays,
+      arrays: filteredArrays,
       linkedLists,
       trees,
       hashMaps,
       hashSets,
       recursion: { stack, isRecursive },
+      matrices,
+      graphs,
+      heaps,
       variables,
       explanation,
       line

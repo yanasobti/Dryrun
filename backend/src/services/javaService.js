@@ -146,7 +146,7 @@ exports.traceJavaCode = (code, pattern) => {
 
                 if (state === 'wait_for_break') {
                     if (output.includes('Breakpoint hit:')) {
-                        const lineMatch = output.match(/line=(\d+)/);
+                        const lineMatch = output.match(/line=(-?\d+)/);
                         if (lineMatch) {
                             currentFrame = { line: parseInt(lineMatch[1]), variables: {}, stack: [] };
                             output = '';
@@ -161,7 +161,7 @@ exports.traceJavaCode = (code, pattern) => {
 
                 if (state === 'wait_for_step') {
                     if (output.includes('Step completed:') || output.includes('Breakpoint hit:') || output.includes('Method exited:')) {
-                        const lineMatch = output.match(/line=(\d+)/);
+                        const lineMatch = output.match(/line=(-?\d+)/);
                         if (lineMatch) {
                             currentFrame = { line: parseInt(lineMatch[1]), variables: {}, stack: [] };
                             
@@ -228,14 +228,21 @@ exports.traceJavaCode = (code, pattern) => {
                             if (key === 'args') continue;
                             const val = variables[key];
                             if (typeof val === 'string') {
-                                if (val.match(/instance of \w+\[\d+\]/)) {
+                                if (val.match(/instance of [\w\.\$]+(?:\[\d*\]){2,}/)) {
+                                    dumpQueue.push({
+                                        command: `dump ${key}`,
+                                        expression: key,
+                                        type: 'matrix_outer',
+                                        varName: key
+                                    });
+                                } else if (val.match(/instance of \w+\[\d+\]/)) {
                                     dumpQueue.push({
                                         command: `dump ${key}`,
                                         expression: key,
                                         type: 'array',
                                         varName: key
                                     });
-                                } else if (val.includes('HashMap') || val.includes('HashSet') || val.includes('ArrayList') || val.match(/instance of java\.util\.(?:HashMap|HashSet|ArrayList|TreeMap|TreeSet|LinkedList)/)) {
+                                } else if (val.includes('HashMap') || val.includes('HashSet') || val.includes('ArrayList') || val.includes('PriorityQueue') || val.match(/instance of java\.util\.(?:HashMap|HashSet|ArrayList|TreeMap|TreeSet|LinkedList|PriorityQueue)/)) {
                                     dumpQueue.push({
                                         command: `print ${key}`,
                                         expression: key,
@@ -290,7 +297,37 @@ exports.traceJavaCode = (code, pattern) => {
 
                 if (state === 'wait_for_dump') {
                     const cleanOutput = cleanJdbPrompt(output);
-                    if (currentDumpInfo.type === 'array') {
+                    if (currentDumpInfo.type === 'matrix_outer') {
+                        const arrVals = jdbParser.parseArrayDump(cleanOutput);
+                        if (arrVals && arrVals.length > 0) {
+                            const len = arrVals.length;
+                            currentFrame.tempMatrices = currentFrame.tempMatrices || {};
+                            currentFrame.tempMatrices[currentDumpInfo.varName] = {
+                                rows: new Array(len),
+                                pending: len
+                            };
+                            for (let i = 0; i < len; i++) {
+                                dumpQueue.unshift({
+                                    command: `dump ${currentDumpInfo.expression}[${i}]`,
+                                    expression: `${currentDumpInfo.expression}[${i}]`,
+                                    type: 'matrix_row',
+                                    varName: currentDumpInfo.varName,
+                                    rowIndex: i
+                                });
+                            }
+                        }
+                    } else if (currentDumpInfo.type === 'matrix_row') {
+                        const rowVals = jdbParser.parseArrayDump(cleanOutput);
+                        const mState = currentFrame.tempMatrices ? currentFrame.tempMatrices[currentDumpInfo.varName] : null;
+                        if (mState) {
+                            mState.rows[currentDumpInfo.rowIndex] = rowVals || [];
+                            mState.pending--;
+                            if (mState.pending === 0) {
+                                currentFrame.arrays[currentDumpInfo.varName] = mState.rows;
+                                delete currentFrame.tempMatrices[currentDumpInfo.varName];
+                            }
+                        }
+                    } else if (currentDumpInfo.type === 'array') {
                         const arrVals = jdbParser.parseArrayDump(cleanOutput);
                         if (arrVals) {
                             currentFrame.arrays[currentDumpInfo.varName] = arrVals;

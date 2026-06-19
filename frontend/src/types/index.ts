@@ -19,7 +19,13 @@ export type VisualizerType =
   | "queue"
   | "stack"
   | "graph"
-  | "recursion";
+  | "recursion"
+  | "matrix"
+  | "heap"
+  | "backtracking"
+  | "encode-decode-strings"
+  | "valid-sudoku"
+  | "longest-consecutive-sequence";
 
 export interface Question {
   id: string;

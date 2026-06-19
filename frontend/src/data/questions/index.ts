@@ -1,11 +1,31 @@
-import containsDuplicate from './contains-duplicate';
-import validAnagram from './valid-anagram';
-import twoSum from './two-sum';
-import bestTimeToBuyAndSellStock from './best-time-to-buy-and-sell-stock';
-import binarySearch from './binary-search';
-import reverseLinkedList from './reverse-linked-list';
-import linkedListCycle from './linked-list-cycle';
-import maximumDepthOfBinaryTree from './maximum-depth-of-binary-tree';
+import containsDuplicate from './arrays/contains-duplicate';
+import validAnagram from './arrays/valid-anagram';
+import twoSum from './arrays/two-sum';
+import bestTimeToBuyAndSellStock from './arrays/best-time-to-buy-and-sell-stock';
+import productOfArrayExceptSelf from './arrays/product-of-array-except-self';
+import binarySearch from './binary-search/binary-search';
+import reverseLinkedList from './linked-list/reverse-linked-list';
+import linkedListCycle from './linked-list/linked-list-cycle';
+import mergeTwoSortedLists from './linked-list/merge-two-sorted-lists';
+import maximumDepthOfBinaryTree from './trees/max-depth';
+import invertBinaryTree from './trees/invert-binary-tree';
+import lowestCommonAncestorOfBst from './trees/lca-bst';
+import subsets from './backtracking/subsets';
+import topKFrequentElements from './heap/top-k-frequent-elements';
+import floodFill from './matrix/flood-fill';
+import setMatrixZeroes from './matrix/set-matrix-zeroes';
+import numberOfIslands from './graphs/number-of-islands';
+import cloneGraph from './graphs/clone-graph';
+import courseSchedule from './graphs/course-schedule';
+import groupAnagrams from './arrays/group-anagrams';
+import encodeAndDecodeStrings from './arrays/encode-and-decode-strings';
+import validSudoku from './arrays/valid-sudoku';
+import longestConsecutiveSequence from './arrays/longest-consecutive-sequence';
+import validPalindrome from './two-pointers/valid-palindrome';
+import twoSumIi from './two-pointers/two-sum-ii-input-array-is-sorted';
+import threeSum from './two-pointers/3sum';
+import containerWithMostWater from './two-pointers/container-with-most-water';
+import trappingRainWater from './two-pointers/trapping-rain-water';
 
 export const QUESTION_DATA_DB: Record<
   string,
@@ -18,5 +38,25 @@ export const QUESTION_DATA_DB: Record<
   "binary-search": binarySearch,
   "reverse-linked-list": reverseLinkedList,
   "linked-list-cycle": linkedListCycle,
-  "maximum-depth-of-binary-tree": maximumDepthOfBinaryTree
+  "maximum-depth-of-binary-tree": maximumDepthOfBinaryTree,
+  "product-of-array-except-self": productOfArrayExceptSelf,
+  "merge-two-sorted-lists": mergeTwoSortedLists,
+  "invert-binary-tree": invertBinaryTree,
+  "lowest-common-ancestor-of-bst": lowestCommonAncestorOfBst,
+  "subsets": subsets,
+  "top-k-frequent-elements": topKFrequentElements,
+  "flood-fill": floodFill,
+  "set-matrix-zeroes": setMatrixZeroes,
+  "number-of-islands": numberOfIslands,
+  "clone-graph": cloneGraph,
+  "course-schedule": courseSchedule,
+  "group-anagrams": groupAnagrams,
+  "encode-and-decode-strings": encodeAndDecodeStrings,
+  "valid-sudoku": validSudoku,
+  "longest-consecutive-sequence": longestConsecutiveSequence,
+  "valid-palindrome": validPalindrome,
+  "two-sum-ii-input-array-is-sorted": twoSumIi,
+  "3sum": threeSum,
+  "container-with-most-water": containerWithMostWater,
+  "trapping-rain-water": trappingRainWater
 };
