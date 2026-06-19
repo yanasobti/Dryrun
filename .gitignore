@@ -1,0 +1,20 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Build folders
+dist/
+build/
+out/
+
+# Environment
+.env
+.env.local
+
+# IntelliJ
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
