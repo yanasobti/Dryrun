@@ -4,13 +4,11 @@ import { motion } from 'framer-motion';
 interface ContainerWithMostWaterVisualizerProps {
   frames: any[];
   currentFrameIndex: number;
-  visualizerState: any;
 }
 
 export const ContainerWithMostWaterVisualizer: React.FC<ContainerWithMostWaterVisualizerProps> = ({
   frames,
-  currentFrameIndex,
-  visualizerState
+  currentFrameIndex
 }) => {
   const currentFrame = frames[currentFrameIndex];
   const variables = currentFrame?.variables || {};
@@ -97,7 +95,7 @@ export const ContainerWithMostWaterVisualizer: React.FC<ContainerWithMostWaterVi
 
         {/* Render Bars */}
         <div className="w-[80%] flex justify-between items-end h-[220px] relative z-20 pointer-events-none">
-          {heightArray.map((h, idx) => {
+          {heightArray.map((h: number, idx: number) => {
             const isLeft = idx === left;
             const isRight = idx === right;
             const isWall = isLeft || isRight;

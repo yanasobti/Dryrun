@@ -175,7 +175,7 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Easy",
     category: "Two Pointers",
     pattern: "Two Pointers",
-    visualizers: ["array"],
+    visualizers: ["two-pointers"],
     visualizerLayout: "vertical",
     visualizationLevel: "full",
     url: "https://leetcode.com/problems/valid-palindrome/",
@@ -193,7 +193,7 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Two Pointers",
     pattern: "Two Pointers",
-    visualizers: ["array"],
+    visualizers: ["two-pointers"],
     visualizerLayout: "vertical",
     visualizationLevel: "full",
     url: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
@@ -211,7 +211,7 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Two Pointers",
     pattern: "Two Pointers",
-    visualizers: ["array"],
+    visualizers: ["two-pointers"],
     visualizerLayout: "vertical",
     visualizationLevel: "full",
     url: "https://leetcode.com/problems/3sum/",
@@ -229,7 +229,7 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Two Pointers",
     pattern: "Two Pointers",
-    visualizers: ["array"],
+    visualizers: ["two-pointers"],
     visualizerLayout: "vertical",
     visualizationLevel: "full",
     url: "https://leetcode.com/problems/container-with-most-water/",
@@ -247,7 +247,7 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Hard",
     category: "Two Pointers",
     pattern: "Two Pointers",
-    visualizers: ["array"],
+    visualizers: ["two-pointers"],
     visualizerLayout: "vertical",
     visualizationLevel: "full",
     url: "https://leetcode.com/problems/trapping-rain-water/",
@@ -285,12 +285,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Sliding Window",
     pattern: "Sliding Window",
-    visualizers: ["array", "hashmap"],
+    visualizers: ["sliding-window", "hashset"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "longest-substring-without-repeating-characters",
+    exampleCaseId: "longest-substring-without-repeating-characters"
   },
   {
     id: "longest-repeating-character-replacement",
@@ -301,12 +303,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Sliding Window",
     pattern: "Sliding Window",
-    visualizers: ["array", "hashmap"],
+    visualizers: ["sliding-window"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/longest-repeating-character-replacement/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "longest-repeating-character-replacement",
+    exampleCaseId: "longest-repeating-character-replacement"
   },
   {
     id: "permutation-in-string",
@@ -317,12 +321,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Sliding Window",
     pattern: "Sliding Window",
-    visualizers: ["array", "hashmap"],
+    visualizers: ["sliding-window"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/permutation-in-string/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "permutation-in-string",
+    exampleCaseId: "permutation-in-string"
   },
   {
     id: "minimum-window-substring",
@@ -333,12 +339,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Hard",
     category: "Sliding Window",
     pattern: "Sliding Window",
-    visualizers: ["array", "hashmap"],
+    visualizers: ["sliding-window", "hashmap"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/minimum-window-substring/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 35
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 35,
+    starterCodeId: "minimum-window-substring",
+    exampleCaseId: "minimum-window-substring"
   },
   {
     id: "sliding-window-maximum",
@@ -349,12 +357,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Hard",
     category: "Sliding Window",
     pattern: "Sliding Window",
-    visualizers: ["array", "recursion"],
+    visualizers: ["sliding-window"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/sliding-window-maximum/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 35
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 35,
+    starterCodeId: "sliding-window-maximum",
+    exampleCaseId: "sliding-window-maximum"
   },
 
   // ── STACK (21-27) ──
@@ -367,12 +377,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Easy",
     category: "Stack",
     pattern: "Stack",
-    visualizers: ["array", "recursion"],
+    visualizers: ["stack"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/valid-parentheses/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    estimatedMinutes: 15,
+    starterCodeId: "valid-parentheses",
+    exampleCaseId: "valid-parentheses",
+    strategy: "matching_pairs"
   },
   {
     id: "min-stack",
@@ -383,12 +396,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Stack",
     pattern: "Stack",
-    visualizers: ["array"],
+    visualizers: ["stack"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/min-stack/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    estimatedMinutes: 25,
+    starterCodeId: "min-stack",
+    exampleCaseId: "min-stack",
+    strategy: "auxiliary_state_stack"
   },
   {
     id: "evaluate-reverse-polish-notation",
@@ -399,12 +415,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Stack",
     pattern: "Stack",
-    visualizers: ["array"],
+    visualizers: ["stack"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    estimatedMinutes: 20,
+    starterCodeId: "evaluate-reverse-polish-notation",
+    exampleCaseId: "evaluate-reverse-polish-notation",
+    strategy: "postfix_evaluation"
   },
   {
     id: "generate-parentheses",
@@ -414,13 +433,15 @@ export const NEETCODE_150: Question[] = [
     slug: "generate-parentheses",
     difficulty: "Medium",
     category: "Stack",
-    pattern: "DFS Recursion",
-    visualizers: ["recursion"],
+    pattern: "Stack",
+    visualizers: ["stack"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/generate-parentheses/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    estimatedMinutes: 25,
+    starterCodeId: "generate-parentheses",
+    exampleCaseId: "generate-parentheses"
   },
   {
     id: "daily-temperatures",
@@ -431,12 +452,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Stack",
     pattern: "Stack",
-    visualizers: ["array"],
-    visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizers: ["stack", "array"],
+    visualizerLayout: "horizontal",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/daily-temperatures/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    estimatedMinutes: 20,
+    starterCodeId: "daily-temperatures",
+    exampleCaseId: "daily-temperatures",
+    strategy: "monotonic_decreasing"
   },
   {
     id: "car-fleet",
@@ -447,12 +471,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Stack",
     pattern: "Stack",
-    visualizers: ["array"],
-    visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizers: ["car-fleet", "stack"],
+    visualizerLayout: "horizontal",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/car-fleet/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    estimatedMinutes: 25,
+    starterCodeId: "car-fleet",
+    exampleCaseId: "car-fleet",
+    strategy: "car_fleet"
   },
   {
     id: "largest-rectangle-in-histogram",
@@ -463,12 +490,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Hard",
     category: "Stack",
     pattern: "Stack",
-    visualizers: ["array"],
-    visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizers: ["largest-rectangle", "stack"],
+    visualizerLayout: "horizontal",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/largest-rectangle-in-histogram/",
     supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 35
+    estimatedMinutes: 35,
+    starterCodeId: "largest-rectangle-in-histogram",
+    exampleCaseId: "largest-rectangle-in-histogram",
+    strategy: "largest_rectangle"
   },
 
   // ── BINARY SEARCH (28-34) ──

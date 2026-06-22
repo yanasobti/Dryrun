@@ -26,6 +26,18 @@ import twoSumIi from './two-pointers/two-sum-ii-input-array-is-sorted';
 import threeSum from './two-pointers/3sum';
 import containerWithMostWater from './two-pointers/container-with-most-water';
 import trappingRainWater from './two-pointers/trapping-rain-water';
+import longestSubstringWithoutRepeatingCharacters from './sliding-window/longest-substring-without-repeating-characters';
+import longestRepeatingCharacterReplacement from './sliding-window/longest-repeating-character-replacement';
+import permutationInString from './sliding-window/permutation-in-string';
+import minimumWindowSubstring from './sliding-window/minimum-window-substring';
+import slidingWindowMaximum from './sliding-window/sliding-window-maximum';
+import validParentheses from './stack/valid-parentheses';
+import dailyTemperatures from './stack/daily-temperatures';
+import minStack from './stack/min-stack';
+import evaluateReversePolishNotation from './stack/evaluate-reverse-polish-notation';
+import generateParentheses from './stack/generate-parentheses';
+import carFleet from './stack/car-fleet';
+import largestRectangleInHistogram from './stack/largest-rectangle-in-histogram';
 
 export const QUESTION_DATA_DB: Record<
   string,
@@ -58,5 +70,17 @@ export const QUESTION_DATA_DB: Record<
   "two-sum-ii-input-array-is-sorted": twoSumIi,
   "3sum": threeSum,
   "container-with-most-water": containerWithMostWater,
-  "trapping-rain-water": trappingRainWater
+  "trapping-rain-water": trappingRainWater,
+  "longest-substring-without-repeating-characters": longestSubstringWithoutRepeatingCharacters,
+  "longest-repeating-character-replacement": longestRepeatingCharacterReplacement,
+  "permutation-in-string": permutationInString,
+  "minimum-window-substring": minimumWindowSubstring,
+  "sliding-window-maximum": slidingWindowMaximum,
+  "valid-parentheses": validParentheses,
+  "daily-temperatures": dailyTemperatures,
+  "min-stack": minStack,
+  "evaluate-reverse-polish-notation": evaluateReversePolishNotation,
+  "generate-parentheses": generateParentheses,
+  "car-fleet": carFleet,
+  "largest-rectangle-in-histogram": largestRectangleInHistogram
 };

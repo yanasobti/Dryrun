@@ -25,7 +25,12 @@ export type VisualizerType =
   | "backtracking"
   | "encode-decode-strings"
   | "valid-sudoku"
-  | "longest-consecutive-sequence";
+  | "longest-consecutive-sequence"
+  | "two-pointers"
+  | "sliding-window"
+  | "permutation-in-string"
+  | "car-fleet"
+  | "largest-rectangle";
 
 export interface Question {
   id: string;
@@ -44,6 +49,7 @@ export interface Question {
   estimatedMinutes: number;
   starterCodeId?: string;
   exampleCaseId?: string;
+  strategy?: string;
 }
 
 export interface PatternDefinition {

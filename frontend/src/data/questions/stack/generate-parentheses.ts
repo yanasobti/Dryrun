@@ -1,8 +1,6 @@
-import java.util.*;
-import java.io.*;
-import java.math.*;
-
-class Solution {
+const questionData = {
+  description: "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses using an explicit Stack.",
+  code: `public class Solution {
     public java.util.List<String> generateParenthesis(int n) {
         java.util.List<String> res = new java.util.ArrayList<>();
         java.util.Stack<State> stack = new java.util.Stack<>();
@@ -38,11 +36,10 @@ class Solution {
             return str;
         }
     }
-}
+}`,
+  inputs: {
+    "n": "2"
+  }
+};
 
-public class Main {
-    public static void main(String[] args) {
-        Solution instance = new Solution();
-        System.out.println("Result: " + instance.generateParenthesis(2));
-    }
-}
+export default questionData;

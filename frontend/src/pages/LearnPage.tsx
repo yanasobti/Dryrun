@@ -21,7 +21,12 @@ import { GroupAnagramsVisualizer } from '../components/visualizers/GroupAnagrams
 import { EncodeDecodeStringsVisualizer } from '../components/visualizers/EncodeDecodeStringsVisualizer';
 import { ValidSudokuVisualizer } from '../components/visualizers/ValidSudokuVisualizer';
 import { LongestConsecutiveSequenceVisualizer } from '../components/visualizers/LongestConsecutiveSequenceVisualizer';
-import { ContainerWithMostWaterVisualizer } from '../components/visualizers/ContainerWithMostWaterVisualizer';
+import { TwoPointersVisualizer } from '../components/visualizers/TwoPointersVisualizer';
+import { SlidingWindowVisualizer } from '../components/visualizers/SlidingWindowVisualizer';
+import { StackVisualizer } from '../components/visualizers/StackVisualizer';
+import { CarFleetVisualizer } from '../components/visualizers/CarFleetVisualizer';
+import { LargestRectangleVisualizer } from '../components/visualizers/LargestRectangleVisualizer';
+import { generateEducationalExplanation } from '../utils/educationalNarrator';
 
 // Hook & Service & DBs
 import { useVisualizerState } from '../hooks/useVisualizerState';
@@ -1159,12 +1164,30 @@ export const LearnPage: React.FC = () => {
         />
       );
     }
-    if (type === 'container-with-most-water') {
+    if (type === 'two-pointers') {
       return (
-        <ContainerWithMostWaterVisualizer
-          frames={frames}
-          currentFrameIndex={currentFrameIndex}
+        <TwoPointersVisualizer
+          data={{ steps: frames }}
+          currentStep={currentFrameIndex}
+        />
+      );
+    }
+    if (type === 'sliding-window' || type === 'permutation-in-string') {
+      return (
+        <SlidingWindowVisualizer
+          data={{ steps: frames }}
+          currentStep={currentFrameIndex}
+          questionId={preset?.id}
+        />
+      );
+    }
+    if (type === 'stack') {
+      return (
+        <StackVisualizer
+          strategy={preset?.strategy}
           visualizerState={visualizerState}
+          data={{ steps: frames }}
+          currentStep={currentFrameIndex}
         />
       );
     }
@@ -1270,6 +1293,20 @@ export const LearnPage: React.FC = () => {
         />
       );
     }
+    if (type === 'car-fleet') {
+      return (
+        <CarFleetVisualizer
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'largest-rectangle') {
+      return (
+        <LargestRectangleVisualizer
+          visualizerState={visualizerState}
+        />
+      );
+    }
     if (type === 'recursion') {
       return (
         <RecursionVisualizer
@@ -1363,6 +1400,21 @@ export const LearnPage: React.FC = () => {
       );
     }
 
+    const educationalNarration = (() => {
+      if (!preset?.id || !activeFrame) return null;
+      const isTwoPointers = ['two-sum-ii-input-array-is-sorted', 'container-with-most-water', 'trapping-rain-water', '3sum', 'valid-palindrome'].includes(preset.id);
+      const isSlidingWindow = ['longest-substring-without-repeating-characters', 'longest-repeating-character-replacement', 'permutation-in-string', 'minimum-window-substring', 'sliding-window-maximum'].includes(preset.id);
+      if (!isTwoPointers && !isSlidingWindow) return null;
+      return generateEducationalExplanation(
+        preset.id,
+        activeFrame.variables || {},
+        frames[currentFrameIndex - 1]?.variables || {},
+        activeFrame.arrays || {},
+        currentFrameIndex,
+        frames.length
+      );
+    })();
+
     return (
       <div className="flex flex-col gap-4 w-full flex-1 min-h-0">
         <div className={visualizerLayoutClass}>
@@ -1399,7 +1451,7 @@ export const LearnPage: React.FC = () => {
               </div>
             </div>
             
-            <div className="text-[11px] font-semibold text-emerald-800 bg-emerald-100/40 border border-emerald-200 px-3 py-1.5 rounded-lg max-w-[60%] text-right font-sans-premium">
+            <div className="text-[11px] font-semibold text-emerald-800 bg-emerald-100/40 border border-emerald-250 px-3 py-1.5 rounded-lg max-w-[60%] text-right font-sans-premium">
               {activeFrame.explanation?.explanation || "All dry-run steps executed successfully."}
             </div>
           </motion.div>
@@ -1418,13 +1470,13 @@ export const LearnPage: React.FC = () => {
                   Tutor Lesson
                 </span>
                 <span className="text-xs font-bold text-slate-755 mt-0.5">
-                  {activeFrame.explanation?.title || "Evaluating Current Step"}
+                  {educationalNarration ? educationalNarration.title : (activeFrame.explanation?.title || "Evaluating Current Step")}
                 </span>
               </div>
             </div>
             
             <div className="text-[11.5px] font-bold text-indigo-955 bg-indigo-50/60 border border-indigo-150/50 px-3.5 py-2 rounded-xl max-w-[60%] text-right font-sans-premium shadow-2xs leading-relaxed">
-              {activeFrame.explanation?.explanation || "Evaluating current statement in simulation scope."}
+              {educationalNarration ? `${educationalNarration.explanation} ${educationalNarration.why}` : (activeFrame.explanation?.explanation || "Evaluating current statement in simulation scope.")}
             </div>
           </motion.div>
         )}

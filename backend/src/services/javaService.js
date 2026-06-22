@@ -242,7 +242,7 @@ exports.traceJavaCode = (code, pattern) => {
                                         type: 'array',
                                         varName: key
                                     });
-                                } else if (val.includes('HashMap') || val.includes('HashSet') || val.includes('ArrayList') || val.includes('PriorityQueue') || val.match(/instance of java\.util\.(?:HashMap|HashSet|ArrayList|TreeMap|TreeSet|LinkedList|PriorityQueue)/)) {
+                                } else if (val.includes('HashMap') || val.includes('HashSet') || val.includes('ArrayList') || val.includes('PriorityQueue') || val.includes('Stack') || val.includes('Deque') || val.includes('ArrayDeque') || val.match(/instance of java\.util\.(?:HashMap|HashSet|ArrayList|TreeMap|TreeSet|LinkedList|PriorityQueue|Stack|Deque|ArrayDeque)/)) {
                                     dumpQueue.push({
                                         command: `print ${key}`,
                                         expression: key,

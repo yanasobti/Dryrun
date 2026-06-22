@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
 export interface VisualizerState {
-  primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'general';
-  detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking')[];
+  primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'stack' | 'general';
+  detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'stack')[];
   arrays: { name: string; values: any[] }[];
   linkedLists: { name: string; rootRefId: string; nodes: Record<string, any>; hasCycle: boolean }[];
   trees: { name: string; rootRefId: string; nodes: Record<string, any> }[];
@@ -12,6 +12,7 @@ export interface VisualizerState {
   matrices: { name: string; grid: any[][] }[];
   graphs: { name: string; rootRefId: string; nodes: Record<string, any> }[];
   heaps: { name: string; elements: any[] }[];
+  stacks: { name: string; values: any[] }[];
   variables: Record<string, any>;
   explanation: string;
   line: number;
@@ -141,6 +142,7 @@ export const useVisualizerState = (
       matrices: [],
       graphs: [],
       heaps: [],
+      stacks: [],
       variables: {},
       explanation: 'No execution data loaded.',
       line: 1
@@ -340,6 +342,18 @@ export const useVisualizerState = (
       }
     });
 
+    // 3f. Extract Stacks
+    const stacks: { name: string; values: any[] }[] = [];
+    Object.entries(variables).forEach(([k, v]) => {
+      if (k === 'args') return;
+      const vStr = String(v);
+      const isStack = k.toLowerCase().includes('stack') || k.toLowerCase() === 'st' || vStr.includes('Stack') || vStr.includes('Deque') || vStr.includes('ArrayDeque');
+      if (isStack) {
+        const values = parseSetEntries(vStr);
+        stacks.push({ name: k, values });
+      }
+    });
+
     // 4. Extract Recursion / Call Stack
     const stack = frame.stack || [];
     const methodCounts: Record<string, number> = {};
@@ -353,7 +367,7 @@ export const useVisualizerState = (
     });
 
     // 5. Determine Detected Types & Primary Type
-    const detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking')[] = [];
+    const detectedTypes: ('array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'stack')[] = [];
     const isBacktracking = isRecursive && (variables['tempList'] !== undefined || variables['path'] !== undefined || variables['subset'] !== undefined);
 
     if (isBacktracking) detectedTypes.push('backtracking');
@@ -366,8 +380,9 @@ export const useVisualizerState = (
     if (heaps.length > 0) detectedTypes.push('heap');
     if (hashMaps.length > 0) detectedTypes.push('hashmap');
     if (hashSets.length > 0) detectedTypes.push('hashset');
+    if (stacks.length > 0) detectedTypes.push('stack');
 
-    let primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'general' = 'general';
+    let primaryType: 'array' | 'linkedlist' | 'tree' | 'hashmap' | 'hashset' | 'recursion' | 'matrix' | 'graph' | 'heap' | 'backtracking' | 'stack' | 'general' = 'general';
     if (isBacktracking) {
       primaryType = 'backtracking';
     } else if (isRecursive) {
@@ -380,6 +395,8 @@ export const useVisualizerState = (
       primaryType = 'linkedlist';
     } else if (matrices.length > 0) {
       primaryType = 'matrix';
+    } else if (stacks.length > 0) {
+      primaryType = 'stack';
     } else if (filteredArrays.length > 0) {
       primaryType = 'array';
     } else if (heaps.length > 0) {
@@ -402,6 +419,7 @@ export const useVisualizerState = (
       matrices,
       graphs,
       heaps,
+      stacks,
       variables,
       explanation,
       line
