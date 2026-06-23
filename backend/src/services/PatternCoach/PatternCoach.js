@@ -5,6 +5,7 @@ const LinkedListCoach = require('./LinkedListCoach');
 const TreeCoach = require('./TreeCoach');
 const RecursionCoach = require('./RecursionCoach');
 const GridCoach = require('./GridCoach');
+const LRUCacheCoach = require('./LRUCacheCoach');
 
 exports.generate = (codeLines, f, prevStep, stepIdx, pattern) => {
   const codeSnippet = codeLines[f.line - 1] ? codeLines[f.line - 1].trim() : "";
@@ -36,6 +37,16 @@ exports.generate = (codeLines, f, prevStep, stepIdx, pattern) => {
   };
 
   const pat = (pattern || "").toLowerCase();
+
+  // Route based on pattern
+  const isLRU = pat.includes('lru') || 
+                codeSnippet.includes('LRUCache') || 
+                codeLines.some(line => line.includes('class LRUCache') || line.includes('Solution.LRUCache'));
+
+  if (isLRU) {
+    const res = LRUCacheCoach.generate(context);
+    if (res) return res;
+  }
 
   // Route based on pattern
   if (pat.includes('grid') || pat.includes('island') || pat.includes('flood') || pat.includes('matrix')) {

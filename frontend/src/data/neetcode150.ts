@@ -529,12 +529,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Binary Search",
     pattern: "Binary Search",
-    visualizers: ["array"],
+    visualizers: ["matrix"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/search-a-2d-matrix/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "search-a-2d-matrix",
+    exampleCaseId: "search-a-2d-matrix",
+    strategy: "classic_search"
   },
   {
     id: "koko-eating-bananas",
@@ -547,10 +550,13 @@ export const NEETCODE_150: Question[] = [
     pattern: "Binary Search",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/koko-eating-bananas/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "koko-eating-bananas",
+    exampleCaseId: "koko-eating-bananas",
+    strategy: "search_on_answer"
   },
   {
     id: "find-minimum-in-rotated-sorted-array",
@@ -563,10 +569,13 @@ export const NEETCODE_150: Question[] = [
     pattern: "Binary Search",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "find-minimum-in-rotated-sorted-array",
+    exampleCaseId: "find-minimum-in-rotated-sorted-array",
+    strategy: "rotated_array_search"
   },
   {
     id: "search-in-rotated-sorted-array",
@@ -579,10 +588,13 @@ export const NEETCODE_150: Question[] = [
     pattern: "Binary Search",
     visualizers: ["array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/search-in-rotated-sorted-array/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "search-in-rotated-sorted-array",
+    exampleCaseId: "search-in-rotated-sorted-array",
+    strategy: "rotated_array_search"
   },
   {
     id: "time-based-key-value-store",
@@ -593,12 +605,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Binary Search",
     pattern: "Binary Search",
-    visualizers: ["hashmap", "array"],
-    visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizers: ["timemap"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/time-based-key-value-store/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "time-based-key-value-store",
+    exampleCaseId: "time-based-key-value-store",
+    strategy: "time_map_search"
   },
   {
     id: "median-of-two-sorted-arrays",
@@ -609,12 +624,15 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Hard",
     category: "Binary Search",
     pattern: "Binary Search",
-    visualizers: ["array"],
+    visualizers: ["partition"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/median-of-two-sorted-arrays/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 40
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 40,
+    starterCodeId: "median-of-two-sorted-arrays",
+    exampleCaseId: "median-of-two-sorted-arrays",
+    strategy: "partition_search"
   },
 
   // ── LINKED LIST (35-45) ──
@@ -647,10 +665,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["linked-list"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/merge-two-sorted-lists/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "merge-two-sorted-lists",
+    exampleCaseId: "merge-two-sorted-lists"
   },
   {
     id: "reorder-list",
@@ -663,10 +683,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Slow & Fast Pointers",
     visualizers: ["linked-list"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/reorder-list/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "reorder-list",
+    exampleCaseId: "reorder-list"
   },
   {
     id: "remove-nth-node-from-end-of-list",
@@ -679,10 +701,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Two Pointers",
     visualizers: ["linked-list"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "remove-nth-node-from-end-of-list",
+    exampleCaseId: "remove-nth-node-from-end-of-list"
   },
   {
     id: "copy-list-with-random-pointer",
@@ -695,10 +719,14 @@ export const NEETCODE_150: Question[] = [
     pattern: "HashMap",
     visualizers: ["linked-list", "hashmap"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/copy-list-with-random-pointer/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "copy-list-with-random-pointer",
+    exampleCaseId: "copy-list-with-random-pointer",
+    strategy: "random_pointer_copy"
   },
   {
     id: "add-two-numbers",
@@ -711,10 +739,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Linked List",
     visualizers: ["linked-list"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/add-two-numbers/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "add-two-numbers",
+    exampleCaseId: "add-two-numbers"
   },
   {
     id: "linked-list-cycle",
@@ -743,12 +773,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Linked List",
     pattern: "Slow & Fast Pointers",
-    visualizers: ["array"],
+    visualizers: ["cycle-detection"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/find-the-duplicate-number/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "find-the-duplicate-number",
+    exampleCaseId: "find-the-duplicate-number"
   },
   {
     id: "lru-cache",
@@ -759,12 +791,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Medium",
     category: "Linked List",
     pattern: "HashMap",
-    visualizers: ["linked-list", "hashmap"],
-    visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizers: ["lru-cache"],
+    visualizerLayout: "vertical",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/lru-cache/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "lru-cache",
+    exampleCaseId: "lru-cache"
   },
   {
     id: "merge-k-sorted-lists",
@@ -775,12 +809,14 @@ export const NEETCODE_150: Question[] = [
     difficulty: "Hard",
     category: "Linked List",
     pattern: "Two Pointers",
-    visualizers: ["linked-list"],
+    visualizers: ["merge-k-lists"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/merge-k-sorted-lists/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "merge-k-sorted-lists",
+    exampleCaseId: "merge-k-sorted-lists"
   },
   {
     id: "reverse-nodes-in-k-group",
@@ -793,10 +829,13 @@ export const NEETCODE_150: Question[] = [
     pattern: "Linked List",
     visualizers: ["linked-list"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/reverse-nodes-in-k-group/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 35
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 35,
+    starterCodeId: "reverse-nodes-in-k-group",
+    exampleCaseId: "reverse-nodes-in-k-group",
+    strategy: "reverse_k_group"
   },
 
   // ── TREES (46-60) ──

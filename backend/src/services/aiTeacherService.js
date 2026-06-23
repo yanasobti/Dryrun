@@ -13,8 +13,40 @@ exports.generateExplanation = (codeLines, f, prevStep, stepIdx, pattern) => {
 
   // 2. General Fallback logic
   let action = codeSnippet || `Line ${f.adjustedLine}`;
-  let explanation = `Executing line ${f.adjustedLine}`;
+  let explanation = `Executing statement...`;
   let why = "This is the next sequential statement in the program flow.";
+
+  const incMatch = codeSnippet.match(/(\w+)\+\+/);
+  const preIncMatch = codeSnippet.match(/\+\+(\w+)/);
+  const decMatch = codeSnippet.match(/(\w+)--/);
+  const preDecMatch = codeSnippet.match(/--(\w+)/);
+  const nextMatch = codeSnippet.match(/(\w+)\s*=\s*(\w+)\.next/);
+  const assignMatch = codeSnippet.match(/(\w+)\s*=\s*([^;]+)/);
+  
+  if (incMatch) {
+    explanation = `Incrementing \`${incMatch[1]}\` by 1. ➕`;
+    why = `We increase the value of the variable to track our count or index progress.`;
+  } else if (preIncMatch) {
+    explanation = `Incrementing \`${preIncMatch[1]}\` by 1. ➕`;
+    why = `We increase the value of the variable to track our count or index progress.`;
+  } else if (decMatch) {
+    explanation = `Decrementing \`${decMatch[1]}\` by 1. ➖`;
+    why = `We decrease the value of the variable to track our count or index progress.`;
+  } else if (preDecMatch) {
+    explanation = `Decrementing \`${preDecMatch[1]}\` by 1. ➖`;
+    why = `We decrease the value of the variable to track our count or index progress.`;
+  } else if (nextMatch) {
+    explanation = `Moving pointer \`${nextMatch[1]}\` forward to its next node (\`${nextMatch[2]}.next\`). ➔`;
+    why = `We traverse the linked list by updating our pointer reference to point to the next node.`;
+  } else if (assignMatch && !codeSnippet.includes('int ') && !codeSnippet.includes('double ') && !codeSnippet.includes('ListNode ') && !codeSnippet.includes('Solution ')) {
+    explanation = `Updating variable \`${assignMatch[1]}\` to equal \`${assignMatch[2].trim()}\`. 💾`;
+    why = `Storing the computed value in variable memory.`;
+  } else if (codeSnippet.trim() === '}') {
+    explanation = `Closing block and continuing execution. 🔄`;
+    why = `End of the current code block scope.`;
+  } else {
+    explanation = `Evaluating: \`${codeSnippet}\` 🔍`;
+  }
   
   const currentVars = f.variables || {};
   const lastVars = prevStep ? prevStep.variables : {};
@@ -87,9 +119,9 @@ exports.generateExplanation = (codeLines, f, prevStep, stepIdx, pattern) => {
     explanation = `Welcome to DryRun! 👋 We just stepped into the \`main\` method, which is the starting point of every Java program. Let's trace this step-by-step!`;
     why = `Every Java application begins execution from the public static void main method.`;
   } else if (codeSnippet === '}') {
-    action = `Exit scope`;
-    explanation = `We reached the end of the block. Cleaning up scope! 🧹`;
-    why = `Any variables defined inside this block are discarded as their lifecycle ends.`;
+    action = `Exit`;
+    explanation = `We have completed the execution of this step. 🏁`;
+    why = `The current execution scope has ended.`;
   }
 
   return { action, explanation, why, isSignificant: false };

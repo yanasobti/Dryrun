@@ -26,6 +26,11 @@ import { SlidingWindowVisualizer } from '../components/visualizers/SlidingWindow
 import { StackVisualizer } from '../components/visualizers/StackVisualizer';
 import { CarFleetVisualizer } from '../components/visualizers/CarFleetVisualizer';
 import { LargestRectangleVisualizer } from '../components/visualizers/LargestRectangleVisualizer';
+import { TimeMapVisualizer } from '../components/visualizers/TimeMapVisualizer';
+import { PartitionVisualizer } from '../components/visualizers/PartitionVisualizer';
+import { CycleDetectionVisualizer } from '../components/visualizers/CycleDetectionVisualizer';
+import { LRUCacheVisualizer } from '../components/visualizers/LRUCacheVisualizer';
+import { MergeKListsVisualizer } from '../components/visualizers/MergeKListsVisualizer';
 import { generateEducationalExplanation } from '../utils/educationalNarrator';
 
 // Hook & Service & DBs
@@ -792,6 +797,17 @@ export const LearnPage: React.FC = () => {
     // Strip public class flags to prevent compile name mismatch
     wrappedCode = wrappedCode.replace(/\bpublic\s+class\b/g, 'class');
 
+    // Inject clean toString() methods for Node and ListNode classes to show actual values
+    wrappedCode = wrappedCode.replace(
+      /(class ListNode\s*\{)/g,
+      `$1\n    @Override\n    public String toString() { return String.valueOf(this.val); }\n`
+    );
+    wrappedCode = wrappedCode.replace(
+      /(class Node\s*\{)/g,
+      `$1\n    @Override\n    public String toString() { return String.valueOf(this.val); }\n`
+    );
+
+
     let bstOrListCode = "";
     const paramCalls: string[] = [];
 
@@ -810,6 +826,40 @@ export const LearnPage: React.FC = () => {
           });
           bstOrListCode += generateBSTConstruction(numbers, p.type);
           paramCalls.push("root");
+        } else if (p.type.endsWith('[]')) {
+          // ListNode[]
+          try {
+            let parsed = [];
+            try {
+              parsed = JSON.parse(val.replace(/'/g, '"'));
+            } catch (e) {
+              parsed = val.split(';').map(part => part.split(',').map(x => parseInt(x.trim())).filter(n => !isNaN(n)));
+            }
+            
+            let code = "";
+            const listVars = [];
+            for (let i = 0; i < parsed.length; i++) {
+              const listVals = parsed[i];
+              for (let j = 0; j < listVals.length; j++) {
+                code += `        ListNode list_${i}_n${j} = new ListNode(${listVals[j]});\n`;
+              }
+              if (listVals.length > 0) {
+                code += `        ListNode list_${i}_head = list_${i}_n0;\n`;
+                for (let j = 0; j < listVals.length - 1; j++) {
+                  code += `        list_${i}_n${j}.next = list_${i}_n${j + 1};\n`;
+                }
+                listVars.push(`list_${i}_head`);
+              } else {
+                listVars.push("null");
+              }
+            }
+            code += `        ListNode[] ${p.name} = new ListNode[]{ ${listVars.join(', ')} };\n`;
+            bstOrListCode += code;
+            paramCalls.push(p.name);
+          } catch (e) {
+            bstOrListCode += `        ListNode[] ${p.name} = new ListNode[]{};\n`;
+            paramCalls.push(p.name);
+          }
         } else if (questionId === 'clone-graph') {
           try {
             const parsed = JSON.parse(val.replace(/'/g, '"')) as number[][];
@@ -832,6 +882,31 @@ export const LearnPage: React.FC = () => {
             bstOrListCode += `        Node node = new Node(1);\n`;
             paramCalls.push("node");
           }
+        } else if (questionId === 'copy-list-with-random-pointer') {
+          // Input: [[7,null],[13,0],[11,4],[10,2],[1,0]]
+          try {
+            const cleanVal = val.trim().replace(/'/g, '"');
+            const parsed = JSON.parse(cleanVal);
+            let code = "";
+            for (let i = 0; i < parsed.length; i++) {
+              code += `        Node n${i} = new Node(${parsed[i][0]});\n`;
+            }
+            code += `        Node ${p.name} = n0;\n`;
+            for (let i = 0; i < parsed.length - 1; i++) {
+              code += `        n${i}.next = n${i + 1};\n`;
+            }
+            for (let i = 0; i < parsed.length; i++) {
+              const randIdx = parsed[i][1];
+              if (randIdx !== null && randIdx !== undefined) {
+                code += `        n${i}.random = n${randIdx};\n`;
+              }
+            }
+            bstOrListCode += code;
+            paramCalls.push(p.name);
+          } catch (e) {
+            bstOrListCode += `        Node ${p.name} = new Node(1);\n`;
+            paramCalls.push(p.name);
+          }
         } else {
           const parts = val.split(/;|\+/);
           const numbers = parts[0].split(',').map(x => parseInt(x.trim())).filter(n => !isNaN(n));
@@ -851,8 +926,8 @@ export const LearnPage: React.FC = () => {
             pos = 1;
           }
 
-          bstOrListCode += generateListConstruction(numbers, p.type, pos);
-          paramCalls.push("head");
+          bstOrListCode += generateListConstruction(numbers, p.type, pos, p.name);
+          paramCalls.push(p.name);
         }
       } else if (isArray) {
         if (typeLower.includes('[][]')) {
@@ -958,6 +1033,40 @@ export const LearnPage: React.FC = () => {
       mainBody += `System.setIn(new java.io.ByteArrayInputStream("${escapedStdin}".getBytes()));\n        `;
     }
 
+    const printListHelper = `
+    public static void printList(ListNode head) {
+        if (head == null) {
+            System.out.println("Result: null");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        ListNode curr = head;
+        java.util.Set<ListNode> visited = new java.util.HashSet<>();
+        int count = 0;
+        while (curr != null && count < 100 && !visited.contains(curr)) {
+            visited.add(curr);
+            sb.append(curr.val);
+            if (curr.next != null && !visited.contains(curr.next)) {
+                sb.append(" -> ");
+            }
+            curr = curr.next;
+            count++;
+        }
+        if (curr != null) {
+            if (visited.contains(curr)) {
+                sb.append(" -> [Cycle]");
+            } else {
+                sb.append(" -> ...");
+            }
+        } else {
+            sb.append(" -> null");
+        }
+        System.out.println("Result: " + sb.toString());
+    }
+`;
+
+    const helperCode = method.returnType === 'ListNode' ? printListHelper : "";
+
     if (targetClassName) {
       lineShiftRef.current = 0;
       if (bstOrListCode) {
@@ -968,11 +1077,13 @@ export const LearnPage: React.FC = () => {
         mainBody += `instance.${method.name}(${paramList});`;
       } else if (method.returnType.endsWith('[]')) {
         mainBody += `System.out.println("Result: " + java.util.Arrays.toString(instance.${method.name}(${paramList})));`;
+      } else if (method.returnType === 'ListNode') {
+        mainBody += `printList(instance.${method.name}(${paramList}));`;
       } else {
         mainBody += `System.out.println("Result: " + instance.${method.name}(${paramList}));`;
       }
       
-      wrappedCode = `${wrappedCode}\n\npublic class Main {\n    public static void main(String[] args) {\n        ${mainBody}\n    }\n}`;
+      wrappedCode = `${wrappedCode}\n\npublic class Main {\n    ${helperCode}\n    public static void main(String[] args) {\n        ${mainBody}\n    }\n}`;
     } else {
       lineShiftRef.current = 1;
       if (bstOrListCode) {
@@ -983,12 +1094,16 @@ export const LearnPage: React.FC = () => {
         mainBody += `instance.${method.name}(${paramList});`;
       } else if (method.returnType.endsWith('[]')) {
         mainBody += `System.out.println("Result: " + java.util.Arrays.toString(instance.${method.name}(${paramList})));`;
+      } else if (method.returnType === 'ListNode') {
+        mainBody += `printList(instance.${method.name}(${paramList}));`;
       } else {
         mainBody += `System.out.println("Result: " + instance.${method.name}(${paramList}));`;
       }
 
-      wrappedCode = `public class Main {\n    ${code}\n\n    public static void main(String[] args) {\n        ${mainBody}\n    }\n}`;
+      wrappedCode = `public class Main {\n    ${wrappedCode}\n\n    ${helperCode}\n    public static void main(String[] args) {\n        ${mainBody}\n    }\n}`;
     }
+
+
 
     executeVisualization(wrappedCode);
   };
@@ -1204,6 +1319,7 @@ export const LearnPage: React.FC = () => {
           frames={frames}
           currentFrameIndex={currentFrameIndex}
           visualizerState={visualizerState}
+          strategy={preset?.strategy}
         />
       );
     }
@@ -1265,6 +1381,70 @@ export const LearnPage: React.FC = () => {
       if (visualizerState.linkedLists.length === 0) {
         return <div className="text-xs text-slate-400 font-mono italic p-6 text-center">Linked List not initialized yet</div>;
       }
+
+      const isMergeOrAdd = preset?.id === 'merge-two-sorted-lists' || preset?.id === 'add-two-numbers';
+      
+      const inputLists = visualizerState.linkedLists.filter(list => 
+        ['list1', 'list2', 'l1', 'l2'].includes(list.name.toLowerCase())
+      );
+      const outputLists = visualizerState.linkedLists.filter(list => 
+        !inputLists.includes(list)
+      );
+
+      let inputsToRender = inputLists;
+      let outputsToRender = outputLists;
+      if (isMergeOrAdd && inputsToRender.length === 0 && visualizerState.linkedLists.length >= 2) {
+        inputsToRender = visualizerState.linkedLists.slice(0, 2);
+        outputsToRender = visualizerState.linkedLists.slice(2);
+      }
+
+      const hasLargeList = visualizerState.linkedLists.some(list => 
+        Object.keys(list.nodes || {}).length > 5
+      );
+      const useSmallSize = hasLargeList || isMergeOrAdd;
+
+      if (isMergeOrAdd) {
+        return (
+          <div className="flex flex-col gap-6 w-full">
+            {inputsToRender.length > 0 && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                {inputsToRender.map((list, idx) => (
+                  <div key={list.rootRefId + '-in-' + idx} className="bg-slate-50/40 rounded-xl p-3 border border-slate-100">
+                    <LinkedListVisualizer
+                      name={list.name}
+                      rootRefId={list.rootRefId}
+                      nodes={list.nodes}
+                      variables={visualizerState.variables}
+                      codeLine={activeFrame?.code}
+                      strategy={preset?.strategy}
+                      size={useSmallSize ? 'small' : 'normal'}
+                      explanation={activeFrame?.explanation}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+            {outputsToRender.length > 0 && (
+              <div className="flex flex-col gap-6 w-full border-t border-slate-100/60 pt-4">
+                {outputsToRender.map((list, idx) => (
+                  <LinkedListVisualizer
+                    key={list.rootRefId + '-out-' + idx}
+                    name={list.name}
+                    rootRefId={list.rootRefId}
+                    nodes={list.nodes}
+                    variables={visualizerState.variables}
+                    codeLine={activeFrame?.code}
+                    strategy={preset?.strategy}
+                    size={useSmallSize ? 'small' : 'normal'}
+                    explanation={activeFrame?.explanation}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      }
+
       return (
         <div className="flex flex-col gap-6 w-full">
           {visualizerState.linkedLists.map((list, idx) => (
@@ -1275,9 +1455,39 @@ export const LearnPage: React.FC = () => {
               nodes={list.nodes}
               variables={visualizerState.variables}
               codeLine={activeFrame?.code}
+              strategy={preset?.strategy}
+              size={useSmallSize ? 'small' : 'normal'}
+              explanation={activeFrame?.explanation}
             />
           ))}
         </div>
+      );
+    }
+
+    if (type === 'cycle-detection') {
+      return (
+        <CycleDetectionVisualizer
+          frames={frames}
+          visualizerState={visualizerState}
+          preset={preset}
+          paramInputs={paramInputs}
+        />
+      );
+    }
+    if (type === 'lru-cache') {
+      return (
+        <LRUCacheVisualizer
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'merge-k-lists') {
+      return (
+        <MergeKListsVisualizer
+          visualizerState={visualizerState}
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+        />
       );
     }
     if (type === 'tree') {
@@ -1303,6 +1513,24 @@ export const LearnPage: React.FC = () => {
     if (type === 'largest-rectangle') {
       return (
         <LargestRectangleVisualizer
+          visualizerState={visualizerState}
+        />
+      );
+    }
+    if (type === 'timemap') {
+      return (
+        <TimeMapVisualizer
+          frames={frames}
+          currentFrameIndex={currentFrameIndex}
+          visualizerState={visualizerState}
+          preset={questionDetails}
+          paramInputs={paramInputs}
+        />
+      );
+    }
+    if (type === 'partition') {
+      return (
+        <PartitionVisualizer
           visualizerState={visualizerState}
         />
       );
@@ -1333,6 +1561,7 @@ export const LearnPage: React.FC = () => {
               questionId={preset?.id}
               arrays={visualizerState.arrays}
               frames={frames}
+              strategy={preset?.strategy}
             />
           ))}
         </div>
@@ -1415,6 +1644,52 @@ export const LearnPage: React.FC = () => {
       );
     })();
 
+
+    const formatReturnValue = (val: any) => {
+      if (val === undefined || val === null) return "null";
+      const valStr = String(val);
+      
+      const listNodeMatch = valStr.match(/instance of ListNode\(id=([a-fA-F0-9]+)\)/i) || 
+                            valStr.match(/id=([a-fA-F0-9]+)/i) || 
+                            valStr.match(/ListNode@([a-fA-F0-9]+)/i);
+      if (listNodeMatch) {
+        const startRefId = listNodeMatch[1];
+        const heapObjects: Record<string, any> = visualizerState?.linkedLists?.[0]?.nodes || {};
+        
+        let currId: string | null = startRefId;
+        const visited = new Set<string>();
+        const elements: string[] = [];
+        
+        while (currId && heapObjects[currId] && !visited.has(currId) && elements.length < 100) {
+          visited.add(currId);
+          const nodeVal: any = heapObjects[currId];
+          elements.push(String(nodeVal.val));
+          
+          let nextId: string | null = null;
+          if (nodeVal.next) {
+            if (typeof nodeVal.next === 'string') {
+              const nextMatchVal = nodeVal.next.match(/id=([a-fA-F0-9]+)/i);
+              nextId = nextMatchVal ? nextMatchVal[1] : nodeVal.next;
+            } else if (nodeVal.next.refId) {
+              nextId = nodeVal.next.refId;
+            } else {
+              nextId = String(nodeVal.next);
+            }
+          }
+          currId = nextId;
+        }
+        
+        if (elements.length > 0) {
+          if (currId && visited.has(currId)) {
+            return elements.join(' → ') + ' → [Cycle]';
+          }
+          return elements.join(' → ') + ' → null';
+        }
+      }
+      return valStr;
+    };
+
+
     return (
       <div className="flex flex-col gap-4 w-full flex-1 min-h-0">
         <div className={visualizerLayoutClass}>
@@ -1446,10 +1721,11 @@ export const LearnPage: React.FC = () => {
                   Solution Resolved
                 </span>
                 <span className="text-xs font-bold text-slate-700 mt-0.5">
-                  Result: <strong className="text-emerald-600 font-mono text-sm">{activeFrame.returnValue}</strong>
+                  Result: <strong className="text-emerald-600 font-mono text-sm">{formatReturnValue(activeFrame.returnValue)}</strong>
                 </span>
               </div>
             </div>
+
             
             <div className="text-[11px] font-semibold text-emerald-800 bg-emerald-100/40 border border-emerald-250 px-3 py-1.5 rounded-lg max-w-[60%] text-right font-sans-premium">
               {activeFrame.explanation?.explanation || "All dry-run steps executed successfully."}

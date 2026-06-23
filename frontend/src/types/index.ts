@@ -30,7 +30,12 @@ export type VisualizerType =
   | "sliding-window"
   | "permutation-in-string"
   | "car-fleet"
-  | "largest-rectangle";
+  | "largest-rectangle"
+  | "timemap"
+  | "partition"
+  | "cycle-detection"
+  | "lru-cache"
+  | "merge-k-lists";
 
 export interface Question {
   id: string;

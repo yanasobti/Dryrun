@@ -4,9 +4,23 @@ import twoSum from './arrays/two-sum';
 import bestTimeToBuyAndSellStock from './arrays/best-time-to-buy-and-sell-stock';
 import productOfArrayExceptSelf from './arrays/product-of-array-except-self';
 import binarySearch from './binary-search/binary-search';
+import searchMatrix from './binary-search/search-a-2d-matrix';
+import kokoEatingBananas from './binary-search/koko-eating-bananas';
+import findMinInRotatedSortedArray from './binary-search/find-minimum-in-rotated-sorted-array';
+import searchInRotatedSortedArray from './binary-search/search-in-rotated-sorted-array';
+import timeBasedKeyValueStore from './binary-search/time-based-key-value-store';
+import medianOfTwoSortedArrays from './binary-search/median-of-two-sorted-arrays';
 import reverseLinkedList from './linked-list/reverse-linked-list';
 import linkedListCycle from './linked-list/linked-list-cycle';
 import mergeTwoSortedLists from './linked-list/merge-two-sorted-lists';
+import reorderList from './linked-list/reorder-list';
+import removeNthNodeFromEnd from './linked-list/remove-nth-node-from-end-of-list';
+import copyListWithRandomPointer from './linked-list/copy-list-with-random-pointer';
+import addTwoNumbers from './linked-list/add-two-numbers';
+import findTheDuplicateNumber from './linked-list/find-the-duplicate-number';
+import lruCache from './linked-list/lru-cache';
+import mergeKSortedLists from './linked-list/merge-k-sorted-lists';
+import reverseNodesInKGroup from './linked-list/reverse-nodes-in-k-group';
 import maximumDepthOfBinaryTree from './trees/max-depth';
 import invertBinaryTree from './trees/invert-binary-tree';
 import lowestCommonAncestorOfBst from './trees/lca-bst';
@@ -48,11 +62,25 @@ export const QUESTION_DATA_DB: Record<
   "two-sum": twoSum,
   "best-time-to-buy-and-sell-stock": bestTimeToBuyAndSellStock,
   "binary-search": binarySearch,
+  "search-a-2d-matrix": searchMatrix,
+  "koko-eating-bananas": kokoEatingBananas,
+  "find-minimum-in-rotated-sorted-array": findMinInRotatedSortedArray,
+  "search-in-rotated-sorted-array": searchInRotatedSortedArray,
+  "time-based-key-value-store": timeBasedKeyValueStore,
+  "median-of-two-sorted-arrays": medianOfTwoSortedArrays,
   "reverse-linked-list": reverseLinkedList,
   "linked-list-cycle": linkedListCycle,
   "maximum-depth-of-binary-tree": maximumDepthOfBinaryTree,
   "product-of-array-except-self": productOfArrayExceptSelf,
   "merge-two-sorted-lists": mergeTwoSortedLists,
+  "reorder-list": reorderList,
+  "remove-nth-node-from-end-of-list": removeNthNodeFromEnd,
+  "copy-list-with-random-pointer": copyListWithRandomPointer,
+  "add-two-numbers": addTwoNumbers,
+  "find-the-duplicate-number": findTheDuplicateNumber,
+  "lru-cache": lruCache,
+  "merge-k-sorted-lists": mergeKSortedLists,
+  "reverse-nodes-in-k-group": reverseNodesInKGroup,
   "invert-binary-tree": invertBinaryTree,
   "lowest-common-ancestor-of-bst": lowestCommonAncestorOfBst,
   "subsets": subsets,

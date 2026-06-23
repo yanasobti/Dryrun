@@ -7,6 +7,7 @@ interface MatrixVisualizerProps {
   frames: any[];
   currentFrameIndex: number;
   visualizerState?: any;
+  strategy?: string;
 }
 
 export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
@@ -14,7 +15,8 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
   grid: activeGrid,
   frames,
   currentFrameIndex,
-  visualizerState
+  visualizerState,
+  strategy
 }) => {
   // 1. Immutable Background Layer: Cache the original grid on first render
   const originalGridRef = useRef<any[][] | null>(null);
@@ -43,6 +45,8 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
   const prevVars = prevFrame ? prevFrame.variables : {};
 
   // 2. Active Cell Detection
+  const isBinarySearch = strategy === 'classic_search' || (currentVars['left'] !== undefined && currentVars['mid'] !== undefined);
+
   const activeR = currentVars['i'] !== undefined ? parseInt(currentVars['i']) : 
                   currentVars['r'] !== undefined ? parseInt(currentVars['r']) : -1;
 
@@ -54,6 +58,18 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
 
   const prevC = prevVars['j'] !== undefined ? parseInt(prevVars['j']) : 
                 prevVars['c'] !== undefined ? parseInt(prevVars['c']) : -1;
+
+  const minCellWidth = useMemo(() => {
+    if (C <= 4) return '80px';
+    if (C <= 8) return '64px';
+    return '48px';
+  }, [C]);
+
+  const cellClassSize = useMemo(() => {
+    if (C <= 4) return 'w-20 h-20 text-lg';
+    if (C <= 8) return 'w-16 h-16 text-base';
+    return 'w-11 h-11 text-xs';
+  }, [C]);
 
   // 3. Chronological Scan to assign Unique Island IDs and color codes
   const { cellIslands, maxIslandCount, activeIsland } = useMemo(() => {
@@ -165,18 +181,13 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
     const islandId = cellIslands[key];
 
     if (isTarget) {
-      // Primary Highlighting during active DFS
       if (activeFrame.methodName === 'dfs') {
         return 'bg-purple-500 border-purple-600 text-white font-black shadow-lg scale-110 z-20 animate-pulse';
       }
-      
-      // Highlight on first discovery step in numIslands
       const code = (activeFrame.code || "").trim();
       if (activeFrame.methodName === 'numIslands' && (code.includes('numIslands++') || code.includes('dfs('))) {
         return 'bg-purple-500 border-purple-600 text-white font-black shadow-lg scale-110 z-20 animate-pulse';
       }
-
-      // Secondary scanning cell outline (no big purple fill)
       const strVal = String(cellVal).replace(/'/g, '').trim();
       const baseBg = strVal === '0' 
         ? 'bg-slate-100 text-slate-350' 
@@ -186,6 +197,26 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
 
     if (islandId !== undefined) {
       return getIslandColorClass(islandId);
+    }
+
+    if (isBinarySearch) {
+      const leftVal = currentVars['left'] !== undefined ? parseInt(currentVars['left']) : -1;
+      const rightVal = currentVars['right'] !== undefined ? parseInt(currentVars['right']) : -1;
+      const midVal = currentVars['mid'] !== undefined ? parseInt(currentVars['mid']) : -1;
+      const keyIndex = r * C + c;
+
+      if (keyIndex === midVal) {
+        return 'bg-amber-500/10 border-amber-500 border-2 text-amber-700 font-black shadow-md scale-105 z-10';
+      }
+      if (keyIndex === leftVal) {
+        return 'bg-cyan-500/10 border-cyan-500 border-2 text-cyan-700 font-bold';
+      }
+      if (keyIndex === rightVal) {
+        return 'bg-rose-500/10 border-rose-500 border-2 text-rose-700 font-bold';
+      }
+      if (leftVal !== -1 && rightVal !== -1 && (keyIndex < leftVal || keyIndex > rightVal)) {
+        return 'bg-slate-50 border-slate-200 text-slate-350 opacity-40';
+      }
     }
 
     const strVal = String(cellVal).replace(/'/g, '').trim();
@@ -198,54 +229,69 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-50 border border-slate-200/60 rounded-xl p-5 shadow-inner">
-      
+      {(strategy || isBinarySearch) && (
+        <div className="text-center border-b border-slate-200/20 pb-2.5 mb-3 w-full">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-mono">
+            {isBinarySearch 
+              ? 'Binary Search • Classic Target Search' 
+              : strategy === 'search_on_answer'
+              ? 'Binary Search • Search on Answer (Optimization)'
+              : strategy === 'rotated_array_search'
+              ? 'Binary Search • Rotated Sorted Array Search'
+              : 'Binary Search'}
+          </span>
+        </div>
+      )}
+
       {/* ── TOP SUMMARY DASHBOARD ── */}
-      <div className="w-full grid grid-cols-4 gap-2 mb-6 bg-white border border-slate-200/60 rounded-xl p-3 shadow-sm text-center">
-        <div>
-          <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">Islands Found</div>
-          <motion.div 
-            key={maxIslandCount}
-            initial={{ scale: 0.8, color: "#10b981" }}
-            animate={{ scale: 1, color: "#1e293b" }}
-            className="text-lg font-black font-sans-premium"
-          >
-            {maxIslandCount}
-          </motion.div>
-        </div>
-        <div>
-          <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">Current Cell</div>
-          <div className="text-lg font-bold font-sans-premium text-slate-700">
-            {activeR !== -1 ? `(${activeR}, ${activeC})` : '—'}
+      {!isBinarySearch && (activeFrame.methodName === 'dfs' || activeFrame.methodName === 'numIslands') && (
+        <div className="w-full grid grid-cols-4 gap-2 mb-6 bg-white border border-slate-200/60 rounded-xl p-3 shadow-sm text-center">
+          <div>
+            <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">Islands Found</div>
+            <motion.div 
+              key={maxIslandCount}
+              initial={{ scale: 0.8, color: "#10b981" }}
+              animate={{ scale: 1, color: "#1e293b" }}
+              className="text-lg font-black font-sans-premium"
+            >
+              {maxIslandCount}
+            </motion.div>
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">Current Cell</div>
+            <div className="text-lg font-bold font-sans-premium text-slate-700">
+              {activeR !== -1 ? `(${activeR}, ${activeC})` : '—'}
+            </div>
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">DFS Status</div>
+            <div className="text-sm font-extrabold uppercase font-sans-premium text-indigo-600 mt-0.5">
+              {activeFrame.methodName === 'dfs' ? 'Exploring' : 'Scanning'}
+            </div>
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">Connected Land</div>
+            <div className="text-lg font-bold font-sans-premium text-slate-700">
+              {connectedVisitedCount}
+            </div>
           </div>
         </div>
-        <div>
-          <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">DFS Status</div>
-          <div className="text-sm font-extrabold uppercase font-sans-premium text-indigo-600 mt-0.5">
-            {activeFrame.methodName === 'dfs' ? 'Exploring' : 'Scanning'}
-          </div>
-        </div>
-        <div>
-          <div className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">Connected Land</div>
-          <div className="text-lg font-bold font-sans-premium text-slate-700">
-            {connectedVisitedCount}
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* ── GRID CANVAS AREA ── */}
-      <div className="relative overflow-visible max-w-full p-6 bg-white border border-slate-100 rounded-2xl shadow-sm flex justify-center items-center">
+      <div className="relative overflow-visible max-w-full p-6 bg-white border border-slate-100 rounded-2xl shadow-sm flex justify-center items-center w-full">
         <div 
-          className="grid gap-2 relative"
-          style={{ gridTemplateColumns: `repeat(${C + 1}, minmax(44px, 1fr))` }}
+          className="grid gap-2.5 relative justify-center mx-auto"
+          style={{ gridTemplateColumns: `repeat(${C + 1}, minmax(${minCellWidth}, 1fr))` }}
         >
           {/* Top-Left Corner Header */}
-          <div className="w-11 h-11 flex items-center justify-center text-[10px] font-mono text-slate-400 font-bold border border-transparent">
+          <div className={`${cellClassSize} flex items-center justify-center text-[10px] font-mono text-slate-400 font-bold border border-transparent`}>
             r \ c
           </div>
 
           {/* Column Indices */}
           {Array.from({ length: C }).map((_, c) => (
-            <div key={`col-header-${c}`} className="w-11 h-11 flex items-center justify-center text-xs font-mono text-slate-400 font-bold border border-transparent">
+            <div key={`col-header-${c}`} className={`${cellClassSize} flex items-center justify-center text-xs font-mono text-slate-400 font-bold border border-transparent`}>
               {c}
             </div>
           ))}
@@ -254,18 +300,33 @@ export const MatrixVisualizer: React.FC<MatrixVisualizerProps> = ({
           {originalGrid.map((row, r) => (
             <React.Fragment key={`grid-row-frag-${r}`}>
               {/* Row Index Header */}
-              <div className="w-11 h-11 flex items-center justify-center text-xs font-mono text-slate-400 font-bold border border-transparent">
+              <div className={`${cellClassSize} flex items-center justify-center text-xs font-mono text-slate-400 font-bold border border-transparent`}>
                 {r}
               </div>
 
               {row.map((val, c) => {
                 const isTarget = r === activeR && c === activeC;
+                const leftVal = currentVars['left'] !== undefined ? parseInt(currentVars['left']) : -1;
+                const rightVal = currentVars['right'] !== undefined ? parseInt(currentVars['right']) : -1;
+                const midVal = currentVars['mid'] !== undefined ? parseInt(currentVars['mid']) : -1;
+                const keyIndex = r * C + c;
 
                 return (
                   <div
                     key={`island-cell-${r}-${c}`}
-                    className={`w-11 h-11 flex items-center justify-center border rounded-xl text-sm font-mono transition-all duration-300 relative ${getCellClasses(r, c, val)}`}
+                    className={`${cellClassSize} flex items-center justify-center border rounded-xl font-bold font-mono transition-all duration-300 relative ${getCellClasses(r, c, val)}`}
                   >
+                    {/* Flat index labels for binary search matrix */}
+                    {isBinarySearch && (
+                      <div className="absolute inset-0 flex flex-col justify-between p-1 pointer-events-none select-none text-[9px] font-black font-mono">
+                        <div className="flex justify-between w-full">
+                          {keyIndex === leftVal && <span className="bg-cyan-500 text-white px-1 rounded leading-none">left</span>}
+                          {keyIndex === rightVal && <span className="bg-rose-500 text-white px-1 rounded leading-none ml-auto">right</span>}
+                        </div>
+                        {keyIndex === midVal && <span className="bg-amber-500 text-white px-1 py-0.5 rounded leading-none mx-auto mb-1">mid</span>}
+                      </div>
+                    )}
+
                     {/* Floating speech bubble directly on active cell */}
                     {isTarget && statusBubbleText && (
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-slate-800 text-white text-[9px] px-2 py-0.5 rounded-md shadow-md z-30 whitespace-nowrap animate-bounce font-sans font-bold uppercase tracking-wider">

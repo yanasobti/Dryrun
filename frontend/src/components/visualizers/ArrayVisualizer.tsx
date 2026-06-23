@@ -13,6 +13,7 @@ interface ArrayVisualizerProps {
   questionId?: string;
   arrays?: any[];
   frames?: any[];
+  strategy?: string;
 }
 
 export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
@@ -23,7 +24,8 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
   visualEvents = [],
   questionId,
   arrays = [],
-  frames = []
+  frames = [],
+  strategy
 }) => {
   // Identify active index referenced directly in active code line (e.g., nums[i] or s.charAt(i))
   const activeIndex = useMemo(() => {
@@ -355,47 +357,301 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="w-full flex items-center justify-between mb-4 border-b border-slate-200/60 pb-2">
-        <span className="text-sm font-semibold text-indigo-650 flex items-center gap-1.5 font-mono">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          array {name} [{values.length}]
-        </span>
-      </div>
-      {/* Main visualization grid container */}
-      {isSortingStep ? (
-        <div className="flex flex-col items-center gap-5 py-5 w-full animate-fade-in">
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 font-mono mb-2">Before Sort</span>
-            <div className="flex items-center gap-2">
-              {beforeSortValues.map((val: any, idx: number) => (
-                <div key={idx} className="w-9 h-9 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center font-bold font-mono text-xs text-slate-500">
-                  {val}
+      {strategy && (
+        <div className="text-center border-b border-slate-100 pb-2.5 mb-3 w-full">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-mono">
+            {strategy === 'classic_search' 
+              ? 'Binary Search • Classic Target Search' 
+              : strategy === 'search_on_answer'
+              ? 'Binary Search • Search on Answer (Optimization)'
+              : strategy === 'rotated_array_search'
+              ? 'Binary Search • Rotated Sorted Array Search'
+              : 'Binary Search'}
+          </span>
+        </div>
+      )}
+
+      {questionId === 'koko-eating-bananas' ? (
+        <div className="flex flex-row gap-6 items-stretch justify-center w-full max-w-6xl animate-fade-in font-sans mt-2">
+          {/* Left Column: Piles Array and Pointers */}
+          <div className="flex-1 bg-white border border-slate-200 rounded-2xl p-5 flex flex-col items-center justify-center min-h-[300px]">
+            <div className="w-full flex items-center justify-between mb-4 border-b border-slate-200/60 pb-2">
+              <span className="text-sm font-semibold text-indigo-650 flex items-center gap-1.5 font-mono">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                array {name} [{values.length}]
+              </span>
+            </div>
+            
+            <div
+              id={`array-scroll-${name}`}
+              className="relative py-2 w-full flex flex-col items-center overflow-x-auto select-none min-h-0 px-4"
+            >
+              <div className="relative pt-8 pb-10">
+                <div className="flex relative items-start" style={{ gap: `${gapWidth}px` }}>
+                  {values.map((val, idx) => {
+                    const isActive = idx === activeIndex;
+                    const cellOverlay = getCellOverlay(idx);
+                    let borderClass = 'border-slate-200 bg-slate-50 text-slate-800 shadow-sm';
+                    if (isActive) {
+                      borderClass = 'border-amber-500 bg-amber-500/10 text-amber-700 ring-2 ring-amber-500/30 shadow-md';
+                    }
+                    return (
+                      <div
+                        key={idx}
+                        id={`array-cell-${name}-${idx}`}
+                        className="flex flex-col items-center gap-1 relative z-10"
+                        style={{ width: `${cellWidth}px` }}
+                      >
+                        {cellOverlay && (
+                          <ContextBubble
+                            message={cellOverlay.message}
+                            variant={cellOverlay.variant}
+                            animation="pop"
+                            position="top"
+                            className="absolute bottom-[40px] left-1/2 transform -translate-x-1/2"
+                          />
+                        )}
+                        <motion.div
+                          layout
+                          className={`rounded-xl border flex items-center justify-center font-bold font-mono transition-all duration-300 ${borderClass} ${
+                            values.length > 25 ? 'text-[10px]' : (values.length > 15 ? 'text-xs' : 'text-sm')
+                          }`}
+                          style={{ width: `${cellWidth}px`, height: `${cellWidth}px` }}
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          <motion.span
+                            key={val}
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            {val}
+                          </motion.span>
+                        </motion.div>
+                        <span className={`text-[10px] font-mono font-bold ${isActive ? 'text-amber-500' : 'text-slate-400'}`}>
+                          {idx}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
+
+                {pointers.length > 0 && (
+                  <div className="absolute left-0 right-0 bottom-0 h-10">
+                    {pointers.map((ptr, pIdx) => {
+                      const offsetLeft = ptr.index * stepWidth + (cellWidth / 2);
+                      const stackY = pIdx * 16;
+                      return (
+                        <motion.div
+                          key={ptr.name}
+                          initial={false}
+                          animate={{ left: offsetLeft, y: stackY }}
+                          transition={{ type: "spring", stiffness: 220, damping: 25 }}
+                          className="absolute transform -translate-x-1/2 flex flex-col items-center z-20"
+                        >
+                          <motion.span 
+                            animate={{ y: [2, -2, 2] }}
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                            className="text-indigo-650 text-xs font-bold leading-none"
+                          >
+                            ▲
+                          </motion.span>
+                          <span className={`pointer-tag-label pointer-tag-${ptr.name.toLowerCase()} px-1.5 py-0.5 rounded text-[9px] font-extrabold font-mono border shadow-md whitespace-nowrap uppercase tracking-wider ${getPointerColor(ptr.name)} flex items-center justify-center`}>
+                            {ptr.name}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col items-center text-indigo-650 my-1">
-            <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
-            </svg>
-            <span className="text-[9px] font-black uppercase tracking-wider font-mono mt-0.5">Sorting Array...</span>
-          </div>
+          {/* Right Column: Custom Koko calculations */}
+          <div className="flex-1 bg-indigo-50/40 border border-indigo-100 rounded-2xl px-6 py-5 flex flex-col items-center justify-center shadow-sm">
+            {/* Speed range line */}
+            <div className="w-full flex flex-col items-center mb-6 select-none">
+              <span className="text-[10px] font-black text-slate-450 uppercase tracking-wider font-mono mb-2">
+                Eating Speed Search Range (Bananas/hr)
+              </span>
+              <div className="w-full relative px-6 py-4 flex items-center justify-between">
+                <div className="absolute left-6 right-6 h-1.5 bg-slate-200 rounded-full" />
+                {(() => {
+                  const leftVal = variables['left'] !== undefined ? Number(variables['left']) : variables['low'] !== undefined ? Number(variables['low']) : -1;
+                  const rightVal = variables['right'] !== undefined ? Number(variables['right']) : variables['high'] !== undefined ? Number(variables['high']) : -1;
+                  const maxPile = Math.max(...values);
+                  if (leftVal !== -1 && rightVal !== -1 && maxPile > 1) {
+                    const leftPercent = ((leftVal - 1) / (maxPile - 1)) * 100;
+                    const rightPercent = ((rightVal - 1) / (maxPile - 1)) * 100;
+                    return (
+                      <div 
+                        className="absolute h-1.5 bg-indigo-400 rounded-full" 
+                        style={{
+                          left: `calc(24px + ${leftPercent * 0.88}%)`,
+                          width: `${(rightPercent - leftPercent) * 0.88}%`
+                        }}
+                      />
+                    );
+                  }
+                  return null;
+                })()}
 
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] font-black uppercase tracking-wider text-indigo-650 font-mono mb-2">After Sort</span>
-            <div className="flex items-center gap-2">
-              {values.map((val: any, idx: number) => (
-                <div key={idx} className="w-9 h-9 rounded-xl border-2 border-indigo-500 bg-indigo-50/10 flex items-center justify-center font-bold font-mono text-xs text-indigo-700 shadow-sm animate-pulse-subtle">
-                  {val}
+                <div className="flex flex-col items-center z-10">
+                  <span className="w-5 h-5 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-[10px] font-black font-mono">1</span>
+                  <span className="text-[8px] text-slate-400 font-bold font-mono mt-1">Min</span>
                 </div>
-              ))}
+                
+                {(() => {
+                  const midVal = variables['mid'] !== undefined ? Number(variables['mid']) : -1;
+                  const maxPile = Math.max(...values);
+                  if (midVal !== -1 && maxPile > 1) {
+                    const midPercent = ((midVal - 1) / (maxPile - 1)) * 100;
+                    return (
+                      <div 
+                        className="absolute flex flex-col items-center z-20"
+                        style={{
+                          left: `calc(24px + ${midPercent * 0.88}%)`,
+                          transform: 'translateX(-50%)',
+                          top: '-4px'
+                        }}
+                      >
+                        <div className="w-4 h-4 rounded-full bg-amber-500 border border-amber-400 flex items-center justify-center text-[9px] font-black text-white shadow-sm">
+                          {midVal}
+                        </div>
+                        <span className="text-[9px] text-amber-600 font-black font-mono mt-1 whitespace-nowrap">Speed = {midVal}</span>
+                        <span className="text-[9px] text-amber-500 font-bold leading-none mt-0.5">▲</span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+
+                <div className="flex flex-col items-center z-10">
+                  <span className="w-5 h-5 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-[10px] font-black font-mono">{Math.max(...values)}</span>
+                  <span className="text-[8px] text-slate-400 font-bold font-mono mt-1">Max</span>
+                </div>
+              </div>
+              
+              {(() => {
+                const leftVal = variables['left'] !== undefined ? Number(variables['left']) : variables['low'] !== undefined ? Number(variables['low']) : -1;
+                const rightVal = variables['right'] !== undefined ? Number(variables['right']) : variables['high'] !== undefined ? Number(variables['high']) : -1;
+                if (leftVal !== -1 && rightVal !== -1) {
+                  return (
+                    <span className="text-[9px] font-bold text-indigo-500 font-mono mt-2 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-150">
+                      Active Scope: Speed [{leftVal} to {rightVal}]
+                    </span>
+                  );
+                }
+                return null;
+              })()}
+            </div>
+
+            {/* Bananas piles and hours calc */}
+            <div className="w-full border-t border-slate-150/60 pt-4 flex flex-col items-center select-none">
+              <span className="text-[10px] font-black text-slate-450 uppercase tracking-wider font-mono mb-3">
+                Koko's Eating Time Calculation
+              </span>
+              <div className="flex items-center gap-3.5 mb-4">
+                {values.map((pile, idx) => {
+                  const midVal = variables['mid'] !== undefined ? Number(variables['mid']) : -1;
+                  const hoursForPile = midVal !== -1 ? Math.ceil(pile / midVal) : 0;
+                  return (
+                    <div key={idx} className="flex flex-col items-center bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 min-w-[64px] shadow-3xs">
+                      <span className="text-[8px] text-slate-400 font-black uppercase font-mono tracking-wider">Pile {idx}</span>
+                      <span className="text-xs font-black text-slate-800 font-mono mt-0.5">[{pile}] ban.</span>
+                      {midVal !== -1 && (
+                        <div className="mt-1 border-t border-slate-200/80 pt-1 text-[10px] text-indigo-650 font-black font-mono">
+                          {hoursForPile} {hoursForPile === 1 ? 'hr' : 'hrs'}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {(() => {
+                const midVal = variables['mid'] !== undefined ? Number(variables['mid']) : -1;
+                const hVal = variables['h'] !== undefined ? Number(variables['h']) : 8;
+                if (midVal !== -1) {
+                  const totalHours = values.reduce((sum, pile) => sum + Math.ceil(pile / midVal), 0);
+                  const canFinish = totalHours <= hVal;
+                  return (
+                    <div className="flex flex-col items-center gap-3 w-full">
+                      <div className="flex items-center gap-2 font-mono text-xs font-black text-slate-800 bg-indigo-50/50 border border-indigo-100 rounded-xl px-4 py-2">
+                        <span>Total Time: {values.map(pile => Math.ceil(pile / midVal)).join(' + ')} = {totalHours} hrs</span>
+                        <span>vs</span>
+                        <span>Target: {hVal} hrs</span>
+                      </div>
+
+                      <div className={`text-[11px] font-bold p-3 rounded-xl border w-full text-center leading-relaxed ${
+                        canFinish 
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                          : 'bg-rose-50 text-rose-700 border-rose-200'
+                      }`}>
+                        {canFinish ? (
+                          <span>
+                            Can Koko finish all bananas within {hVal} hours if she eats {midVal} bananas per hour? <strong>Yes!</strong> ({totalHours} hrs ≤ {hVal} limit). Speed {midVal} works. Let's try a smaller speed (shift right boundary to mid - 1).
+                          </span>
+                        ) : (
+                          <span>
+                            Can Koko finish all bananas within {hVal} hours if she eats {midVal} bananas per hour? <strong>No!</strong> ({totalHours} hrs &gt; {hVal} limit). Speed {midVal} is too slow. Let's try a faster speed (shift left boundary to mid + 1).
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </div>
           </div>
         </div>
       ) : (
+        <>
+          <div className="w-full flex items-center justify-between mb-4 border-b border-slate-200/60 pb-2">
+            <span className="text-sm font-semibold text-indigo-650 flex items-center gap-1.5 font-mono">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              array {name} [{values.length}]
+            </span>
+          </div>
+          {/* Main visualization grid container */}
+          {isSortingStep ? (
+            <div className="flex flex-col items-center gap-5 py-5 w-full animate-fade-in">
+              <div className="flex flex-col items-center">
+                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 font-mono mb-2">Before Sort</span>
+                <div className="flex items-center gap-2">
+                  {beforeSortValues.map((val: any, idx: number) => (
+                    <div key={idx} className="w-9 h-9 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center font-bold font-mono text-xs text-slate-500">
+                      {val}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center text-indigo-650 my-1">
+                <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
+                </svg>
+                <span className="text-[9px] font-black uppercase tracking-wider font-mono mt-0.5">Sorting Array...</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <span className="text-[10px] font-black uppercase tracking-wider text-indigo-650 font-mono mb-2">After Sort</span>
+                <div className="flex items-center gap-2">
+                  {values.map((val: any, idx: number) => (
+                    <div key={idx} className="w-9 h-9 rounded-xl border-2 border-indigo-500 bg-indigo-50/10 flex items-center justify-center font-bold font-mono text-xs text-indigo-700 shadow-sm animate-pulse-subtle">
+                      {val}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
         <div
           id={`array-scroll-${name}`}
           className="relative py-2 w-full flex flex-col items-center overflow-x-auto select-none min-h-0 px-8"
@@ -560,6 +816,8 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
           </div>
         </div>
       )}
+    </>
+  )}
 
       {/* Two Sum II Center Math Comparison Panel */}
       {!isSortingStep && twoSumIIData && (
@@ -601,11 +859,7 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
                     ? 'bg-rose-50 text-rose-600 border border-rose-100' 
                     : 'bg-cyan-50 text-cyan-600 border border-cyan-100'
                 }`}>
-                  {twoSumIIData.sum > twoSumIIData.targetVal ? (
-                    <>Move RIGHT ←</>
-                  ) : (
-                    <>Move LEFT ➔</>
-                  )}
+                  {twoSumIIData.sum > twoSumIIData.targetVal ? 'Move RIGHT ←' : 'Move LEFT ➔'}
                 </span>
               </div>
             )}
@@ -652,11 +906,7 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
                     ? 'bg-rose-50 text-rose-600 border border-rose-100' 
                     : 'bg-cyan-50 text-cyan-600 border border-cyan-100'
                 }`}>
-                  {threeSumData.sum > 0 ? (
-                    <>Move RIGHT ←</>
-                  ) : (
-                    <>Move LEFT ➔</>
-                  )}
+                  {threeSumData.sum > 0 ? 'Move RIGHT ←' : 'Move LEFT ➔'}
                 </span>
               </div>
             )}

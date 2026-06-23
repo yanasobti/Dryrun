@@ -83,6 +83,7 @@ exports.traceJavaCode = (code, pattern) => {
 
     const filePath = path.join(tempDir, 'Main.java');
     fs.writeFileSync(filePath, code);
+    fs.writeFileSync(path.join(tempDir, 'jdb_trace.log'), '');
 
     // Ensure it's compiled with -g
     exec(
@@ -109,10 +110,14 @@ exports.traceJavaCode = (code, pattern) => {
         let visitedRefs = {};
         let currentDumpInfo = null;
 
-        const send = (cmd) => jdb.stdin.write(cmd + '\n');
+        const send = (cmd) => {
+            fs.appendFileSync(path.join(tempDir, 'jdb_trace.log'), `[SEND] ${cmd}\n`);
+            jdb.stdin.write(cmd + '\n');
+        };
         
         jdb.stdout.on('data', (data) => {
             const str = data.toString();
+            fs.appendFileSync(path.join(tempDir, 'jdb_trace.log'), `[RECV] ${str}\n`);
             output += str;
             
             rawStdoutLineBuffer += str;
@@ -137,7 +142,8 @@ exports.traceJavaCode = (code, pattern) => {
 
                 if (state === 'init' && output.includes('Initializing jdb')) {
                     output = '';
-                    send('exclude java.*,javax.*,sun.*,com.sun.*,jdk.*');
+                    send('exclude java.*,javax.*,sun.*,com.sun.*,jdk.*,Node,ListNode');
+
                     send('stop in Main.main');
                     send('run');
                     state = 'wait_for_break';
@@ -235,14 +241,20 @@ exports.traceJavaCode = (code, pattern) => {
                                         type: 'matrix_outer',
                                         varName: key
                                     });
-                                } else if (val.match(/instance of \w+\[\d+\]/)) {
+                                } else if (val.match(/instance of ([\w\.\$]+\[\d*\])\s*\(id=([a-fA-F0-9]+)\)/)) {
+                                    const arrayMatch = val.match(/instance of ([\w\.\$]+\[\d*\])\s*\(id=([a-fA-F0-9]+)\)/);
+                                    const className = arrayMatch[1];
+                                    const refId = arrayMatch[2];
+                                    visitedRefs[refId] = true;
                                     dumpQueue.push({
                                         command: `dump ${key}`,
                                         expression: key,
                                         type: 'array',
-                                        varName: key
+                                        varName: key,
+                                        className: className,
+                                        refId: refId
                                     });
-                                } else if (val.includes('HashMap') || val.includes('HashSet') || val.includes('ArrayList') || val.includes('PriorityQueue') || val.includes('Stack') || val.includes('Deque') || val.includes('ArrayDeque') || val.match(/instance of java\.util\.(?:HashMap|HashSet|ArrayList|TreeMap|TreeSet|LinkedList|PriorityQueue|Stack|Deque|ArrayDeque)/)) {
+                                } else if (val.includes('HashMap') || val.includes('HashSet') || val.includes('ArrayList') || val.includes('Stack') || val.includes('Deque') || val.includes('ArrayDeque') || val.match(/instance of java\.util\.(?:HashMap|HashSet|ArrayList|TreeMap|TreeSet|LinkedList|Stack|Deque|ArrayDeque)/)) {
                                     dumpQueue.push({
                                         command: `print ${key}`,
                                         expression: key,
@@ -331,6 +343,79 @@ exports.traceJavaCode = (code, pattern) => {
                         const arrVals = jdbParser.parseArrayDump(cleanOutput);
                         if (arrVals) {
                             currentFrame.arrays[currentDumpInfo.varName] = arrVals;
+                            if (currentDumpInfo.refId) {
+                                const arrObj = {
+                                    refId: currentDumpInfo.refId,
+                                    className: currentDumpInfo.className || 'Array',
+                                    length: arrVals.length
+                                };
+                                arrVals.forEach((val, idx) => {
+                            arrObj[idx] = val;
+                                    arrObj[`[${idx}]`] = val;
+                                    arrObj[String(idx)] = val;
+
+                                    if (typeof val === 'string') {
+                                        const match = val.match(/instance of ([\w\.\$\[\]\d]+)\s*\(id=([a-fA-F0-9]+)\)/);
+                                        if (match) {
+                                            const childClass = match[1];
+                                            const childRefId = match[2];
+                                            if (!visitedRefs[childRefId]) {
+                                                visitedRefs[childRefId] = true;
+                                                dumpQueue.push({
+                                                    command: `dump ${currentDumpInfo.expression}[${idx}]`,
+                                                    expression: `${currentDumpInfo.expression}[${idx}]`,
+                                                    type: 'object',
+                                                    varName: currentDumpInfo.varName,
+                                                    className: childClass,
+                                                    refId: childRefId,
+                                                    depth: 1
+                                                });
+                                            }
+                                        }
+                                    }
+                                });
+                                currentFrame.objects[currentDumpInfo.refId] = arrObj;
+                            }
+                        }
+                    } else if (currentDumpInfo.type === 'array_element') {
+                        const cleanOutput = cleanJdbPrompt(output);
+                        let parsedVal = null;
+                        if (cleanOutput.includes('null')) {
+                            parsedVal = null;
+                        } else if (cleanOutput.includes('instance of')) {
+                            const match = cleanOutput.match(/instance of ([\w\.\$\[\]\d]+)\s*\(id=([a-fA-F0-9]+)\)/);
+                            if (match) {
+                                const childClass = match[1];
+                                const childRefId = match[2];
+                                parsedVal = `instance of ${childClass}(id=${childRefId})`;
+                                
+                                const depthLimit = (currentDumpInfo.expression.includes('next') || currentDumpInfo.expression.includes('nextRef')) ? 10 : 5;
+                                if (!visitedRefs[childRefId] && currentDumpInfo.depth < depthLimit) {
+                                    visitedRefs[childRefId] = true;
+                                    dumpQueue.push({
+                                        command: `dump ${currentDumpInfo.expression}`,
+                                        expression: `${currentDumpInfo.expression}`,
+                                        type: 'object',
+                                        varName: currentDumpInfo.varName,
+                                        className: childClass,
+                                        refId: childRefId,
+                                        depth: currentDumpInfo.depth + 1
+                                    });
+                                }
+                            }
+                        } else {
+                            const eqIdx = cleanOutput.indexOf('=');
+                            if (eqIdx !== -1) {
+                                const vStr = cleanOutput.substring(eqIdx + 1).trim();
+                                parsedVal = isNaN(vStr) ? vStr : Number(vStr);
+                            }
+                        }
+                        
+                        const arrObj = currentFrame.objects[currentDumpInfo.parentRefId];
+                        if (arrObj) {
+                            arrObj[currentDumpInfo.index] = parsedVal;
+                            arrObj[`[${currentDumpInfo.index}]`] = parsedVal;
+                            arrObj[String(currentDumpInfo.index)] = parsedVal;
                         }
                     } else if (currentDumpInfo.type === 'hashmap') {
                         const eqIdx = cleanOutput.indexOf('=');
@@ -361,7 +446,7 @@ exports.traceJavaCode = (code, pattern) => {
                                 if (fVal === null) {
                                     node[fKey] = null;
                                 } else if (typeof fVal === 'string' && fVal.includes('instance of') && fVal.includes('id=')) {
-                                    const match = fVal.match(/instance of ([\w\.\$]+)\s*\(id=([a-fA-F0-9]+)\)/);
+                                     const match = fVal.match(/instance of ([\w\.\$\[\]\d]+)\s*\(id=([a-fA-F0-9]+)\)/);
                                     if (match) {
                                         const childClass = match[1];
                                         const childRefId = match[2];
@@ -373,15 +458,41 @@ exports.traceJavaCode = (code, pattern) => {
                                         
                                         if (!visitedRefs[childRefId] && currentDumpInfo.depth < depthLimit) {
                                             visitedRefs[childRefId] = true;
-                                            dumpQueue.push({
-                                                command: `dump ${currentDumpInfo.expression}.${fKey}`,
-                                                expression: `${currentDumpInfo.expression}.${fKey}`,
-                                                type: 'object',
-                                                varName: currentDumpInfo.varName,
-                                                className: childClass,
-                                                refId: childRefId,
-                                                depth: currentDumpInfo.depth + 1
-                                            });
+                                            
+                                            const arrayMatch = childClass.match(/([\w\.\$]+)\[(\d+)\]/);
+                                            if (arrayMatch) {
+                                                const baseClass = arrayMatch[1];
+                                                const len = parseInt(arrayMatch[2]);
+                                                
+                                                const arrObj = {
+                                                    refId: childRefId,
+                                                    className: childClass,
+                                                    length: len
+                                                };
+                                                currentFrame.objects[childRefId] = arrObj;
+                                                
+                                                for (let idx = 0; idx < len; idx++) {
+                                                    dumpQueue.push({
+                                                        command: `dump ${currentDumpInfo.expression}.${fKey}[${idx}]`,
+                                                        expression: `${currentDumpInfo.expression}.${fKey}[${idx}]`,
+                                                        type: 'array_element',
+                                                        varName: currentDumpInfo.varName,
+                                                        parentRefId: childRefId,
+                                                        index: idx,
+                                                        depth: currentDumpInfo.depth + 1
+                                                    });
+                                                }
+                                            } else {
+                                                dumpQueue.push({
+                                                    command: `dump ${currentDumpInfo.expression}.${fKey}`,
+                                                    expression: `${currentDumpInfo.expression}.${fKey}`,
+                                                    type: 'object',
+                                                    varName: currentDumpInfo.varName,
+                                                    className: childClass,
+                                                    refId: childRefId,
+                                                    depth: currentDumpInfo.depth + 1
+                                                });
+                                            }
                                         }
                                     } else {
                                         node[fKey] = fVal;

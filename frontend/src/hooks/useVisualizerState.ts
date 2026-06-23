@@ -16,6 +16,7 @@ export interface VisualizerState {
   variables: Record<string, any>;
   explanation: string;
   line: number;
+  heapObjects: Record<string, any>;
 }
 
 const parseSetEntries = (setStr: string): string[] => {
@@ -145,7 +146,8 @@ export const useVisualizerState = (
       stacks: [],
       variables: {},
       explanation: 'No execution data loaded.',
-      line: 1
+      line: 1,
+      heapObjects: {}
     };
 
     if (!frames || frames.length === 0 || currentFrameIndex < 0 || currentFrameIndex >= frames.length) {
@@ -422,7 +424,9 @@ export const useVisualizerState = (
       stacks,
       variables,
       explanation,
-      line
+      line,
+      heapObjects: completeHeap
     };
   }, [frames, currentFrameIndex]);
 };
+

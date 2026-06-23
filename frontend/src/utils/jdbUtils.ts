@@ -53,19 +53,53 @@ export const cleanJdbIds = (vizData: any[]): any[] => {
       });
     }
 
+    const cleanFieldVal = (val: any): any => {
+      if (typeof val !== 'string') return val;
+      if (val.includes('id=')) {
+        return cleanString(val);
+      }
+      if (/^[a-fA-F0-9]{3,}$/.test(val) && !/^\d+$/.test(val)) {
+        return getCleanId(val);
+      }
+      return val;
+    };
+
     if (cleanedFrame.objects) {
       const cleanedObjects: Record<string, any> = {};
       for (const [rawId, obj] of Object.entries(cleanedFrame.objects)) {
         const cleanId = getCleanId(rawId);
         const cleanedObj = { ...(obj as any) };
         cleanedObj.refId = cleanId;
-        if (cleanedObj.left) cleanedObj.left = getCleanId(String(cleanedObj.left));
-        if (cleanedObj.right) cleanedObj.right = getCleanId(String(cleanedObj.right));
-        if (cleanedObj.next) cleanedObj.next = getCleanId(String(cleanedObj.next));
-        if (cleanedObj.expression) cleanedObj.expression = cleanString(cleanedObj.expression);
+        
+        for (const [fKey, fVal] of Object.entries(cleanedObj)) {
+          if (fKey !== 'refId' && fKey !== 'className') {
+            if (['next', 'random', 'left', 'right', 'parent', 'queue'].includes(fKey) && typeof fVal === 'string') {
+              cleanedObj[fKey] = getCleanId(fVal);
+            } else {
+              cleanedObj[fKey] = cleanFieldVal(fVal);
+            }
+          }
+        }
         cleanedObjects[cleanId] = cleanedObj;
       }
       cleanedFrame.objects = cleanedObjects;
+    }
+
+    if (cleanedFrame.arrays) {
+      const cleanedArrays: Record<string, any[]> = {};
+      for (const [k, v] of Object.entries(cleanedFrame.arrays)) {
+        if (Array.isArray(v)) {
+          cleanedArrays[k] = v.map(item => {
+            if (typeof item === 'string') {
+              return cleanString(item);
+            }
+            return item;
+          });
+        } else {
+          cleanedArrays[k] = v;
+        }
+      }
+      cleanedFrame.arrays = cleanedArrays;
     }
 
     if (cleanedFrame.explanation) {
@@ -94,7 +128,7 @@ export const parseMethods = (javaCode: string): MethodInfo[] => {
     const methodName = match[2];
     const paramsText = match[3].trim();
     
-    const keywords = ['if', 'while', 'for', 'switch', 'catch', 'synchronized', 'return'];
+    const keywords = ['if', 'while', 'for', 'switch', 'catch', 'synchronized', 'return', 'public', 'private', 'protected', 'static', 'class', 'new'];
     if (keywords.includes(methodName) || keywords.includes(returnType)) {
       continue;
     }
@@ -126,7 +160,16 @@ export const parseMethods = (javaCode: string): MethodInfo[] => {
     });
   }
 
-  return methods;
+  const classMatches = Array.from(cleanCode.matchAll(/\bclass\s+([a-zA-Z_]\w*)/g)).map(m => m[1]);
+  const mainClassName = classMatches.find(c => c === 'Solution') || 
+                        classMatches.find(c => c !== 'ListNode' && c !== 'TreeNode' && c !== 'Node') || 
+                        classMatches[0] || 
+                        'Solution';
+
+  return methods.filter(m => {
+    const enclosing = getEnclosingClassForMethod(javaCode, m.name);
+    return enclosing === mainClassName;
+  });
 };
 
 export const generateBSTConstruction = (values: (number | null)[], nodeClassName: string): string => {
@@ -172,18 +215,18 @@ export const generateBSTConstruction = (values: (number | null)[], nodeClassName
   return code;
 };
 
-export const generateListConstruction = (values: number[], nodeClassName: string, pos: number = -1): string => {
+export const generateListConstruction = (values: number[], nodeClassName: string, pos: number = -1, headVarName: string = "head"): string => {
   if (values.length === 0) return "";
   let code = "";
   for (let i = 0; i < values.length; i++) {
-    code += `        ${nodeClassName} n${i} = new ${nodeClassName}(${values[i]});\n`;
+    code += `        ${nodeClassName} ${headVarName}_n${i} = new ${nodeClassName}(${values[i]});\n`;
   }
-  code += `        ${nodeClassName} head = n0;\n`;
+  code += `        ${nodeClassName} ${headVarName} = ${headVarName}_n0;\n`;
   for (let i = 0; i < values.length - 1; i++) {
-    code += `        n${i}.next = n${i + 1};\n`;
+    code += `        ${headVarName}_n${i}.next = ${headVarName}_n${i + 1};\n`;
   }
   if (pos >= 0 && pos < values.length) {
-    code += `        n${values.length - 1}.next = n${pos};\n`;
+    code += `        ${headVarName}_n${values.length - 1}.next = ${headVarName}_n${pos};\n`;
   }
   return code;
 };
@@ -226,7 +269,7 @@ export const getEnclosingClassForMethod = (javaCode: string, methodName: string)
 
   if (classes.length === 0) return null;
 
-  for (let i = 0; i < classes.length; i++) {
+  for (let i = classes.length - 1; i >= 0; i--) {
     const cls = classes[i];
     let braceCount = 1;
     let index = cls.bodyStart;

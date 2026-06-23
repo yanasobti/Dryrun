@@ -129,10 +129,13 @@ exports.generate = (ctx) => {
   }
 
   if (codeSnippet.includes('left = mid + 1') || codeSnippet.includes('low = mid + 1')) {
+    const valObj = currentVars['val'] !== undefined ? currentVars['val'] : (midItem !== null ? midItem : null);
+    const valText = valObj !== null ? `value ${valObj}` : `the middle value`;
+    const targetText = targetVal !== undefined ? `our target (${targetVal})` : `our target`;
     return {
       title: "➡️ Shift Left Boundary (Search Space Eliminated)",
       action: codeSnippet,
-      explanation: `We shift the lower boundary of our search space to index ${leftVal}, safely discarding the smaller values.`,
+      explanation: `We checked ${valText}, which is smaller than ${targetText}. Since the search space is sorted, everything to the left is also too small and can be ignored. Move the left boundary right to index ${leftVal}.`,
       why: `This updates our search window to target only the remaining larger elements in the right half.`,
       stateVars: [
         { name: "New Left Boundary", val: leftVal }
@@ -142,10 +145,13 @@ exports.generate = (ctx) => {
   }
 
   if (codeSnippet.includes('right = mid - 1') || codeSnippet.includes('high = mid - 1')) {
+    const valObj = currentVars['val'] !== undefined ? currentVars['val'] : (midItem !== null ? midItem : null);
+    const valText = valObj !== null ? `value ${valObj}` : `the middle value`;
+    const targetText = targetVal !== undefined ? `our target (${targetVal})` : `our target`;
     return {
       title: "⬅️ Shift Right Boundary (Search Space Eliminated)",
       action: codeSnippet,
-      explanation: `We shift the upper boundary of our search space to index ${rightVal}, safely discarding the larger values.`,
+      explanation: `We checked ${valText}, which is larger than ${targetText}. Since the search space is sorted, everything to the right is also too large and can be ignored. Move the right boundary left to index ${rightVal}.`,
       why: `This updates our search window to target only the remaining smaller elements in the left half.`,
       stateVars: [
         { name: "New Right Boundary", val: rightVal }
