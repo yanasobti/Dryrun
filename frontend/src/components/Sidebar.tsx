@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NEETCODE_150 } from '../data/neetcode150';
+import { useAuth } from '../hooks/useAuth';
 
 interface SidebarProps {
   activeItem: 'explore' | 'custom' | 'saved' | 'history';
@@ -8,12 +9,14 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeItem }) => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [solvedCount, setSolvedCount] = useState(0);
   const totalCount = NEETCODE_150.length;
 
   const updateProgress = () => {
     try {
-      const stored = localStorage.getItem('dryrun_completed_questions');
+      const storageKey = user ? `dryrun_completed_questions_${user.id}` : 'dryrun_completed_questions';
+      const stored = localStorage.getItem(storageKey);
       if (stored) {
         const ids = JSON.parse(stored);
         if (Array.isArray(ids)) {
@@ -23,21 +26,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeItem }) => {
         }
       }
     } catch (_) {}
-    // Initial fallback matching ExplorePage's initial values
-    const initialCompleted: string[] = [];
-    const solved = initialCompleted.filter(id => NEETCODE_150.some(q => q.id === id));
-    setSolvedCount(solved.length);
+    setSolvedCount(0);
   };
 
   useEffect(() => {
     updateProgress();
+  }, [user]);
+
+  useEffect(() => {
     window.addEventListener('storage', updateProgress);
     window.addEventListener('dryrun_progress_update', updateProgress);
     return () => {
       window.removeEventListener('storage', updateProgress);
       window.removeEventListener('dryrun_progress_update', updateProgress);
     };
-  }, []);
+  }, [user]);
 
   const progressPercent = totalCount > 0 ? Math.round((solvedCount / totalCount) * 100) : 0;
 
@@ -106,9 +109,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeItem }) => {
             Custom Code
           </button>
 
-          <button
-            onClick={() => alert("Saved visualizations coming soon!")}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all cursor-pointer"
+           <button
+            onClick={() => navigate('/saved')}
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeItem === 'saved'
+                ? 'bg-indigo-50/60 text-indigo-650 shadow-xs'
+                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'
+            }`}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
@@ -117,8 +124,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeItem }) => {
           </button>
 
           <button
-            onClick={() => alert("Simulation history logs coming soon!")}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all cursor-pointer"
+            onClick={() => navigate('/history')}
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeItem === 'history'
+                ? 'bg-indigo-50/60 text-indigo-650 shadow-xs'
+                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'
+            }`}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

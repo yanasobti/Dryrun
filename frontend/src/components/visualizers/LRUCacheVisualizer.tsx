@@ -53,14 +53,14 @@ export const LRUCacheVisualizer: React.FC<LRUCacheVisualizerProps> = ({
 
     while (currId && heapObjects[currId] && !visited.has(currId)) {
       visited.add(currId);
-      const node = heapObjects[currId];
-      list.push({ refId: currId, ...node });
+      const nodeObj: any = heapObjects[currId];
+      list.push({ refId: currId, ...nodeObj });
 
       // Resolve next node ID
       let nextId = null;
-      if (node.next) {
-        const strNext = String(node.next);
-        const match = strNext.match(/id=([a-fA-F0-9]+)/);
+      if (nodeObj.next) {
+        const strNext: string = String(nodeObj.next);
+        const match: RegExpMatchArray | null = strNext.match(/id=([a-fA-F0-9]+)/);
         nextId = match ? match[1] : strNext;
       }
       currId = nextId;

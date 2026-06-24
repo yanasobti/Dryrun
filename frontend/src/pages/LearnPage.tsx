@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import { motion } from 'framer-motion';
+import { progressService } from '../services/progressService';
+import { useAuth } from '../hooks/useAuth';
 
 // Custom components
 import { Sidebar } from '../components/Sidebar';
@@ -60,6 +62,23 @@ import { WorkspaceToolbar } from '../components/workspace/WorkspaceToolbar';
 export const LearnPage: React.FC = () => {
   const navigate = useNavigate();
   const { questionId } = useParams<{ questionId?: string }>();
+  const { user } = useAuth();
+  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      progressService.getBookmarkedIds().then(setBookmarkedIds).catch(() => {});
+    }
+  }, [user]);
+
+  const handleToggleBookmark = async (qId: string) => {
+    const isNowBookmarked = await progressService.toggleBookmark(qId);
+    if (isNowBookmarked) {
+      setBookmarkedIds(prev => [...prev, qId]);
+    } else {
+      setBookmarkedIds(prev => prev.filter(id => id !== qId));
+    }
+  };
 
   const preset = useMemo(() => {
     return NEETCODE_150.find(q => q.id === questionId);
@@ -162,11 +181,24 @@ export const LearnPage: React.FC = () => {
   const decorationsRef = useRef<any>([]);
   const lineShiftRef = useRef<number>(0);
 
+  const restoredLastStepRef = useRef<number | null>(null);
+
   // Sync state with questionId / preset changes
   useEffect(() => {
     if (preset && questionDetails) {
       setCode(questionDetails.code);
       setParamInputs(questionDetails.inputs);
+      
+      // Load progress from Supabase
+      progressService.getProgress(preset.id).then(prog => {
+        if (prog) {
+          restoredLastStepRef.current = prog.last_step;
+        } else {
+          restoredLastStepRef.current = null;
+        }
+      }).catch(() => {
+        restoredLastStepRef.current = null;
+      });
     } else {
       setCode(`public class Solution {
     public void myAlgorithm() {
@@ -174,6 +206,7 @@ export const LearnPage: React.FC = () => {
     }
 }`);
       setParamInputs({});
+      restoredLastStepRef.current = null;
     }
     setStdinInput("");
     setFrames([]);
@@ -181,6 +214,29 @@ export const LearnPage: React.FC = () => {
     setCurrentFrameIndex(0);
     setIsError(false);
   }, [questionId, preset, questionDetails]);
+
+  // Debounced progress tracking to save last_step and status
+  useEffect(() => {
+    if (!preset || frames.length === 0) return;
+
+    // Determine status
+    let status: 'in-progress' | 'completed' = 'in-progress';
+    if (currentFrameIndex === frames.length - 1) {
+      status = 'completed';
+    }
+
+    const timer = setTimeout(() => {
+      progressService.saveProgress(
+        preset.id,
+        preset.pattern,
+        preset.difficulty.toLowerCase() as 'easy' | 'medium' | 'hard',
+        status,
+        currentFrameIndex
+      ).catch(() => {});
+    }, 1500); // Debounce by 1.5s to limit writes during rapid scrubbing/playback
+
+    return () => clearTimeout(timer);
+  }, [currentFrameIndex, frames, preset]);
 
   // Hook mappings
   const activeFrame = useMemo(() => {
@@ -1168,7 +1224,11 @@ export const LearnPage: React.FC = () => {
           });
         }
         setFrames(cleanedData);
-        setCurrentFrameIndex(0);
+        const initialStep = (restoredLastStepRef.current !== null && restoredLastStepRef.current < cleanedData.length)
+          ? restoredLastStepRef.current
+          : 0;
+        setCurrentFrameIndex(initialStep);
+        restoredLastStepRef.current = null;
         setConsoleOutput(consoleLogs || "JDB execution finished successfully. Tracing frames loaded.");
         setIsError(false);
       } else {
@@ -1418,7 +1478,6 @@ export const LearnPage: React.FC = () => {
                       codeLine={activeFrame?.code}
                       strategy={preset?.strategy}
                       size={useSmallSize ? 'small' : 'normal'}
-                      explanation={activeFrame?.explanation}
                     />
                   </div>
                 ))}
@@ -1436,7 +1495,6 @@ export const LearnPage: React.FC = () => {
                     codeLine={activeFrame?.code}
                     strategy={preset?.strategy}
                     size={useSmallSize ? 'small' : 'normal'}
-                    explanation={activeFrame?.explanation}
                   />
                 ))}
               </div>
@@ -1457,7 +1515,6 @@ export const LearnPage: React.FC = () => {
               codeLine={activeFrame?.code}
               strategy={preset?.strategy}
               size={useSmallSize ? 'small' : 'normal'}
-              explanation={activeFrame?.explanation}
             />
           ))}
         </div>
@@ -1836,6 +1893,8 @@ export const LearnPage: React.FC = () => {
               handleVerifyCode={handleVerifyCode}
               isLoading={isLoading}
               handleReset={handleReset}
+              bookmarkedIds={bookmarkedIds}
+              handleToggleBookmark={handleToggleBookmark}
             />
 
             {/* Workspace core grids */}

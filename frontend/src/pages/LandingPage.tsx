@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../hooks/useAuth';
 import './LandingPage.css';
 
 // Component imports
@@ -50,6 +51,7 @@ const BINARY_SEARCH_STEPS = [
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const worksContainerRef = useRef<HTMLDivElement>(null);
@@ -268,16 +270,30 @@ export const LandingPage: React.FC = () => {
             onClick={() => navigate('/explore')} 
             className="text-[11px] font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition-colors cursor-pointer px-3 py-2"
           >
-            Explore
+            {user ? 'Dashboard' : 'Explore'}
           </button>
-          <button 
-            onClick={() => navigate('/explore')} 
-            onMouseMove={handleMouseMoveMagnetic}
-            onMouseLeave={handleMouseLeaveMagnetic}
-            className="magnetic-glow bg-slate-900 hover:bg-slate-950 text-white px-4.5 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
-          >
-            Get Started
-          </button>
+          {user ? (
+            <button 
+              onClick={async () => {
+                await signOut();
+                navigate('/');
+              }} 
+              onMouseMove={handleMouseMoveMagnetic}
+              onMouseLeave={handleMouseLeaveMagnetic}
+              className="magnetic-glow bg-slate-900 hover:bg-slate-950 text-white px-4.5 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <button 
+              onClick={() => navigate('/login')} 
+              onMouseMove={handleMouseMoveMagnetic}
+              onMouseLeave={handleMouseLeaveMagnetic}
+              className="magnetic-glow bg-slate-900 hover:bg-slate-950 text-white px-4.5 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+            >
+              Sign In
+            </button>
+          )}
         </div>
       </header>
 
@@ -310,7 +326,7 @@ export const LandingPage: React.FC = () => {
               onMouseLeave={handleMouseLeaveMagnetic}
               className="magnetic-glow bg-indigo-600 hover:bg-indigo-700 text-white px-5.5 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-xs cursor-pointer transition-all"
             >
-              Start Visualizing Now
+              {user ? 'Go to Dashboard' : 'Start Visualizing Now'}
               <svg className="w-3.5 h-3.5 stroke-white stroke-2 fill-none ml-0.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>

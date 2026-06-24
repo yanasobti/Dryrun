@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ContextBubble } from './ContextBubble';
 
 interface LinkedListVisualizerProps {
   name: string;
@@ -10,7 +9,6 @@ interface LinkedListVisualizerProps {
   codeLine?: string;
   strategy?: string;
   size?: 'normal' | 'small';
-  explanation?: any;
 }
 
 export const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
@@ -19,15 +17,9 @@ export const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
   nodes,
   variables,
   strategy,
-  size = 'normal',
-  explanation
+  size = 'normal'
 }) => {
-  const explanationText = explanation?.explanation || explanation?.action || "";
-  const oneLineExplanation = useMemo(() => {
-    if (!explanationText) return "";
-    const firstSentence = explanationText.split(/[.\n]/)[0].trim();
-    return firstSentence + (firstSentence.endsWith('.') ? '' : '.');
-  }, [explanationText]);
+  // Extract node pointer ids from variables
 
   // Extract node pointer ids from variables
   const activeNodeId = useMemo(() => {
@@ -282,7 +274,6 @@ export const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
             const ptrs = pointersByRef[node.refId] || [];
             const isLast = idx === chain.arr.length - 1;
             const inKGroup = activeKGroup && activeKGroup.includes(node.refId);
-            const bubbleTopOffset = size === 'small' ? 'top-[44px]' : 'top-[60px]';
 
             return (
               <div

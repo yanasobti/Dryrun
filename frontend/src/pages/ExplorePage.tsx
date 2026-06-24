@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { NEETCODE_150 } from '../data/neetcode150';
+import { useAuth } from '../hooks/useAuth';
+import { progressService } from '../services/progressService';
 import './LearnPage.css'; // Reuse core animations and design CSS definitions
 
 export const getDifficultyStyle = (diff: "Easy" | "Medium" | "Hard") => {
@@ -46,14 +48,34 @@ export const getVisLevelLabel = (level: "full" | "basic" | "coming-soon") => {
 
 export const ExplorePage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
+  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      progressService.getBookmarkedIds().then(setBookmarkedIds).catch(() => {});
+    }
+  }, [user]);
+
+  const handleToggleBookmark = async (qId: string) => {
+    const isNowBookmarked = await progressService.toggleBookmark(qId);
+    if (isNowBookmarked) {
+      setBookmarkedIds(prev => [...prev, qId]);
+    } else {
+      setBookmarkedIds(prev => prev.filter(id => id !== qId));
+    }
+  };
+
+  // User-scoped storage key
+  const storageKey = user ? `dryrun_completed_questions_${user.id}` : 'dryrun_completed_questions';
 
   // Sync completion states
   const loadCompletedQuestions = () => {
     try {
-      const stored = localStorage.getItem('dryrun_completed_questions');
+      const stored = localStorage.getItem(storageKey);
       if (stored) {
         const ids = JSON.parse(stored);
         if (Array.isArray(ids)) {
@@ -65,18 +87,21 @@ export const ExplorePage: React.FC = () => {
     // Initial default fallback
     const initialCompleted: string[] = [];
     setCompletedIds(initialCompleted);
-    localStorage.setItem('dryrun_completed_questions', JSON.stringify(initialCompleted));
+    localStorage.setItem(storageKey, JSON.stringify(initialCompleted));
   };
 
   useEffect(() => {
     loadCompletedQuestions();
+  }, [user]);
+
+  useEffect(() => {
     window.addEventListener('storage', loadCompletedQuestions);
     window.addEventListener('dryrun_progress_update', loadCompletedQuestions);
     return () => {
       window.removeEventListener('storage', loadCompletedQuestions);
       window.removeEventListener('dryrun_progress_update', loadCompletedQuestions);
     };
-  }, []);
+  }, [user]);
 
   const toggleCompleted = (id: string) => {
     const nextCompleted = completedIds.includes(id)
@@ -84,7 +109,7 @@ export const ExplorePage: React.FC = () => {
       : [...completedIds, id];
     
     setCompletedIds(nextCompleted);
-    localStorage.setItem('dryrun_completed_questions', JSON.stringify(nextCompleted));
+    localStorage.setItem(storageKey, JSON.stringify(nextCompleted));
     window.dispatchEvent(new Event('dryrun_progress_update'));
   };
 
@@ -335,9 +360,30 @@ export const ExplorePage: React.FC = () => {
                               </td>
                               <td className="py-4.5 px-6">
                                 <div className="flex flex-col gap-0.5">
-                                  <span className="font-bold text-sm text-slate-800 group-hover:text-indigo-650 transition-colors">
-                                    {q.title}
-                                  </span>
+                                  <div className="flex items-center gap-2">
+                                    <span className="font-bold text-sm text-slate-800 group-hover:text-indigo-650 transition-colors">
+                                      {q.title}
+                                    </span>
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleToggleBookmark(q.id);
+                                      }}
+                                      className={`p-1 rounded-md hover:bg-slate-100 transition-colors ${
+                                        bookmarkedIds.includes(q.id) ? 'text-amber-500' : 'text-slate-350 hover:text-slate-500'
+                                      }`}
+                                    >
+                                      {bookmarkedIds.includes(q.id) ? (
+                                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                        </svg>
+                                      ) : (
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                          <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.246.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.564-.386-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                        </svg>
+                                      )}
+                                    </button>
+                                  </div>
                                   <div className="flex items-center gap-2 mt-1">
                                     <span className={`text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-md border ${getDifficultyStyle(q.difficulty)}`}>
                                       {q.difficulty}

@@ -10,6 +10,8 @@ interface WorkspaceToolbarProps {
   handleVerifyCode: () => void;
   isLoading: boolean;
   handleReset: () => void;
+  bookmarkedIds: string[];
+  handleToggleBookmark: (qId: string) => void;
 }
 
 export const WorkspaceToolbar: React.FC<WorkspaceToolbarProps> = ({
@@ -19,7 +21,9 @@ export const WorkspaceToolbar: React.FC<WorkspaceToolbarProps> = ({
   handleSelectPreset,
   handleVerifyCode,
   isLoading,
-  handleReset
+  handleReset,
+  bookmarkedIds = [],
+  handleToggleBookmark
 }) => {
   return (
     <div className="h-14 shrink-0 border-b border-slate-200 bg-slate-50/80 backdrop-blur-md flex items-center justify-between px-6 z-20">
@@ -80,6 +84,28 @@ export const WorkspaceToolbar: React.FC<WorkspaceToolbarProps> = ({
                 </optgroup>
               ))}
             </select>
+
+            {preset && (
+              <button
+                onClick={() => handleToggleBookmark(preset.id)}
+                className={`p-1.5 rounded-xl border flex items-center justify-center transition-colors shadow-sm cursor-pointer ${
+                  bookmarkedIds.includes(preset.id)
+                    ? 'bg-amber-50 border-amber-200 text-amber-500 hover:bg-amber-100/50'
+                    : 'bg-white border-slate-200 text-slate-455 hover:border-slate-355 hover:text-slate-700'
+                }`}
+                title={bookmarkedIds.includes(preset.id) ? "Remove Bookmark" : "Bookmark Question"}
+              >
+                {bookmarkedIds.includes(preset.id) ? (
+                  <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.246.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.564-.386-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                )}
+              </button>
+            )}
           </div>
 
           {preset && preset.url && (

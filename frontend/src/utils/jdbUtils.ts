@@ -96,7 +96,7 @@ export const cleanJdbIds = (vizData: any[]): any[] => {
             return item;
           });
         } else {
-          cleanedArrays[k] = v;
+          cleanedArrays[k] = v as any;
         }
       }
       cleanedFrame.arrays = cleanedArrays;
