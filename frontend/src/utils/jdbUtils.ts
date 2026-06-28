@@ -172,20 +172,25 @@ export const parseMethods = (javaCode: string): MethodInfo[] => {
   });
 };
 
-export const generateBSTConstruction = (values: (number | null)[], nodeClassName: string): string => {
-  if (values.length === 0 || values[0] === null || isNaN(values[0])) return "";
+export const generateBSTConstruction = (
+  values: (number | null)[],
+  nodeClassName: string,
+  rootVarName: string = "root",
+  prefix: string = "n"
+): string => {
+  if (values.length === 0 || values[0] === null || isNaN(values[0])) return `        ${nodeClassName} ${rootVarName} = null;\n`;
   let code = "";
   
   // Create all non-null nodes first
   for (let i = 0; i < values.length; i++) {
     const val = values[i];
     if (val !== null && !isNaN(val)) {
-      code += `        ${nodeClassName} n${i} = new ${nodeClassName}(${val});\n`;
+      code += `        ${nodeClassName} ${prefix}${i} = new ${nodeClassName}(${val});\n`;
     }
   }
   
   // Link nodes using queue-based level order simulation
-  const queue: string[] = ["n0"];
+  const queue: string[] = [`${prefix}0`];
   let valIdx = 1;
   while (queue.length > 0 && valIdx < values.length) {
     const currVar = queue.shift()!;
@@ -194,8 +199,8 @@ export const generateBSTConstruction = (values: (number | null)[], nodeClassName
     if (valIdx < values.length) {
       const leftVal = values[valIdx];
       if (leftVal !== null && !isNaN(leftVal)) {
-        code += `        ${currVar}.left = n${valIdx};\n`;
-        queue.push(`n${valIdx}`);
+        code += `        ${currVar}.left = ${prefix}${valIdx};\n`;
+        queue.push(`${prefix}${valIdx}`);
       }
       valIdx++;
     }
@@ -204,14 +209,14 @@ export const generateBSTConstruction = (values: (number | null)[], nodeClassName
     if (valIdx < values.length) {
       const rightVal = values[valIdx];
       if (rightVal !== null && !isNaN(rightVal)) {
-        code += `        ${currVar}.right = n${valIdx};\n`;
-        queue.push(`n${valIdx}`);
+        code += `        ${currVar}.right = ${prefix}${valIdx};\n`;
+        queue.push(`${prefix}${valIdx}`);
       }
       valIdx++;
     }
   }
   
-  code += `        ${nodeClassName} root = n0;\n`;
+  code += `        ${nodeClassName} ${rootVarName} = ${prefix}0;\n`;
   return code;
 };
 

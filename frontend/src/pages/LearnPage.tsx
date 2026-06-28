@@ -862,6 +862,11 @@ export const LearnPage: React.FC = () => {
       /(class Node\s*\{)/g,
       `$1\n    @Override\n    public String toString() { return String.valueOf(this.val); }\n`
     );
+    wrappedCode = wrappedCode.replace(
+      /(class TreeNode\s*\{)/g,
+      `$1\n    @Override\n    public String toString() { return String.valueOf(this.val); }\n`
+    );
+
 
 
     let bstOrListCode = "";
@@ -880,8 +885,8 @@ export const LearnPage: React.FC = () => {
             const clean = x.trim().toLowerCase();
             return clean === 'null' ? null : parseInt(clean);
           });
-          bstOrListCode += generateBSTConstruction(numbers, p.type);
-          paramCalls.push("root");
+          bstOrListCode += generateBSTConstruction(numbers, p.type, p.name, p.name + "_n");
+          paramCalls.push(p.name);
         } else if (p.type.endsWith('[]')) {
           // ListNode[]
           try {

@@ -142,7 +142,7 @@ exports.traceJavaCode = (code, pattern) => {
 
                 if (state === 'init' && output.includes('Initializing jdb')) {
                     output = '';
-                    send('exclude java.*,javax.*,sun.*,com.sun.*,jdk.*,Node,ListNode');
+                    send('exclude java.*,javax.*,sun.*,com.sun.*,jdk.*,Node,ListNode,TreeNode');
 
                     send('stop in Main.main');
                     send('run');

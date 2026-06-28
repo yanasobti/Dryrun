@@ -24,6 +24,18 @@ import reverseNodesInKGroup from './linked-list/reverse-nodes-in-k-group';
 import maximumDepthOfBinaryTree from './trees/max-depth';
 import invertBinaryTree from './trees/invert-binary-tree';
 import lowestCommonAncestorOfBst from './trees/lca-bst';
+import diameterOfBinaryTree from './trees/diameter-of-binary-tree';
+import balancedBinaryTree from './trees/balanced-binary-tree';
+import binaryTreeLevelOrderTraversal from './trees/binary-tree-level-order-traversal';
+import binaryTreeRightSideView from './trees/binary-tree-right-side-view';
+import countGoodNodesInBinaryTree from './trees/count-good-nodes-in-binary-tree';
+import validateBinarySearchTree from './trees/validate-binary-search-tree';
+import kthSmallestElementInABst from './trees/kth-smallest-element-in-a-bst';
+import sameTree from './trees/same-tree';
+import subtreeOfAnotherTree from './trees/subtree-of-another-tree';
+import binaryTreeMaximumPathSum from './trees/binary-tree-maximum-path-sum';
+import constructBinaryTreeFromTraversals from './trees/construct-binary-tree-from-preorder-and-inorder-traversal';
+import serializeAndDeserializeBinaryTree from './trees/serialize-and-deserialize-binary-tree';
 import subsets from './backtracking/subsets';
 import topKFrequentElements from './heap/top-k-frequent-elements';
 import floodFill from './matrix/flood-fill';
@@ -83,6 +95,18 @@ export const QUESTION_DATA_DB: Record<
   "reverse-nodes-in-k-group": reverseNodesInKGroup,
   "invert-binary-tree": invertBinaryTree,
   "lowest-common-ancestor-of-bst": lowestCommonAncestorOfBst,
+  "diameter-of-binary-tree": diameterOfBinaryTree,
+  "balanced-binary-tree": balancedBinaryTree,
+  "binary-tree-level-order-traversal": binaryTreeLevelOrderTraversal,
+  "binary-tree-right-side-view": binaryTreeRightSideView,
+  "count-good-nodes-in-binary-tree": countGoodNodesInBinaryTree,
+  "validate-binary-search-tree": validateBinarySearchTree,
+  "kth-smallest-element-in-a-bst": kthSmallestElementInABst,
+  "same-tree": sameTree,
+  "subtree-of-another-tree": subtreeOfAnotherTree,
+  "binary-tree-maximum-path-sum": binaryTreeMaximumPathSum,
+  "construct-binary-tree-from-preorder-and-inorder-traversal": constructBinaryTreeFromTraversals,
+  "serialize-and-deserialize-binary-tree": serializeAndDeserializeBinaryTree,
   "subsets": subsets,
   "top-k-frequent-elements": topKFrequentElements,
   "flood-fill": floodFill,

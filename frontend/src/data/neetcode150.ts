@@ -850,10 +850,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/invert-binary-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 10
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 10,
+    starterCodeId: "invert-binary-tree",
+    exampleCaseId: "invert-binary-tree"
   },
   {
     id: "maximum-depth-of-binary-tree",
@@ -884,10 +886,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/diameter-of-binary-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "diameter-of-binary-tree",
+    exampleCaseId: "diameter-of-binary-tree"
   },
   {
     id: "balanced-binary-tree",
@@ -900,10 +904,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/balanced-binary-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "balanced-binary-tree",
+    exampleCaseId: "balanced-binary-tree"
   },
   {
     id: "same-tree",
@@ -916,10 +922,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/same-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 10
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 10,
+    starterCodeId: "same-tree",
+    exampleCaseId: "same-tree"
   },
   {
     id: "subtree-of-another-tree",
@@ -932,10 +940,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/subtree-of-another-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 15
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 15,
+    starterCodeId: "subtree-of-another-tree",
+    exampleCaseId: "subtree-of-another-tree"
   },
   {
     id: "lowest-common-ancestor-of-a-binary-search-tree",
@@ -948,10 +958,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "Binary Search",
     visualizers: ["tree"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "lowest-common-ancestor-of-bst",
+    exampleCaseId: "lowest-common-ancestor-of-bst"
   },
   {
     id: "binary-tree-level-order-traversal",
@@ -964,10 +976,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "BFS / Level Order",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/binary-tree-level-order-traversal/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "binary-tree-level-order-traversal",
+    exampleCaseId: "binary-tree-level-order-traversal"
   },
   {
     id: "binary-tree-right-side-view",
@@ -980,10 +994,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/binary-tree-right-side-view/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "binary-tree-right-side-view",
+    exampleCaseId: "binary-tree-right-side-view"
   },
   {
     id: "count-good-nodes-in-binary-tree",
@@ -996,10 +1012,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/count-good-nodes-in-binary-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "count-good-nodes-in-binary-tree",
+    exampleCaseId: "count-good-nodes-in-binary-tree"
   },
   {
     id: "validate-binary-search-tree",
@@ -1012,10 +1030,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/validate-binary-search-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "validate-binary-search-tree",
+    exampleCaseId: "validate-binary-search-tree"
   },
   {
     id: "kth-smallest-element-in-a-bst",
@@ -1028,10 +1048,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 20
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 20,
+    starterCodeId: "kth-smallest-element-in-a-bst",
+    exampleCaseId: "kth-smallest-element-in-a-bst"
   },
   {
     id: "construct-binary-tree-from-preorder-and-inorder-traversal",
@@ -1044,10 +1066,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 25
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 25,
+    starterCodeId: "construct-binary-tree-from-preorder-and-inorder-traversal",
+    exampleCaseId: "construct-binary-tree-from-preorder-and-inorder-traversal"
   },
   {
     id: "binary-tree-maximum-path-sum",
@@ -1060,10 +1084,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "DFS Recursion",
     visualizers: ["tree", "recursion"],
     visualizerLayout: "horizontal",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "binary-tree-maximum-path-sum",
+    exampleCaseId: "binary-tree-maximum-path-sum"
   },
   {
     id: "serialize-and-deserialize-binary-tree",
@@ -1076,10 +1102,12 @@ export const NEETCODE_150: Question[] = [
     pattern: "BFS / Level Order",
     visualizers: ["tree", "array"],
     visualizerLayout: "vertical",
-    visualizationLevel: "coming-soon",
+    visualizationLevel: "full",
     url: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
-    supportedFeatures: ["pattern-coach"],
-    estimatedMinutes: 30
+    supportedFeatures: ["step-by-step", "pattern-coach"],
+    estimatedMinutes: 30,
+    starterCodeId: "serialize-and-deserialize-binary-tree",
+    exampleCaseId: "serialize-and-deserialize-binary-tree"
   },
   {
     id: "number-of-islands",
